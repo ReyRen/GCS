@@ -1,0 +1,2 @@
+{"time":"2023-10-07T16:33:54.414133112+08:00","level":"INFO","source":{"function":"main.daemon_sys_init","file":"/root/remote-code/GCS/daemon_system.go","line":35},"msg":"- - - - - - - - - - - - - - -"}
+{"time":"2023-10-07T16:33:54.414516271+08:00","level":"INFO","source":{"function":"main.daemon_sys_init","file":"/root/remote-code/GCS/daemon_system.go","line":36},"msg":"[GCS] started"}
