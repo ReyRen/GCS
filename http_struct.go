@@ -7,7 +7,7 @@ import (
 	"sync"
 )
 
-/*********HTTP HANDLE STRUCT SET*********/
+/*********QUEUE JOB HANDLE STRUCT SET*********/
 type MyHandler struct {
 	flowControl *FlowControl
 }
@@ -49,7 +49,7 @@ type Job struct {
 	handleJob  func(j *Job) error
 }
 
-/*********HTTP HANDLE STRUCT SET*********/
+/*********QUEUE JOB HANDLE STRUCT SET*********/
 
 /*********xxxxxx xxxxx struct*********/
 type Ids struct {
@@ -82,6 +82,7 @@ type recvMsg struct {
 
 func newReceiveMsg(conn *websocket.Conn) *recvMsg {
 	receiveMsgContent := newReceiveMsgContent(conn)
+	slog.Debug("newReceiveMsgContent done")
 	return &recvMsg{
 		Type:        -1,
 		Admin:       false,
@@ -92,7 +93,7 @@ func newReceiveMsg(conn *websocket.Conn) *recvMsg {
 
 func newReceiveMsgContent(conn *websocket.Conn) *recvMsgContent {
 	var ids *Ids
-	slog.Debug("new receive message content initialed done")
+	slog.Debug("newReceiveMsgContent done")
 	return &recvMsgContent{
 		IDs: ids,
 	}
