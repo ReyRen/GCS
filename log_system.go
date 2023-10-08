@@ -13,7 +13,6 @@ func log_sys_init() {
 		AddSource: false,
 		Level:     slog.LevelDebug,
 	}
-
 	r := &lumberjack.Logger{
 		Filename:   "./log/gcs.log",
 		LocalTime:  true,

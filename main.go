@@ -1,19 +1,68 @@
 package main
 
+import (
+	"github.com/sevlyar/go-daemon"
+	"log/slog"
+)
+
 func main() {
 
+	//Setup log system
 	log_sys_init()
-	daemon_sys_init()
+	//log system ready
 
-	/*for i := 0; i < 100000; i++ {
-		slog.Info("greeting", "say", s)
-	}*/
+	//Setup daemon system
+	cntxt := &daemon.Context{
+		PidFileName: "gcs.pid",
+		PidFilePerm: 0644,
+		LogFileName: "./log/gcs.log",
+		WorkDir:     "./",
+		Umask:       027,
+		Args:        []string{"[gcs]"},
+	}
+	if len(daemon.ActiveFlags()) > 0 {
+		d, err := cntxt.Search()
+		if err != nil {
+			slog.Error("cntxt.Search error", "ERR_MSG", err.Error())
+		}
+		daemon.SendCommands(d)
+		return
+	}
+	d, err := cntxt.Reborn()
+	if err != nil {
+		slog.Error("cntxt.Reborn error", "ERR_MSG", err.Error())
+	}
+	if d != nil {
+		return
+	}
+	defer cntxt.Release()
+	slog.Info("- - - - - - - - - - - - - - -")
+	slog.Info("[GCS] started")
+	defer func() {
+		slog.Info("[GCS] exited")
+	}()
+	//Daemon system ready
+
+	nvme_sys_init()
 }
 
-var (
-	SUCCESS = 1
-	FAILED  = 0
-)
+/*
+Initial log flags
+*/
+/*func init() {
+	Trace = log.New(os.Stdout,
+		"TRACE: ",
+		log.Ldate|log.Ltime|log.Lshortfile)
+	Info = log.New(os.Stdout,
+		"INFO: ",
+		log.Ldate|log.Ltime|log.Lshortfile)
+	Warning = log.New(os.Stdout,
+		"WARNING: ",
+		log.Ldate|log.Ltime|log.Lshortfile)
+	Error = log.New(os.Stdout,
+		"ERROR: ",
+		log.Ldate|log.Ltime|log.Lshortfile)
+}*/
 
 /*func main() {
 ctx := context.Background()
