@@ -8,7 +8,7 @@ import (
 	"log/slog"
 )
 
-func log_sys_init() {
+func logSysInit() {
 	opts := slog.HandlerOptions{
 		AddSource: false,
 		Level:     slog.LevelDebug,

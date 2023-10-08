@@ -1,0 +1,12 @@
+{"time":"2023-10-08T17:47:12.167581554+08:00","level":"INFO","msg":"- - - - - - -[GCS] started - - - - - - -"}
+{"time":"2023-10-08T17:47:12.16767923+08:00","level":"DEBUG","msg":"listenHandler start"}
+{"time":"2023-10-08T17:47:12.167684242+08:00","level":"DEBUG","msg":"init job queue success"}
+{"time":"2023-10-08T17:47:12.167690971+08:00","level":"DEBUG","msg":"init worker success"}
+{"time":"2023-10-08T17:47:12.16769335+08:00","level":"DEBUG","msg":"init flowcontrol success"}
+{"time":"2023-10-08T17:47:12.167726127+08:00","level":"DEBUG","msg":"start the worker success"}
+{"time":"2023-10-08T17:47:25.080488003+08:00","level":"INFO","msg":"recieve http sssrequest"}
+{"time":"2023-10-08T17:47:25.080573644+08:00","level":"INFO","msg":"recieve http request"}
+{"time":"2023-10-08T17:47:25.080579907+08:00","level":"DEBUG","msg":"new receive message content initialed done"}
+{"time":"2023-10-08T17:47:25.179907773+08:00","level":"ERROR","msg":"jsonHandler error","ERR_MSG":"json: cannot unmarshal number into Go struct field recvMsgContent.content.toolBoxName of type string"}
+{"time":"2023-10-08T17:47:25.17992952+08:00","level":"DEBUG","msg":"receive message raw","MSG":"eyJhZG1pbiI6dHJ1ZSwidHlwZSI6MSwiY29udGVudCI6eyJpZHMiOnsidWlkIjowLCJ0aWQiOjB9LCJjb21tYW5kIjoiIiwib3JpZ2luYWxNb2RlbFVybCI6IjY2NjY2IiwiY29udGludW91c01vZGVsVXJsIjoiNjY2IiwicmVzb3VyY2VUeXBlIjoiZ3B1IiwibW9kZWxUeXBlIjo2LCJmcmFtZXdvcmtUeXBlIjozLCJ0b29sQm94TmFtZSI6NiwicGFyYW1zIjoiNjY2NiIsInNlbGVjdGVkRGF0YXNldCI6Niwic2VsZWN0ZWROb2RlcyI6W119fQ=="}
+{"time":"2023-10-08T17:47:25.179947435+08:00","level":"DEBUG","msg":"receive message receiveMsg","UID":0}
