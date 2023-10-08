@@ -4,6 +4,7 @@ go 1.21
 
 require (
 	github.com/NVIDIA/go-nvml v0.12.0-1
+	github.com/gorilla/websocket v1.5.0
 	github.com/sevlyar/go-daemon v0.1.6
 	gopkg.in/natefinch/lumberjack.v2 v2.2.1
 )
