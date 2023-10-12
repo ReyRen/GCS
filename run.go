@@ -1,11 +1,17 @@
 package main
 
 import (
+	pb "GCS/proto"
 	"bytes"
 	"encoding/json"
 	"github.com/gorilla/websocket"
+	"golang.org/x/net/context"
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials/insecure"
+	"io"
 	"log/slog"
 	"net/http"
+	"time"
 )
 
 func (h *MyHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
@@ -20,21 +26,6 @@ func (h *MyHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	}
 
 	h.recvMsgHandler(conn)
-
-	// 一旦点击提交任务，那么就将 job 进行 commit，并且进入队列中
-
-	/*job := &Job{
-		DoneChan: make(chan struct{}, 1),
-		handleJob: func(job *Job) error {
-			w.Header().Set("Content-Type", "application/json")
-			w.Write([]byte("Hello World"))
-			return nil
-		},
-	}
-
-	h.flowControl.CommitJob(job)
-	fmt.Println("commit job to job queue success")
-	job.WaitDone()*/
 }
 func (h *MyHandler) recvMsgHandler(conn *websocket.Conn) {
 
@@ -57,8 +48,63 @@ func (h *MyHandler) recvMsgHandler(conn *websocket.Conn) {
 		sendMsg:    sendMsg,
 		conn:       conn,
 		DoneChan:   make(chan struct{}),
-		handleJob: func(j *Job) error {
-			//TODO 提交任务执行的程序
+		handleJob: func(j *Job, addrWithPort string) error {
+			// 连接grpc服务器
+			conn, err := grpc.Dial(addrWithPort, grpc.WithTransportCredentials(insecure.NewCredentials()))
+			if err != nil {
+				slog.Error("grpc.Dial get error",
+					"ERR_MSG", err.Error(),
+					"UID", j.receiveMsg.Content.IDs.Uid,
+					"TID", j.receiveMsg.Content.IDs.Tid)
+				return err
+			}
+			// 延迟关闭连接
+			defer conn.Close()
+
+			// 初始化客户端
+			client := pb.NewGcsInfoCatchServiceClient(conn)
+			// 初始化上下文，设置请求超时时间为1秒
+			ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+			// 延迟关闭请求会话
+			defer cancel()
+
+			// 调用获取stream
+			stream, err := client.DockerContainerImagePull(ctx, &pb.ImagePullRequestMsg{ImageName: j.receiveMsg.Content.ImageName})
+			if err != nil {
+				slog.Error(" client.DockerContainerImagePull stream get err",
+					"ERR_MSG", err.Error(),
+					"UID", j.receiveMsg.Content.IDs.Uid,
+					"TID", j.receiveMsg.Content.IDs.Tid)
+				return err
+			}
+
+			// 循环获取服务端推送的消息
+			for {
+				// 通过 Recv() 不断获取服务端send()推送的消息
+				resp, err := stream.Recv()
+				// err==io.EOF则表示服务端关闭stream了 退出
+				if err == io.EOF {
+					slog.Debug("rpc stream server closed")
+					break
+				}
+				if err != nil {
+					slog.Error("rpc stream server receive error",
+						"ERR_MSG", err.Error(),
+						"UID", j.receiveMsg.Content.IDs.Uid,
+						"TID", j.receiveMsg.Content.IDs.Tid)
+					continue
+				}
+				j.sendMsg.Content.Log = resp.GetImageResp()
+				slog.Debug("receive rpc image pull log",
+					"UID", j.receiveMsg.Content.IDs.Uid,
+					"TID", j.receiveMsg.Content.IDs.Tid,
+					"OTHER_MSG", j.sendMsg.Content.Log)
+				j.sendMsg.Type = 3
+				j.sendMsgSignalChan <- struct{}{}
+			}
+
+			// create container
+			client.DockerContainerStart()
 
 			return nil
 		},
@@ -66,10 +112,18 @@ func (h *MyHandler) recvMsgHandler(conn *websocket.Conn) {
 	}
 	slog.Debug("Job initialed ok")
 
+	//一个 job 的结束就是这个方法的结束
 	defer func() {
 		err := job.conn.Close()
 		if err != nil {
-			slog.Error("recvMsgHandler conn.Close err", "ERR_MSG", err.Error())
+			slog.Error("job conn.Close err", "ERR_MSG", err.Error())
+		}
+
+		if _, ok := <-job.DoneChan; ok {
+			close(job.DoneChan)
+		}
+		if _, ok := <-job.sendMsgSignalChan; ok {
+			close(job.sendMsgSignalChan)
 		}
 		/* TODO pop队列 */
 	}()
@@ -100,8 +154,18 @@ func (h *MyHandler) recvMsgHandler(conn *websocket.Conn) {
 				//TODO 获取物理节点状态信息（docker swarm）
 				//TODO 如果物理节点状态正常，获取 GPU 信息（nvml_system）使用 grpc
 			case MESSAGE_TYPE_CREATE:
+				//新建任务需要加入队列中
+				slog.Info("create task, job commit to queue")
+				h.flowControl.CommitJob(job)
+				slog.Info("commit job to job queue success")
+
+				/*
+					这是一个会阻塞的函数，直到有向job.DoneChan中写入
+				*/
+				job.WaitDone()
+				//执行完 done 就可以释放队列任务，并且此处不阻塞了
+
 				//TODO 创建任务（docker_system） 使用 grpc
-				//TODO 新建任务需要加入队列中
 			case MESSAGE_TYPE_LOG:
 				//TODO 获取容器日志
 			case MESSAGE_TYPE_STOP:
@@ -110,7 +174,6 @@ func (h *MyHandler) recvMsgHandler(conn *websocket.Conn) {
 				slog.Warn("receive message type not implemented", "OTHER_MSG", job.receiveMsg.Type)
 			}
 		}()
-
 	}
 }
 

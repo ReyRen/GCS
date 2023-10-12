@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"github.com/gorilla/websocket"
 	"log/slog"
+	"math/rand"
+	"time"
 )
 
 const (
@@ -31,4 +33,20 @@ func jsonHandler(data []byte, v interface{}) {
 	if errJson != nil {
 		slog.Error("jsonHandler error", "ERR_MSG", errJson.Error())
 	}
+}
+
+func GetRandomString(l int) string {
+	str := "0123456789abcefghijklmnopqrstuvwxyz"
+	bytes := []byte(str)
+	var result []byte
+	r := rand.New(rand.NewSource(time.Now().UnixNano()))
+	for i := 0; i < l; i++ {
+		result = append(result, bytes[r.Intn(len(bytes))])
+	}
+	return string(result)
+}
+
+func GetContainerName(uid string, tid string) string {
+	randomString := GetRandomString(8)
+	return randomString + "-" + uid + "-" + tid
 }

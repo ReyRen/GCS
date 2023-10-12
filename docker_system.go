@@ -65,5 +65,3 @@ func docker_test() {
 
 	stdcopy.StdCopy(os.Stdout, os.Stderr, out)*/
 }
-
-type DockerRequestInfo struct{}

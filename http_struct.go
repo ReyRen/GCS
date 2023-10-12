@@ -42,16 +42,13 @@ func NewWorkerManager(jobQueue *JobQueue) *WorkerManager {
 }
 
 type Job struct {
-	receiveMsg        *recvMsg
-	sendMsg           *sendMsg
-	conn              *websocket.Conn
-	DoneChan          chan struct{}
-	handleJob         func(j *Job) error
+	receiveMsg *RecvMsg
+	sendMsg    *SendMsg
+	conn       *websocket.Conn
+	DoneChan   chan struct{}
+	//handleJob只执行create容器的操作，一旦容器创建成功，即可退出
+	handleJob         func(j *Job, addrWithPort string) error
 	sendMsgSignalChan chan struct{}
-	/*resourceInfoLogChan chan struct{}
-	createLogChan       chan struct{}
-	containerLogChan    chan struct{}
-	stopLogChan         chan struct{}*/
 }
 
 /*********QUEUE JOB HANDLE STRUCT SET*********/
@@ -61,34 +58,34 @@ type Ids struct {
 	Uid int `json:"uid"`
 	Tid int `json:"tid"`
 }
-type recvMsgContent struct {
-	IDs                *Ids   `json:"ids"`
-	OriginalModelUrl   string `json:"originalModelUrl"`
-	ContinuousModelUrl string `json:"continuousModelUrl"`
-	ModelName          string `json:"modelName"`
-	ResourceType       string `json:"resourceType"`
-	//SelectedNodes      *[]selectNodes `json:"selectedNodes"`
-	ModelType          int    `json:"modelType"`
-	Command            string `json:"command"`
-	FrameworkType      int    `json:"frameworkType"`
-	ToolBoxName        string `json:"toolBoxName"`
-	Params             string `json:"params"`
-	SelectedDataset    string `json:"selectedDataset"`
-	ImageName          string `json:"imageName"`
-	DistributingMethod int    `json:"distributingMethod"`
-	CommandBox         string `json:"cmd"`
+type RecvMsgContent struct {
+	IDs                *Ids           `json:"ids"`
+	OriginalModelUrl   string         `json:"originalModelUrl"`
+	ContinuousModelUrl string         `json:"continuousModelUrl"`
+	ModelName          string         `json:"modelName"`
+	ResourceType       string         `json:"resourceType"`
+	SelectedNodes      *[]SelectNodes `json:"selectedNodes"`
+	ModelType          int            `json:"modelType"`
+	Command            string         `json:"command"`
+	FrameworkType      int            `json:"frameworkType"`
+	ToolBoxName        string         `json:"toolBoxName"`
+	Params             string         `json:"params"`
+	SelectedDataset    string         `json:"selectedDataset"`
+	ImageName          string         `json:"imageName"`
+	DistributingMethod int            `json:"distributingMethod"`
+	CommandBox         string         `json:"cmd"`
 }
-type recvMsg struct {
+type RecvMsg struct {
 	Type        int             `json:"type"`
 	Admin       bool            `json:"admin"`
-	Content     *recvMsgContent `json:"content"`
+	Content     *RecvMsgContent `json:"content"`
 	FtpFileName string
 }
 
-func newReceiveMsg() *recvMsg {
+func newReceiveMsg() *RecvMsg {
 	receiveMsgContent := newReceiveMsgContent()
 	slog.Debug("newReceiveMsgContent done")
-	return &recvMsg{
+	return &RecvMsg{
 		Type:        -1,
 		Admin:       false,
 		Content:     receiveMsgContent,
@@ -96,37 +93,45 @@ func newReceiveMsg() *recvMsg {
 	}
 }
 
-func newReceiveMsgContent() *recvMsgContent {
+func newSelectNodes() *[]SelectNodes {
+	slog.Debug("newSelectNodes done")
+	var selectNodes []SelectNodes
+	return &selectNodes
+}
+
+func newReceiveMsgContent() *RecvMsgContent {
 	var ids *Ids
+	selectNodes := newSelectNodes()
 	slog.Debug("newReceiveMsgContent done")
-	return &recvMsgContent{
-		IDs: ids,
+	return &RecvMsgContent{
+		IDs:           ids,
+		SelectedNodes: selectNodes,
 	}
 }
 
-type selectNodes struct {
+type SelectNodes struct {
 	NodeNames string `json:"nodeName"`
-	GPUNum    int    `json:"gpuNum"`
+	GPUIdx    int    `json:"gpuidx"`
 }
 
-type resourceInfo struct {
+type ResourceInfo struct {
 	NodesListerName   string `json:"nodesListerName"`
 	NodesListerLabel  string `json:"nodesListerLabel"`
 	NodesListerStatus string `json:"nodesListerStatus"`
 }
-type sendMsgContent struct {
+type SendMsgContent struct {
 	Log          string        `json:"log"`
-	ResourceInfo *resourceInfo `json:"resourceInfo"`
+	ResourceInfo *ResourceInfo `json:"resourceInfo"`
 }
-type sendMsg struct {
+type SendMsg struct {
 	Type    int             `json:"type"`
-	Content *sendMsgContent `json:"content"`
+	Content *SendMsgContent `json:"content"`
 }
 
-func newSendMsgContent() *sendMsgContent {
-	return &sendMsgContent{
+func newSendMsgContent() *SendMsgContent {
+	return &SendMsgContent{
 		Log: "",
-		ResourceInfo: &resourceInfo{
+		ResourceInfo: &ResourceInfo{
 			NodesListerName:   "",
 			NodesListerLabel:  "",
 			NodesListerStatus: "",
@@ -134,9 +139,9 @@ func newSendMsgContent() *sendMsgContent {
 	}
 }
 
-func newSendMsg() *sendMsg {
+func newSendMsg() *SendMsg {
 	content := newSendMsgContent()
-	return &sendMsg{
+	return &SendMsg{
 		Type:    -1,
 		Content: content,
 	}
