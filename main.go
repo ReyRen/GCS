@@ -42,10 +42,11 @@ func main() {
 	}()
 	//Daemon system ready
 
-	docker_test()
-	/*slog.Debug("listenHandler start")
+	//docker_test()
+	slog.Debug("listenHandler start")
 	listenHandler()
-	slog.Debug("listenHandler done")*/
+	slog.Debug("listenHandler done")
 
 	//nvme_sys_init()
+
 }

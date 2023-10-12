@@ -5,6 +5,8 @@ import (
 	"log/slog"
 )
 
+type NvmlRequestInfo struct{}
+
 func nvme_sys_init() {
 	ret := nvml.Init()
 	if ret != nvml.SUCCESS {

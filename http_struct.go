@@ -42,11 +42,16 @@ func NewWorkerManager(jobQueue *JobQueue) *WorkerManager {
 }
 
 type Job struct {
-	receiveMsg *recvMsg
-	sendMsg    *sendMsg
-	conn       *websocket.Conn
-	DoneChan   chan struct{}
-	handleJob  func(j *Job) error
+	receiveMsg        *recvMsg
+	sendMsg           *sendMsg
+	conn              *websocket.Conn
+	DoneChan          chan struct{}
+	handleJob         func(j *Job) error
+	sendMsgSignalChan chan struct{}
+	/*resourceInfoLogChan chan struct{}
+	createLogChan       chan struct{}
+	containerLogChan    chan struct{}
+	stopLogChan         chan struct{}*/
 }
 
 /*********QUEUE JOB HANDLE STRUCT SET*********/
@@ -80,8 +85,8 @@ type recvMsg struct {
 	FtpFileName string
 }
 
-func newReceiveMsg(conn *websocket.Conn) *recvMsg {
-	receiveMsgContent := newReceiveMsgContent(conn)
+func newReceiveMsg() *recvMsg {
+	receiveMsgContent := newReceiveMsgContent()
 	slog.Debug("newReceiveMsgContent done")
 	return &recvMsg{
 		Type:        -1,
@@ -91,12 +96,17 @@ func newReceiveMsg(conn *websocket.Conn) *recvMsg {
 	}
 }
 
-func newReceiveMsgContent(conn *websocket.Conn) *recvMsgContent {
+func newReceiveMsgContent() *recvMsgContent {
 	var ids *Ids
 	slog.Debug("newReceiveMsgContent done")
 	return &recvMsgContent{
 		IDs: ids,
 	}
+}
+
+type selectNodes struct {
+	NodeNames string `json:"nodeName"`
+	GPUNum    int    `json:"gpuNum"`
 }
 
 type resourceInfo struct {

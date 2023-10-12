@@ -24,6 +24,9 @@ func docker_test() {
 	for _, v := range swarmNodes {
 		slog.Debug("swarm information", "HOSTNAME", v.Description.Hostname)
 		slog.Debug("swarm information", "STATUS", v.Status)
+		slog.Debug("swarm information", "Availability", v.Spec.Availability)
+		slog.Debug("swarm information", "Role", v.Spec.Role)
+		slog.Debug("swarm information", "Annotation_name", v.Spec.Annotations.Name)
 	}
 	/*reader, err := cli.ImagePull(ctx, "docker.io/library/alpine", types.ImagePullOptions{})
 	if err != nil {
@@ -62,3 +65,5 @@ func docker_test() {
 
 	stdcopy.StdCopy(os.Stdout, os.Stderr, out)*/
 }
+
+type DockerRequestInfo struct{}

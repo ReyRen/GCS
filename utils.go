@@ -9,6 +9,10 @@ import (
 const (
 	GCS_ADDR_WITH_PORT = "172.18.127.64:8066" // gcs self address and port
 
+	MESSAGE_TYPE_RESOURCE_INFO = 1
+	MESSAGE_TYPE_CREATE        = 2
+	MESSAGE_TYPE_LOG           = 3
+	MESSAGE_TYPE_STOP          = 4
 )
 
 // http to websocket upgrade variables

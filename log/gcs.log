@@ -1,12 +1,3 @@
-{"time":"2023-10-08T20:42:30.97449527+08:00","level":"INFO","msg":"- - - - - - -[GCS] started - - - - - - -"}
-{"time":"2023-10-08T20:42:30.975924035+08:00","level":"DEBUG","msg":"swarm information","SpecName":""}
-{"time":"2023-10-08T20:42:30.975939461+08:00","level":"DEBUG","msg":"swarm information","STATUS":{"State":"ready","Addr":"172.18.127.64"}}
-{"time":"2023-10-08T20:42:30.975957382+08:00","level":"DEBUG","msg":"swarm information","SpecName":""}
-{"time":"2023-10-08T20:42:30.975959938+08:00","level":"DEBUG","msg":"swarm information","STATUS":{"State":"ready","Addr":"172.18.127.62"}}
-{"time":"2023-10-08T20:42:30.975979778+08:00","level":"INFO","msg":"- - - - - - -[GCS] exited- - - - - - -"}
-{"time":"2023-10-08T20:43:27.040970543+08:00","level":"INFO","msg":"- - - - - - -[GCS] started - - - - - - -"}
-{"time":"2023-10-08T20:43:27.04242951+08:00","level":"DEBUG","msg":"swarm information","HOSTNAME":"gpu19"}
-{"time":"2023-10-08T20:43:27.042448554+08:00","level":"DEBUG","msg":"swarm information","STATUS":{"State":"ready","Addr":"172.18.127.64"}}
-{"time":"2023-10-08T20:43:27.042463298+08:00","level":"DEBUG","msg":"swarm information","HOSTNAME":"gpu17"}
-{"time":"2023-10-08T20:43:27.042465867+08:00","level":"DEBUG","msg":"swarm information","STATUS":{"State":"ready","Addr":"172.18.127.62"}}
-{"time":"2023-10-08T20:43:27.042490683+08:00","level":"INFO","msg":"- - - - - - -[GCS] exited- - - - - - -"}
+{"time":"2023-10-10T20:04:41.817049772+08:00","level":"INFO","msg":"- - - - - - -[GCS] started - - - - - - -"}
+{"time":"2023-10-10T20:04:42.517129584+08:00","level":"INFO","msg":"get msg from remote","MSG":"image done!!!"}
+{"time":"2023-10-10T20:04:42.517172523+08:00","level":"INFO","msg":"- - - - - - -[GCS] exited- - - - - - -"}
