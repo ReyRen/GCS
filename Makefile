@@ -8,16 +8,16 @@ LOG_FILE=./log/gcs.log
 
 all: build
 build:
-	$(GOBUILD) -o $(BINARY_NAME) -v
+	$(GOBUILD) -o $(BINARY_NAME) *.go
 clean:
 	$(GOCLEAN)
 	rm -rf $(BINARY_NAME)
 	#rm -rf $(LOG_FILE)
 	kill -9 $(PID)
 run:
-	$(GOBUILD) -o $(BINARY_NAME) -v ./...
+	$(GOBUILD) -o $(BINARY_NAME) *.go
 	./$(BINARY_NAME)
 update:
 	python scripts/updateset.py
-	$(GOBUILD) -o $(BINARY_NAME) -v ./...
+	$(GOBUILD) -o $(BINARY_NAME) *.go
 	./$(BINARY_NAME) -mode update

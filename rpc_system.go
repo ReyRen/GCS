@@ -11,8 +11,6 @@ import (
 )
 
 func rpcHandlerDockercontainerimagepull(rpcServerAddrPort string,
-	nvmlRequestInfo *NvmlRequestInfo,
-	dockerequestInfo *DockerRequestInfo,
 	job *Job) error {
 	// 连接grpc服务器
 	conn, err := grpc.Dial(rpcServerAddrPort, grpc.WithTransportCredentials(insecure.NewCredentials()))
@@ -24,14 +22,14 @@ func rpcHandlerDockercontainerimagepull(rpcServerAddrPort string,
 	defer conn.Close()
 
 	// 初始化客户端
-	client := pb.NewGcsInfoCatchServiceClient(conn)
+	client := pb.NewGcsInfoCatchServiceDockerClient(conn)
 	// 初始化上下文，设置请求超时时间为1秒
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	// 延迟关闭请求会话
 	defer cancel()
 
 	// 调用获取stream
-	stream, err := client.DockerContainerImagePull(ctx, &pb.ImagePullRequestMsg{ImageName: dockerequestInfo.imageName})
+	stream, err := client.DockerContainerImagePull(ctx, &pb.ImagePullRequestMsg{ImageName: job.receiveMsg.Content.ImageName})
 	if err != nil {
 		slog.Error(" client.DockerContainerImagePull stream get err", "ERR_MSG", err.Error())
 		return err

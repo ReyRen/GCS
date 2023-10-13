@@ -9,7 +9,9 @@ import (
 )
 
 const (
-	GCS_ADDR_WITH_PORT = "172.18.127.64:8066" // gcs self address and port
+	GCS_ADDR_WITH_PORT       = "172.18.127.64:8066" // gcs self address and port
+	GCS_RESOURCE_WITH_PORT   = "172.18.127.64:8067" // gcs resource self address and port
+	GCS_INFO_CATCH_GRPC_PORT = ":50001"
 
 	MESSAGE_TYPE_RESOURCE_INFO = 1
 	MESSAGE_TYPE_CREATE        = 2

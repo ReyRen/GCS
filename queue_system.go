@@ -74,7 +74,16 @@ func (job *Job) Execute() error {
 	slog.Debug("start execute job",
 		"UID", job.receiveMsg.Content.IDs.Uid,
 		"TID", job.receiveMsg.Content.IDs.Tid)
-	return job.handleJob(job, "172.18.127.62:40062")
+	var addrWithPort string
+	for _, v := range *job.receiveMsg.Content.SelectedNodes {
+		addrWithPort = v.NodeIp + GCS_INFO_CATCH_GRPC_PORT
+		slog.Debug("grpc execute to server",
+			"GRPC_SERVER", addrWithPort,
+			"UID", job.receiveMsg.Content.IDs.Uid,
+			"TID", job.receiveMsg.Content.IDs.Tid)
+		return job.handleJob(job, addrWithPort)
+	}
+	return nil
 }
 
 func (q *JobQueue) PushJob(job *Job) {
@@ -90,6 +99,8 @@ func (q *JobQueue) PushJob(job *Job) {
 	slog.Debug("push the job to the jobqueue",
 		"UID", job.receiveMsg.Content.IDs.Uid,
 		"TID", job.receiveMsg.Content.IDs.Tid)
+
+	//TODO 在这里判断资源情况，如果资源情况是不满足的
 
 	/*
 		q.noticeChan是个带有 1 个缓冲区的 channel

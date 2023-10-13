@@ -7,7 +7,7 @@ import (
 	"sync"
 )
 
-/*********QUEUE JOB HANDLE STRUCT SET*********/
+/*************QUEUE JOB HANDLE STRUCT SET*************/
 type MyHandler struct {
 	flowControl *FlowControl
 }
@@ -51,7 +51,7 @@ type Job struct {
 	sendMsgSignalChan chan struct{}
 }
 
-/*********QUEUE JOB HANDLE STRUCT SET*********/
+/*************QUEUE JOB HANDLE STRUCT SET*************/
 
 /*********xxxxxx xxxxx struct*********/
 type Ids struct {
@@ -111,6 +111,7 @@ func newReceiveMsgContent() *RecvMsgContent {
 
 type SelectNodes struct {
 	NodeNames string `json:"nodeName"`
+	NodeIp    string `json:"nodeIp"`
 	GPUIdx    int    `json:"gpuidx"`
 }
 
@@ -146,3 +147,31 @@ func newSendMsg() *SendMsg {
 		Content: content,
 	}
 }
+
+/*************RESOURCE STRUCT SET*************/
+type recvResourceMsg struct {
+	Type          int              `json:"type"`
+	OccupiedList  *[]OccupiedLists `json:"occupiedList"`
+	NodeAddress   string           `json:"nodeAddress"`
+	ContainerName string           `json:"containerName"`
+}
+type sendResourceMsg struct {
+	Utilize     string `json:"utilize"`
+	MemUtilize  string `json:"memUtilize"`
+	Temperature string `json:"temp"`
+	Occupied    string `json:"occupied"`
+	Uid         string `json:"uid"`
+	Tid         string `json:"tid"`
+}
+type OccupiedLists struct {
+	Uid           string `json:"uid"`
+	Tid           string `json:"tid"`
+	ContainerName string `json:"containerName"`
+}
+type ResourceClient struct {
+	conn *websocket.Conn
+	rm   *recvResourceMsg
+	sm   *sendResourceMsg
+}
+
+/*************RESOURCE STRUCT SET*************/

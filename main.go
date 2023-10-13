@@ -2,10 +2,13 @@ package main
 
 import (
 	"github.com/sevlyar/go-daemon"
+	"golang.org/x/net/context"
 	"log/slog"
 )
 
 func main() {
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
 
 	//Setup log system
 	logSysInit()
@@ -42,11 +45,11 @@ func main() {
 	}()
 	//Daemon system ready
 
-	//docker_test()
+	slog.Debug("listenResourceHandler start")
+	go listenResourceHandler()
+
 	slog.Debug("listenHandler start")
-	listenHandler()
-	slog.Debug("listenHandler done")
+	go listenHandler()
 
-	//nvme_sys_init()
-
+	<-ctx.Done()
 }

@@ -14,6 +14,49 @@ import (
 	"time"
 )
 
+func (c *ResourceClient) resourceHandler() {
+	defer func() {
+		err := c.conn.Close()
+		if err != nil {
+			slog.Error("resourceHandler conn close err", "ERR_MSG", err.Error())
+		}
+	}()
+
+	for {
+		_, message, err := c.conn.ReadMessage() // This is a block func, once ws closed, this would be get err
+		if err != nil {
+			if websocket.IsUnexpectedCloseError(err, websocket.CloseGoingAway, websocket.CloseAbnormalClosure) {
+				slog.Error("websocket.IsUnexpectedCloseError error", "ERR_MSG", err.Error())
+			}
+			break
+		}
+		message = bytes.TrimSpace(bytes.Replace(message, newline, space, -1))
+		jsonHandler(message, c.rm)
+		_ = nvme_sys_handler(c)
+	}
+}
+
+func resourcehandler(w http.ResponseWriter, r *http.Request) {
+	upgrader.CheckOrigin = func(r *http.Request) bool {
+		return true
+	}
+	conn, err := upgrader.Upgrade(w, r, nil)
+	if err != nil {
+		// mute : websocket: the client is not using the websocket protocol: 'upgrade' token not found in 'Connection' header
+		return
+	}
+	slog.Debug("Receive HTTP Resource request, and upgrade to websocket", "SOURCE_ADDR", conn.RemoteAddr().String())
+	//TODO 初始化结构体准备接收数据
+	var rMsg recvResourceMsg
+	var sMsg sendResourceMsg
+	client := ResourceClient{
+		conn: conn,
+		rm:   &rMsg,
+		sm:   &sMsg,
+	}
+	go client.resourceHandler()
+}
+
 func (h *MyHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 	upgrader.CheckOrigin = func(r *http.Request) bool {
@@ -62,7 +105,7 @@ func (h *MyHandler) recvMsgHandler(conn *websocket.Conn) {
 			defer conn.Close()
 
 			// 初始化客户端
-			client := pb.NewGcsInfoCatchServiceClient(conn)
+			client := pb.NewGcsInfoCatchServiceDockerClient(conn)
 			// 初始化上下文，设置请求超时时间为1秒
 			ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 			// 延迟关闭请求会话
@@ -103,8 +146,8 @@ func (h *MyHandler) recvMsgHandler(conn *websocket.Conn) {
 				j.sendMsgSignalChan <- struct{}{}
 			}
 
-			// create container
-			client.DockerContainerStart()
+			// TODO create container
+			//client.DockerContainerStart()
 
 			return nil
 		},
@@ -158,7 +201,6 @@ func (h *MyHandler) recvMsgHandler(conn *websocket.Conn) {
 				slog.Info("create task, job commit to queue")
 				h.flowControl.CommitJob(job)
 				slog.Info("commit job to job queue success")
-
 				/*
 					这是一个会阻塞的函数，直到有向job.DoneChan中写入
 				*/
