@@ -153,10 +153,11 @@ func newSendMsg() *SendMsg {
 /*************RESOURCE STRUCT SET*************/
 type recvResourceMsg struct {
 	Type         int              `json:"type"`
+	NodeName     string           `json:"nodeName"`
+	NodeAddress  string           `json:"nodeAddress"`
 	OccupiedList *[]OccupiedLists `json:"occupiedList"`
 }
 type sendResourceMsg struct {
-	NodeAddress string `json:"nodeAddress"`
 	Utilize     string `json:"utilize"`
 	MemUtilize  string `json:"memUtilize"`
 	Temperature string `json:"temp"`

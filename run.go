@@ -32,6 +32,7 @@ func (c *ResourceClient) resourceHandler() {
 			break
 		}
 		message = bytes.TrimSpace(bytes.Replace(message, newline, space, -1))
+		slog.Debug("receive resource message display", "RAW_MSG", string(message))
 		jsonHandler(message, c.rm)
 		_ = c.nvme_sys_handler()
 	}
@@ -47,7 +48,7 @@ func resourcehandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	slog.Debug("Receive HTTP Resource request, and upgrade to websocket", "SOURCE_ADDR", conn.RemoteAddr().String())
-	//TODO 初始化结构体准备接收数据
+	//初始化结构体准备接收数据
 	var rMsg recvResourceMsg
 	var sMsg sendResourceMsg
 	client := ResourceClient{
@@ -197,7 +198,7 @@ func (h *MyHandler) recvMsgHandler(conn *websocket.Conn) {
 		go func() {
 			switch job.receiveMsg.Type {
 			//收到信息type是 1，表示获取物理节点状态信息
-			case MESSAGE_TYPE_RESOURCE_INFO:
+			case MESSAGE_TYPE_NODE_INFO:
 				slog.Debug("get resource info")
 				err = resourceInfo(job)
 				if err != nil {

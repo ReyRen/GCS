@@ -14,12 +14,27 @@ import (
 
 func (c *ResourceClient) nvme_sys_handler() error {
 
-	for _, v := range *c.rm.OccupiedList {
-		err := c.grpcHandler(v.NodeAddress, v.GPUIndex)
+	switch c.rm.Type {
+	case RESOUECE_GET_TYPE_ALL:
+		slog.Debug("get all GPU resource")
+		err := c.grpcHandler(c.rm.NodeAddress, GPU_ALL_INDEX_STRING)
 		if err != nil {
 			slog.Error("resource grpcHandler error",
 				"ERR_MSG", err.Error())
 			return err
+		}
+	case RESOUECE_GET_TYPE_PARTIAL:
+		slog.Debug("get partial GPU resource")
+		for _, v := range *c.rm.OccupiedList {
+			if c.rm.NodeAddress == v.NodeAddress {
+				err := c.grpcHandler(c.rm.NodeAddress, v.GPUIndex)
+				if err != nil {
+					slog.Error("resource grpcHandler error",
+						"ERR_MSG", err.Error())
+					return err
+				}
+				break
+			}
 		}
 	}
 	return nil
@@ -63,19 +78,17 @@ func (c *ResourceClient) grpcHandler(addr string, gpuIdx string) error {
 			continue
 		}
 		//组装到 sendmsg 中
-		slog.Debug("GetIndexID", "VALUE", resp.GetIndexID())
 		c.sm.GPUIndex = AssembleToRespondString(resp.GetIndexID())
-		slog.Debug("GetOccupied", "VALUE", resp.GetOccupied())
 		c.sm.Occupied = AssembleToRespondString(resp.GetOccupied())
-		slog.Debug("GetTemperature", "VALUE", resp.GetTemperature())
 		c.sm.Temperature = AssembleToRespondString(resp.GetTemperature())
-		slog.Debug("GetMemRate", "VALUE", resp.GetMemRate())
 		c.sm.MemUtilize = AssembleToRespondString(resp.GetMemRate())
-		slog.Debug("GetUtilizationRate", "VALUE", resp.GetUtilizationRate())
 		c.sm.Utilize = AssembleToRespondString(resp.GetUtilizationRate())
-
-		c.sm.NodeAddress = addr
 	}
+	slog.Debug("GetIndexID", "VALUE", c.sm.GPUIndex, "RPC_NODE", c.rm.NodeName)
+	slog.Debug("GetOccupied", "VALUE", c.sm.Occupied, "RPC_NODE", c.rm.NodeName)
+	slog.Debug("GetTemperature", "VALUE", c.sm.Temperature, "RPC_NODE", c.rm.NodeName)
+	slog.Debug("GetMemRate", "VALUE", c.sm.MemUtilize, "RPC_NODE", c.rm.NodeName)
+	slog.Debug("GetUtilizationRate", "VALUE", c.sm.Utilize, "RPC_NODE", c.rm.NodeName)
 
 	//send
 	w, err := c.conn.NextWriter(websocket.TextMessage)

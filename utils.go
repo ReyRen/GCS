@@ -6,6 +6,7 @@ import (
 	"log/slog"
 	"math/rand"
 	"strconv"
+	"strings"
 	"time"
 )
 
@@ -16,10 +17,16 @@ const (
 
 	GPU_TYPE = "SXM-A800-80G"
 
-	MESSAGE_TYPE_RESOURCE_INFO = 1
-	MESSAGE_TYPE_CREATE        = 2
-	MESSAGE_TYPE_LOG           = 3
-	MESSAGE_TYPE_STOP          = 4
+	//这个是主 websockethandler 的
+	MESSAGE_TYPE_NODE_INFO = 1
+	MESSAGE_TYPE_CREATE    = 2
+	MESSAGE_TYPE_LOG       = 3
+	MESSAGE_TYPE_STOP      = 4
+
+	//这个是GPU 资源情况的 websockethandler 的
+	RESOUECE_GET_TYPE_ALL     = 1 //获取所有资源
+	RESOUECE_GET_TYPE_PARTIAL = 2 //获取gpuindex 资源
+	GPU_ALL_INDEX_STRING      = "0,1,2,3,4,5,6,7"
 )
 
 // http to websocket upgrade variables
@@ -58,28 +65,26 @@ func GetContainerName(uid string, tid string) string {
 
 func AssembleToRespondString(raw interface{}) string {
 
-	var tmpString string
+	var tmpString []string
 	switch raw.(type) {
-	case int32:
+	case []int32:
 		for _, value := range raw.([]int32) {
 			if value == 99999 {
 				// error get
-				tmpString += " ,"
+				tmpString = append(tmpString, " ")
 				continue
 			}
-			tmpString += strconv.Itoa(int(value))
-			tmpString += ","
+			tmpString = append(tmpString, strconv.Itoa(int(value)))
 		}
-	case uint32:
+	case []uint32:
 		for _, value := range raw.([]uint32) {
 			if value == 99999 {
 				// error get
-				tmpString += " ,"
+				tmpString = append(tmpString, " ")
 				continue
 			}
-			tmpString += strconv.Itoa(int(value))
-			tmpString += ","
+			tmpString = append(tmpString, strconv.Itoa(int(value)))
 		}
 	}
-	return tmpString
+	return strings.Join(tmpString, ",")
 }
