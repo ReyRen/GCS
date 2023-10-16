@@ -1904,3 +1904,337 @@
 {"time":"2023-10-16T17:48:58.082298076+08:00","level":"DEBUG","msg":"GetTemperature","VALUE":"70,67,70,74,75,91,72,47,58","RPC_NODE":"gpu17"}
 {"time":"2023-10-16T17:48:58.082310772+08:00","level":"DEBUG","msg":"GetMemRate","VALUE":"17,14,13,19,15,13,16,13","RPC_NODE":"gpu17"}
 {"time":"2023-10-16T17:48:58.082313784+08:00","level":"DEBUG","msg":"GetUtilizationRate","VALUE":"70,67,70,74,75,91,72,47","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:49:05.813051425+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":1,\"nodeName\":\"gpu16\",\"nodeAddress\":\"172.18.127.61\",\"occupiedList\":[{\"nodeAddress\":\"172.18.127.1\",\"gpuIndex\":\"1,2,3\"},{\"nodeAddress\":\"172.18.127.2\",\"gpuIndex\":\"1,2,3\"}]}"}
+{"time":"2023-10-16T17:49:05.813099456+08:00","level":"DEBUG","msg":"get all GPU resource"}
+{"time":"2023-10-16T17:49:05.904998938+08:00","level":"DEBUG","msg":"resource rpc stream read over"}
+{"time":"2023-10-16T17:49:05.905033062+08:00","level":"DEBUG","msg":"GetIndexID","VALUE":"0,1,2,3,4,5,6,7","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:49:05.905038919+08:00","level":"DEBUG","msg":"GetOccupied","VALUE":"1,1,1,1,1,1,1,1","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:49:05.905051856+08:00","level":"DEBUG","msg":"GetTemperature","VALUE":"100,100,100,100,100,100,100,100,54","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:49:05.905055417+08:00","level":"DEBUG","msg":"GetMemRate","VALUE":"20,22,23,19,22,20,23,22","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:49:05.905058213+08:00","level":"DEBUG","msg":"GetUtilizationRate","VALUE":"100,100,100,100,100,100,100,100","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:49:15.810632068+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":1,\"nodeName\":\"gpu16\",\"nodeAddress\":\"172.18.127.61\",\"occupiedList\":[{\"nodeAddress\":\"172.18.127.1\",\"gpuIndex\":\"1,2,3\"},{\"nodeAddress\":\"172.18.127.2\",\"gpuIndex\":\"1,2,3\"}]}"}
+{"time":"2023-10-16T17:49:15.810699829+08:00","level":"DEBUG","msg":"get all GPU resource"}
+{"time":"2023-10-16T17:49:15.906591458+08:00","level":"DEBUG","msg":"resource rpc stream read over"}
+{"time":"2023-10-16T17:49:15.906619635+08:00","level":"DEBUG","msg":"GetIndexID","VALUE":"0,1,2,3,4,5,6,7","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:49:15.906632655+08:00","level":"DEBUG","msg":"GetOccupied","VALUE":"1,1,1,1,1,1,1,1","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:49:15.906645158+08:00","level":"DEBUG","msg":"GetTemperature","VALUE":"100,100,100,100,100,100,100,100,54","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:49:15.90664837+08:00","level":"DEBUG","msg":"GetMemRate","VALUE":"22,23,21,22,23,23,22,23","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:49:15.906651284+08:00","level":"DEBUG","msg":"GetUtilizationRate","VALUE":"100,100,100,100,100,100,100,100","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:49:20.062401035+08:00","level":"DEBUG","msg":"Receive HTTP request, and upgrade to websocket","SOURCE_ADDR":"10.0.10.159:53726"}
+{"time":"2023-10-16T17:49:20.062450746+08:00","level":"DEBUG","msg":"newSelectNodes done"}
+{"time":"2023-10-16T17:49:20.062454531+08:00","level":"DEBUG","msg":"newReceiveMsgContent done"}
+{"time":"2023-10-16T17:49:20.062458474+08:00","level":"DEBUG","msg":"newReceiveMsgContent done"}
+{"time":"2023-10-16T17:49:20.062462259+08:00","level":"DEBUG","msg":"newReceiveMsg initialed ok"}
+{"time":"2023-10-16T17:49:20.062465666+08:00","level":"DEBUG","msg":"newSendMsg initialed ok"}
+{"time":"2023-10-16T17:49:20.062480377+08:00","level":"DEBUG","msg":"Job initialed ok"}
+{"time":"2023-10-16T17:49:20.161085808+08:00","level":"DEBUG","msg":"receive message display","RAW_MSG":"{\"admin\":false,\"type\":1,\"content\":{\"ids\":{\"uid\":0,\"tid\":0},\"command\":\"\",\"originalModelUrl\":\"66666\",\"continuousModelUrl\":\"666\",\"resourceType\":\"gpu\",\"modelType\":6,\"frameworkType\":3,\"toolBoxName\":\"6\",\"params\":\"6666\",\"selectedDataset\":\"6\",\"selectedNodes\":[]}}"}
+{"time":"2023-10-16T17:49:20.161117488+08:00","level":"DEBUG","msg":"get resource info"}
+{"time":"2023-10-16T17:49:20.162304849+08:00","level":"DEBUG","msg":"swarm nodeListerName","nodeListerName":["gpu17","gpu16"]}
+{"time":"2023-10-16T17:49:20.162327436+08:00","level":"DEBUG","msg":"swarm nodeListerAddr","nodeListerAddr":["172.18.127.62","172.18.127.61"]}
+{"time":"2023-10-16T17:49:20.162331103+08:00","level":"DEBUG","msg":"swarm nodesListerLabel","nodesListerLabel":["SXM-A800-80G","SXM-A800-80G"]}
+{"time":"2023-10-16T17:49:20.1623346+08:00","level":"DEBUG","msg":"swarm nodesListerStatus","nodesListerStatus":["ready","ready"]}
+{"time":"2023-10-16T17:49:20.165512419+08:00","level":"DEBUG","msg":"Receive HTTP Resource request, and upgrade to websocket","SOURCE_ADDR":"10.0.10.159:53728"}
+{"time":"2023-10-16T17:49:25.800233459+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":1,\"nodeName\":\"gpu16\",\"nodeAddress\":\"172.18.127.61\",\"occupiedList\":[{\"nodeAddress\":\"172.18.127.1\",\"gpuIndex\":\"1,2,3\"},{\"nodeAddress\":\"172.18.127.2\",\"gpuIndex\":\"1,2,3\"}]}"}
+{"time":"2023-10-16T17:49:25.800285009+08:00","level":"DEBUG","msg":"get all GPU resource"}
+{"time":"2023-10-16T17:49:25.895749265+08:00","level":"DEBUG","msg":"resource rpc stream read over"}
+{"time":"2023-10-16T17:49:25.895774196+08:00","level":"DEBUG","msg":"GetIndexID","VALUE":"0,1,2,3,4,5,6,7","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:49:25.895786349+08:00","level":"DEBUG","msg":"GetOccupied","VALUE":"1,1,1,1,1,1,1,1","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:49:25.895789736+08:00","level":"DEBUG","msg":"GetTemperature","VALUE":"100,100,100,100,100,100,100,100,54","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:49:25.895793132+08:00","level":"DEBUG","msg":"GetMemRate","VALUE":"23,23,22,23,22,23,23,21","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:49:25.895796198+08:00","level":"DEBUG","msg":"GetUtilizationRate","VALUE":"100,100,100,100,100,100,100,100","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:49:26.981653673+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":2,\"nodeName\":\"gpu16\",\"nodeAddress\":\"172.18.127.61\",\"occupiedList\":[{\"nodeAddress\":\"172.18.127.62\",\"gpuIndex\":\"1,2,3\"},{\"nodeAddress\":\"172.18.127.61\",\"gpuIndex\":\"1,2,3\"}]}"}
+{"time":"2023-10-16T17:49:26.981716111+08:00","level":"DEBUG","msg":"get partial GPU resource"}
+{"time":"2023-10-16T17:49:27.024142057+08:00","level":"DEBUG","msg":"resource rpc stream read over"}
+{"time":"2023-10-16T17:49:27.024160147+08:00","level":"DEBUG","msg":"GetIndexID","VALUE":"1,2,3","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:49:27.024166529+08:00","level":"DEBUG","msg":"GetOccupied","VALUE":"1,1,1","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:49:27.024176063+08:00","level":"DEBUG","msg":"GetTemperature","VALUE":"100,100,100,55","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:49:27.024179556+08:00","level":"DEBUG","msg":"GetMemRate","VALUE":"29,29,26","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:49:27.024185799+08:00","level":"DEBUG","msg":"GetUtilizationRate","VALUE":"100,100,100","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:49:27.024256149+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":2,\"nodeName\":\"gpu16\",\"nodeAddress\":\"172.18.127.61\",\"occupiedList\":[{\"nodeAddress\":\"172.18.127.62\",\"gpuIndex\":\"1,2,3\"},{\"nodeAddress\":\"172.18.127.61\",\"gpuIndex\":\"1,2,3\"}]}"}
+{"time":"2023-10-16T17:49:27.024275118+08:00","level":"DEBUG","msg":"get partial GPU resource"}
+{"time":"2023-10-16T17:49:27.064817025+08:00","level":"DEBUG","msg":"resource rpc stream read over"}
+{"time":"2023-10-16T17:49:27.064831858+08:00","level":"DEBUG","msg":"GetIndexID","VALUE":"1,2,3","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:49:27.064836766+08:00","level":"DEBUG","msg":"GetOccupied","VALUE":"1,1,1","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:49:27.064847006+08:00","level":"DEBUG","msg":"GetTemperature","VALUE":"100,100,100,56","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:49:27.064850157+08:00","level":"DEBUG","msg":"GetMemRate","VALUE":"29,29,26","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:49:27.064852885+08:00","level":"DEBUG","msg":"GetUtilizationRate","VALUE":"100,100,100","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:49:30.191120843+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":2,\"nodeName\":\"gpu16\",\"nodeAddress\":\"172.18.127.61\",\"occupiedList\":[{\"nodeAddress\":\"172.18.127.62\",\"gpuIndex\":\"1,2,3\"},{\"nodeAddress\":\"172.18.127.61\",\"gpuIndex\":\"1,2,3\"}]}"}
+{"time":"2023-10-16T17:49:30.191168489+08:00","level":"DEBUG","msg":"get partial GPU resource"}
+{"time":"2023-10-16T17:49:30.255262888+08:00","level":"DEBUG","msg":"resource rpc stream read over"}
+{"time":"2023-10-16T17:49:30.255284247+08:00","level":"DEBUG","msg":"GetIndexID","VALUE":"1,2,3","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:49:30.255289359+08:00","level":"DEBUG","msg":"GetOccupied","VALUE":"1,1,1","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:49:30.255299037+08:00","level":"DEBUG","msg":"GetTemperature","VALUE":"100,100,100,56","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:49:30.255302253+08:00","level":"DEBUG","msg":"GetMemRate","VALUE":"23,23,23","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:49:30.255305292+08:00","level":"DEBUG","msg":"GetUtilizationRate","VALUE":"100,100,100","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:49:36.320280256+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":1,\"nodeName\":\"gpu16\",\"nodeAddress\":\"172.18.127.61\",\"occupiedList\":[{\"nodeAddress\":\"172.18.127.1\",\"gpuIndex\":\"1,2,3\"},{\"nodeAddress\":\"172.18.127.2\",\"gpuIndex\":\"1,2,3\"}]}"}
+{"time":"2023-10-16T17:49:36.320334816+08:00","level":"DEBUG","msg":"get all GPU resource"}
+{"time":"2023-10-16T17:49:36.453291747+08:00","level":"DEBUG","msg":"resource rpc stream read over"}
+{"time":"2023-10-16T17:49:36.453319614+08:00","level":"DEBUG","msg":"GetIndexID","VALUE":"0,1,2,3,4,5,6,7","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:49:36.453325762+08:00","level":"DEBUG","msg":"GetOccupied","VALUE":"1,1,1,1,1,1,1,1","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:49:36.453329091+08:00","level":"DEBUG","msg":"GetTemperature","VALUE":"94,96,69,96,57,77,75,73,53","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:49:36.45333363+08:00","level":"DEBUG","msg":"GetMemRate","VALUE":"14,13,13,15,12,14,16,13","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:49:36.453344649+08:00","level":"DEBUG","msg":"GetUtilizationRate","VALUE":"94,96,69,96,57,77,75,73","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:49:39.884656109+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":2,\"nodeName\":\"gpu17\",\"nodeAddress\":\"172.18.127.62\",\"occupiedList\":[{\"nodeAddress\":\"172.18.127.62\",\"gpuIndex\":\"1,2,3\"},{\"nodeAddress\":\"172.18.127.61\",\"gpuIndex\":\"1,2,3\"}]}"}
+{"time":"2023-10-16T17:49:39.884711635+08:00","level":"DEBUG","msg":"get partial GPU resource"}
+{"time":"2023-10-16T17:49:39.928609988+08:00","level":"DEBUG","msg":"resource rpc stream read over"}
+{"time":"2023-10-16T17:49:39.92863422+08:00","level":"DEBUG","msg":"GetIndexID","VALUE":"1,2,3","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:49:39.928648792+08:00","level":"DEBUG","msg":"GetOccupied","VALUE":"1,1,1","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:49:39.928651889+08:00","level":"DEBUG","msg":"GetTemperature","VALUE":"100,100,100,56","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:49:39.928654943+08:00","level":"DEBUG","msg":"GetMemRate","VALUE":"25,29,29","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:49:39.928657989+08:00","level":"DEBUG","msg":"GetUtilizationRate","VALUE":"100,100,100","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:49:39.928727382+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":2,\"nodeName\":\"gpu17\",\"nodeAddress\":\"172.18.127.62\",\"occupiedList\":[{\"nodeAddress\":\"172.18.127.62\",\"gpuIndex\":\"1,2,3\"},{\"nodeAddress\":\"172.18.127.61\",\"gpuIndex\":\"1,2,3\"}]}"}
+{"time":"2023-10-16T17:49:39.928745636+08:00","level":"DEBUG","msg":"get partial GPU resource"}
+{"time":"2023-10-16T17:49:39.968869327+08:00","level":"DEBUG","msg":"resource rpc stream read over"}
+{"time":"2023-10-16T17:49:39.968889223+08:00","level":"DEBUG","msg":"GetIndexID","VALUE":"1,2,3","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:49:39.968901609+08:00","level":"DEBUG","msg":"GetOccupied","VALUE":"1,1,1","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:49:39.968906672+08:00","level":"DEBUG","msg":"GetTemperature","VALUE":"100,100,100,56","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:49:39.968915519+08:00","level":"DEBUG","msg":"GetMemRate","VALUE":"25,29,29","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:49:39.968918561+08:00","level":"DEBUG","msg":"GetUtilizationRate","VALUE":"100,100,100","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:49:40.191715655+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":2,\"nodeName\":\"gpu17\",\"nodeAddress\":\"172.18.127.62\",\"occupiedList\":[{\"nodeAddress\":\"172.18.127.62\",\"gpuIndex\":\"1,2,3\"},{\"nodeAddress\":\"172.18.127.61\",\"gpuIndex\":\"1,2,3\"}]}"}
+{"time":"2023-10-16T17:49:40.19177331+08:00","level":"DEBUG","msg":"get partial GPU resource"}
+{"time":"2023-10-16T17:49:40.234107731+08:00","level":"DEBUG","msg":"resource rpc stream read over"}
+{"time":"2023-10-16T17:49:40.234127772+08:00","level":"DEBUG","msg":"GetIndexID","VALUE":"1,2,3","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:49:40.234136451+08:00","level":"DEBUG","msg":"GetOccupied","VALUE":"1,1,1","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:49:40.234139678+08:00","level":"DEBUG","msg":"GetTemperature","VALUE":"100,100,100,57","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:49:40.234142959+08:00","level":"DEBUG","msg":"GetMemRate","VALUE":"23,22,23","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:49:40.234145795+08:00","level":"DEBUG","msg":"GetUtilizationRate","VALUE":"100,100,100","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:49:46.320613754+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":1,\"nodeName\":\"gpu16\",\"nodeAddress\":\"172.18.127.61\",\"occupiedList\":[{\"nodeAddress\":\"172.18.127.1\",\"gpuIndex\":\"1,2,3\"},{\"nodeAddress\":\"172.18.127.2\",\"gpuIndex\":\"1,2,3\"}]}"}
+{"time":"2023-10-16T17:49:46.320674697+08:00","level":"DEBUG","msg":"get all GPU resource"}
+{"time":"2023-10-16T17:49:46.412785823+08:00","level":"DEBUG","msg":"resource rpc stream read over"}
+{"time":"2023-10-16T17:49:46.41282306+08:00","level":"DEBUG","msg":"GetIndexID","VALUE":"0,1,2,3,4,5,6,7","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:49:46.412834586+08:00","level":"DEBUG","msg":"GetOccupied","VALUE":"1,1,1,1,1,1,1,1","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:49:46.4128482+08:00","level":"DEBUG","msg":"GetTemperature","VALUE":"100,100,100,100,100,89,100,72,51","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:49:46.41285126+08:00","level":"DEBUG","msg":"GetMemRate","VALUE":"18,19,23,17,23,15,19,12","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:49:46.412854027+08:00","level":"DEBUG","msg":"GetUtilizationRate","VALUE":"100,100,100,100,100,89,100,72","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:49:50.19096349+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":2,\"nodeName\":\"gpu17\",\"nodeAddress\":\"172.18.127.62\",\"occupiedList\":[{\"nodeAddress\":\"172.18.127.62\",\"gpuIndex\":\"1,2,3\"},{\"nodeAddress\":\"172.18.127.61\",\"gpuIndex\":\"1,2,3\"}]}"}
+{"time":"2023-10-16T17:49:50.191018035+08:00","level":"DEBUG","msg":"get partial GPU resource"}
+{"time":"2023-10-16T17:49:50.23416165+08:00","level":"DEBUG","msg":"resource rpc stream read over"}
+{"time":"2023-10-16T17:49:50.234186725+08:00","level":"DEBUG","msg":"GetIndexID","VALUE":"1,2,3","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:49:50.234198638+08:00","level":"DEBUG","msg":"GetOccupied","VALUE":"1,1,1","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:49:50.234201627+08:00","level":"DEBUG","msg":"GetTemperature","VALUE":"100,100,100,56","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:49:50.234206614+08:00","level":"DEBUG","msg":"GetMemRate","VALUE":"23,20,20","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:49:50.234214597+08:00","level":"DEBUG","msg":"GetUtilizationRate","VALUE":"100,100,100","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:49:56.322345922+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":1,\"nodeName\":\"gpu16\",\"nodeAddress\":\"172.18.127.61\",\"occupiedList\":[{\"nodeAddress\":\"172.18.127.1\",\"gpuIndex\":\"1,2,3\"},{\"nodeAddress\":\"172.18.127.2\",\"gpuIndex\":\"1,2,3\"}]}"}
+{"time":"2023-10-16T17:49:56.322412664+08:00","level":"DEBUG","msg":"get all GPU resource"}
+{"time":"2023-10-16T17:49:56.408250173+08:00","level":"DEBUG","msg":"resource rpc stream read over"}
+{"time":"2023-10-16T17:49:56.408276052+08:00","level":"DEBUG","msg":"GetIndexID","VALUE":"0,1,2,3,4,5,6,7","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:49:56.408288753+08:00","level":"DEBUG","msg":"GetOccupied","VALUE":"1,1,1,1,1,1,1,1","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:49:56.408292186+08:00","level":"DEBUG","msg":"GetTemperature","VALUE":"99,100,100,95,100,100,100,100,52","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:49:56.408295427+08:00","level":"DEBUG","msg":"GetMemRate","VALUE":"14,15,19,13,22,23,15,21","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:49:56.408298431+08:00","level":"DEBUG","msg":"GetUtilizationRate","VALUE":"99,100,100,95,100,100,100,100","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:50:00.192105422+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":2,\"nodeName\":\"gpu17\",\"nodeAddress\":\"172.18.127.62\",\"occupiedList\":[{\"nodeAddress\":\"172.18.127.62\",\"gpuIndex\":\"1,2,3\"},{\"nodeAddress\":\"172.18.127.61\",\"gpuIndex\":\"1,2,3\"}]}"}
+{"time":"2023-10-16T17:50:00.192156719+08:00","level":"DEBUG","msg":"get partial GPU resource"}
+{"time":"2023-10-16T17:50:00.232879473+08:00","level":"DEBUG","msg":"resource rpc stream read over"}
+{"time":"2023-10-16T17:50:00.232904157+08:00","level":"DEBUG","msg":"GetIndexID","VALUE":"1,2,3","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:50:00.232909503+08:00","level":"DEBUG","msg":"GetOccupied","VALUE":"1,1,1","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:50:00.232912699+08:00","level":"DEBUG","msg":"GetTemperature","VALUE":"100,100,100,56","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:50:00.232923432+08:00","level":"DEBUG","msg":"GetMemRate","VALUE":"23,21,20","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:50:00.232926446+08:00","level":"DEBUG","msg":"GetUtilizationRate","VALUE":"100,100,100","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:50:06.326445828+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":1,\"nodeName\":\"gpu16\",\"nodeAddress\":\"172.18.127.61\",\"occupiedList\":[{\"nodeAddress\":\"172.18.127.1\",\"gpuIndex\":\"1,2,3\"},{\"nodeAddress\":\"172.18.127.2\",\"gpuIndex\":\"1,2,3\"}]}"}
+{"time":"2023-10-16T17:50:06.326503447+08:00","level":"DEBUG","msg":"get all GPU resource"}
+{"time":"2023-10-16T17:50:06.426280668+08:00","level":"DEBUG","msg":"resource rpc stream read over"}
+{"time":"2023-10-16T17:50:06.426306447+08:00","level":"DEBUG","msg":"GetIndexID","VALUE":"0,1,2,3,4,5,6,7","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:50:06.426311732+08:00","level":"DEBUG","msg":"GetOccupied","VALUE":"1,1,1,1,1,1,1,1","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:50:06.426321526+08:00","level":"DEBUG","msg":"GetTemperature","VALUE":"100,100,100,100,100,100,100,100,52","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:50:06.42632486+08:00","level":"DEBUG","msg":"GetMemRate","VALUE":"23,23,23,20,23,23,22,23","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:50:06.426327727+08:00","level":"DEBUG","msg":"GetUtilizationRate","VALUE":"100,100,100,100,100,100,100,100","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:50:10.1909694+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":2,\"nodeName\":\"gpu17\",\"nodeAddress\":\"172.18.127.62\",\"occupiedList\":[{\"nodeAddress\":\"172.18.127.62\",\"gpuIndex\":\"1,2,3\"},{\"nodeAddress\":\"172.18.127.61\",\"gpuIndex\":\"1,2,3\"}]}"}
+{"time":"2023-10-16T17:50:10.191035832+08:00","level":"DEBUG","msg":"get partial GPU resource"}
+{"time":"2023-10-16T17:50:10.225813846+08:00","level":"DEBUG","msg":"resource rpc stream read over"}
+{"time":"2023-10-16T17:50:10.225835355+08:00","level":"DEBUG","msg":"GetIndexID","VALUE":"1,2,3","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:50:10.225845969+08:00","level":"DEBUG","msg":"GetOccupied","VALUE":"1,1,1","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:50:10.225849045+08:00","level":"DEBUG","msg":"GetTemperature","VALUE":"100,100,100,56","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:50:10.225852431+08:00","level":"DEBUG","msg":"GetMemRate","VALUE":"29,22,21","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:50:10.225855181+08:00","level":"DEBUG","msg":"GetUtilizationRate","VALUE":"100,100,100","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:50:17.423684741+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":1,\"nodeName\":\"gpu16\",\"nodeAddress\":\"172.18.127.61\",\"occupiedList\":[{\"nodeAddress\":\"172.18.127.1\",\"gpuIndex\":\"1,2,3\"},{\"nodeAddress\":\"172.18.127.2\",\"gpuIndex\":\"1,2,3\"}]}"}
+{"time":"2023-10-16T17:50:17.423743167+08:00","level":"DEBUG","msg":"get all GPU resource"}
+{"time":"2023-10-16T17:50:17.497468454+08:00","level":"DEBUG","msg":"resource rpc stream read over"}
+{"time":"2023-10-16T17:50:17.497489178+08:00","level":"DEBUG","msg":"GetIndexID","VALUE":"0,1,2,3,4,5,6,7","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:50:17.497494673+08:00","level":"DEBUG","msg":"GetOccupied","VALUE":"1,1,1,1,1,1,1,1","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:50:17.497497922+08:00","level":"DEBUG","msg":"GetTemperature","VALUE":"0,0,0,0,0,0,0,0,48","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:50:17.497509209+08:00","level":"DEBUG","msg":"GetMemRate","VALUE":"0,0,0,0,0,0,0,0","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:50:17.497512138+08:00","level":"DEBUG","msg":"GetUtilizationRate","VALUE":"0,0,0,0,0,0,0,0","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:50:20.191993752+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":2,\"nodeName\":\"gpu17\",\"nodeAddress\":\"172.18.127.62\",\"occupiedList\":[{\"nodeAddress\":\"172.18.127.62\",\"gpuIndex\":\"1,2,3\"},{\"nodeAddress\":\"172.18.127.61\",\"gpuIndex\":\"1,2,3\"}]}"}
+{"time":"2023-10-16T17:50:20.192041901+08:00","level":"DEBUG","msg":"get partial GPU resource"}
+{"time":"2023-10-16T17:50:20.229495755+08:00","level":"DEBUG","msg":"resource rpc stream read over"}
+{"time":"2023-10-16T17:50:20.22951518+08:00","level":"DEBUG","msg":"GetIndexID","VALUE":"1,2,3","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:50:20.229540715+08:00","level":"DEBUG","msg":"GetOccupied","VALUE":"1,1,1","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:50:20.229549378+08:00","level":"DEBUG","msg":"GetTemperature","VALUE":"99,15,98,49","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:50:20.229552667+08:00","level":"DEBUG","msg":"GetMemRate","VALUE":"0,0,0","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:50:20.229555644+08:00","level":"DEBUG","msg":"GetUtilizationRate","VALUE":"99,15,98","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:50:27.428959839+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":1,\"nodeName\":\"gpu16\",\"nodeAddress\":\"172.18.127.61\",\"occupiedList\":[{\"nodeAddress\":\"172.18.127.1\",\"gpuIndex\":\"1,2,3\"},{\"nodeAddress\":\"172.18.127.2\",\"gpuIndex\":\"1,2,3\"}]}"}
+{"time":"2023-10-16T17:50:27.429019425+08:00","level":"DEBUG","msg":"get all GPU resource"}
+{"time":"2023-10-16T17:50:27.533185471+08:00","level":"DEBUG","msg":"resource rpc stream read over"}
+{"time":"2023-10-16T17:50:27.533213447+08:00","level":"DEBUG","msg":"GetIndexID","VALUE":"0,1,2,3,4,5,6,7","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:50:27.533227124+08:00","level":"DEBUG","msg":"GetOccupied","VALUE":"1,1,1,1,1,1,1,1","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:50:27.533231277+08:00","level":"DEBUG","msg":"GetTemperature","VALUE":"87,80,85,84,83,81,83,87,56","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:50:27.533234497+08:00","level":"DEBUG","msg":"GetMemRate","VALUE":"35,30,33,33,32,31,30,34","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:50:27.533237688+08:00","level":"DEBUG","msg":"GetUtilizationRate","VALUE":"87,80,85,84,83,81,83,87","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:50:30.192374707+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":2,\"nodeName\":\"gpu17\",\"nodeAddress\":\"172.18.127.62\",\"occupiedList\":[{\"nodeAddress\":\"172.18.127.62\",\"gpuIndex\":\"1,2,3\"},{\"nodeAddress\":\"172.18.127.61\",\"gpuIndex\":\"1,2,3\"}]}"}
+{"time":"2023-10-16T17:50:30.192426046+08:00","level":"DEBUG","msg":"get partial GPU resource"}
+{"time":"2023-10-16T17:50:30.230400795+08:00","level":"DEBUG","msg":"resource rpc stream read over"}
+{"time":"2023-10-16T17:50:30.230418822+08:00","level":"DEBUG","msg":"GetIndexID","VALUE":"1,2,3","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:50:30.230429042+08:00","level":"DEBUG","msg":"GetOccupied","VALUE":"1,1,1","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:50:30.230432689+08:00","level":"DEBUG","msg":"GetTemperature","VALUE":"85,88,90,61","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:50:30.230435709+08:00","level":"DEBUG","msg":"GetMemRate","VALUE":"32,34,36","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:50:30.230438853+08:00","level":"DEBUG","msg":"GetUtilizationRate","VALUE":"85,88,90","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:50:37.431302312+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":1,\"nodeName\":\"gpu16\",\"nodeAddress\":\"172.18.127.61\",\"occupiedList\":[{\"nodeAddress\":\"172.18.127.1\",\"gpuIndex\":\"1,2,3\"},{\"nodeAddress\":\"172.18.127.2\",\"gpuIndex\":\"1,2,3\"}]}"}
+{"time":"2023-10-16T17:50:37.431361075+08:00","level":"DEBUG","msg":"get all GPU resource"}
+{"time":"2023-10-16T17:50:37.530090211+08:00","level":"DEBUG","msg":"resource rpc stream read over"}
+{"time":"2023-10-16T17:50:37.530110593+08:00","level":"DEBUG","msg":"GetIndexID","VALUE":"0,1,2,3,4,5,6,7","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:50:37.530115751+08:00","level":"DEBUG","msg":"GetOccupied","VALUE":"1,1,1,1,1,1,1,1","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:50:37.530118905+08:00","level":"DEBUG","msg":"GetTemperature","VALUE":"81,85,84,81,85,85,91,85,58","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:50:37.530128398+08:00","level":"DEBUG","msg":"GetMemRate","VALUE":"30,33,31,30,34,30,37,31","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:50:37.530131381+08:00","level":"DEBUG","msg":"GetUtilizationRate","VALUE":"81,85,84,81,85,85,91,85","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:50:40.192435253+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":2,\"nodeName\":\"gpu17\",\"nodeAddress\":\"172.18.127.62\",\"occupiedList\":[{\"nodeAddress\":\"172.18.127.62\",\"gpuIndex\":\"1,2,3\"},{\"nodeAddress\":\"172.18.127.61\",\"gpuIndex\":\"1,2,3\"}]}"}
+{"time":"2023-10-16T17:50:40.192490969+08:00","level":"DEBUG","msg":"get partial GPU resource"}
+{"time":"2023-10-16T17:50:40.688934831+08:00","level":"DEBUG","msg":"resource rpc stream read over"}
+{"time":"2023-10-16T17:50:40.688968863+08:00","level":"DEBUG","msg":"GetIndexID","VALUE":"1,2,3","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:50:40.688976192+08:00","level":"DEBUG","msg":"GetOccupied","VALUE":"1,1,1","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:50:40.688981843+08:00","level":"DEBUG","msg":"GetTemperature","VALUE":"58,60,60,51","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:50:40.68899558+08:00","level":"DEBUG","msg":"GetMemRate","VALUE":"2,2,2","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:50:40.688998725+08:00","level":"DEBUG","msg":"GetUtilizationRate","VALUE":"58,60,60","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:50:47.43508966+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":1,\"nodeName\":\"gpu16\",\"nodeAddress\":\"172.18.127.61\",\"occupiedList\":[{\"nodeAddress\":\"172.18.127.1\",\"gpuIndex\":\"1,2,3\"},{\"nodeAddress\":\"172.18.127.2\",\"gpuIndex\":\"1,2,3\"}]}"}
+{"time":"2023-10-16T17:50:47.435148366+08:00","level":"DEBUG","msg":"get all GPU resource"}
+{"time":"2023-10-16T17:50:47.535374225+08:00","level":"DEBUG","msg":"resource rpc stream read over"}
+{"time":"2023-10-16T17:50:47.535394997+08:00","level":"DEBUG","msg":"GetIndexID","VALUE":"0,1,2,3,4,5,6,7","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:50:47.535400315+08:00","level":"DEBUG","msg":"GetOccupied","VALUE":"1,1,1,1,1,1,1,1","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:50:47.535407632+08:00","level":"DEBUG","msg":"GetTemperature","VALUE":"0,100,100,100,100,100,100,100,45","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:50:47.535411077+08:00","level":"DEBUG","msg":"GetMemRate","VALUE":"0,0,0,0,0,0,0,0","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:50:47.535414094+08:00","level":"DEBUG","msg":"GetUtilizationRate","VALUE":"0,100,100,100,100,100,100,100","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:50:50.191825774+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":2,\"nodeName\":\"gpu17\",\"nodeAddress\":\"172.18.127.62\",\"occupiedList\":[{\"nodeAddress\":\"172.18.127.62\",\"gpuIndex\":\"1,2,3\"},{\"nodeAddress\":\"172.18.127.61\",\"gpuIndex\":\"1,2,3\"}]}"}
+{"time":"2023-10-16T17:50:50.19187803+08:00","level":"DEBUG","msg":"get partial GPU resource"}
+{"time":"2023-10-16T17:50:50.229299989+08:00","level":"DEBUG","msg":"resource rpc stream read over"}
+{"time":"2023-10-16T17:50:50.22932553+08:00","level":"DEBUG","msg":"GetIndexID","VALUE":"1,2,3","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:50:50.22933245+08:00","level":"DEBUG","msg":"GetOccupied","VALUE":"1,1,1","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:50:50.2293431+08:00","level":"DEBUG","msg":"GetTemperature","VALUE":"100,100,100,54","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:50:50.22934621+08:00","level":"DEBUG","msg":"GetMemRate","VALUE":"23,23,22","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:50:50.229349013+08:00","level":"DEBUG","msg":"GetUtilizationRate","VALUE":"100,100,100","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:50:57.439804262+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":1,\"nodeName\":\"gpu16\",\"nodeAddress\":\"172.18.127.61\",\"occupiedList\":[{\"nodeAddress\":\"172.18.127.1\",\"gpuIndex\":\"1,2,3\"},{\"nodeAddress\":\"172.18.127.2\",\"gpuIndex\":\"1,2,3\"}]}"}
+{"time":"2023-10-16T17:50:57.439858604+08:00","level":"DEBUG","msg":"get all GPU resource"}
+{"time":"2023-10-16T17:50:57.538284448+08:00","level":"DEBUG","msg":"resource rpc stream read over"}
+{"time":"2023-10-16T17:50:57.538307893+08:00","level":"DEBUG","msg":"GetIndexID","VALUE":"0,1,2,3,4,5,6,7","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:50:57.538315145+08:00","level":"DEBUG","msg":"GetOccupied","VALUE":"1,1,1,1,1,1,1,1","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:50:57.538330866+08:00","level":"DEBUG","msg":"GetTemperature","VALUE":"100,100,100,100,100,100,100,100,53","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:50:57.538334325+08:00","level":"DEBUG","msg":"GetMemRate","VALUE":"23,23,23,23,22,23,23,23","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:50:57.538337637+08:00","level":"DEBUG","msg":"GetUtilizationRate","VALUE":"100,100,100,100,100,100,100,100","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:51:00.19216692+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":2,\"nodeName\":\"gpu17\",\"nodeAddress\":\"172.18.127.62\",\"occupiedList\":[{\"nodeAddress\":\"172.18.127.62\",\"gpuIndex\":\"1,2,3\"},{\"nodeAddress\":\"172.18.127.61\",\"gpuIndex\":\"1,2,3\"}]}"}
+{"time":"2023-10-16T17:51:00.192224995+08:00","level":"DEBUG","msg":"get partial GPU resource"}
+{"time":"2023-10-16T17:51:00.234179755+08:00","level":"DEBUG","msg":"resource rpc stream read over"}
+{"time":"2023-10-16T17:51:00.234201664+08:00","level":"DEBUG","msg":"GetIndexID","VALUE":"1,2,3","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:51:00.234206291+08:00","level":"DEBUG","msg":"GetOccupied","VALUE":"1,1,1","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:51:00.234209862+08:00","level":"DEBUG","msg":"GetTemperature","VALUE":"100,100,100,56","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:51:00.234213082+08:00","level":"DEBUG","msg":"GetMemRate","VALUE":"22,22,23","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:51:00.234216123+08:00","level":"DEBUG","msg":"GetUtilizationRate","VALUE":"100,100,100","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:51:07.444540094+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":1,\"nodeName\":\"gpu16\",\"nodeAddress\":\"172.18.127.61\",\"occupiedList\":[{\"nodeAddress\":\"172.18.127.1\",\"gpuIndex\":\"1,2,3\"},{\"nodeAddress\":\"172.18.127.2\",\"gpuIndex\":\"1,2,3\"}]}"}
+{"time":"2023-10-16T17:51:07.444594909+08:00","level":"DEBUG","msg":"get all GPU resource"}
+{"time":"2023-10-16T17:51:07.545052498+08:00","level":"DEBUG","msg":"resource rpc stream read over"}
+{"time":"2023-10-16T17:51:07.545085899+08:00","level":"DEBUG","msg":"GetIndexID","VALUE":"0,1,2,3,4,5,6,7","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:51:07.545091631+08:00","level":"DEBUG","msg":"GetOccupied","VALUE":"1,1,1,1,1,1,1,1","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:51:07.545094672+08:00","level":"DEBUG","msg":"GetTemperature","VALUE":"100,100,100,100,100,100,100,100,53","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:51:07.545097913+08:00","level":"DEBUG","msg":"GetMemRate","VALUE":"23,23,23,23,23,23,23,23","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:51:07.545100852+08:00","level":"DEBUG","msg":"GetUtilizationRate","VALUE":"100,100,100,100,100,100,100,100","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:51:10.191444271+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":2,\"nodeName\":\"gpu17\",\"nodeAddress\":\"172.18.127.62\",\"occupiedList\":[{\"nodeAddress\":\"172.18.127.62\",\"gpuIndex\":\"1,2,3\"},{\"nodeAddress\":\"172.18.127.61\",\"gpuIndex\":\"1,2,3\"}]}"}
+{"time":"2023-10-16T17:51:10.191504991+08:00","level":"DEBUG","msg":"get partial GPU resource"}
+{"time":"2023-10-16T17:51:10.234272587+08:00","level":"DEBUG","msg":"resource rpc stream read over"}
+{"time":"2023-10-16T17:51:10.234292389+08:00","level":"DEBUG","msg":"GetIndexID","VALUE":"1,2,3","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:51:10.234298691+08:00","level":"DEBUG","msg":"GetOccupied","VALUE":"1,1,1","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:51:10.234309385+08:00","level":"DEBUG","msg":"GetTemperature","VALUE":"100,100,100,56","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:51:10.234312823+08:00","level":"DEBUG","msg":"GetMemRate","VALUE":"23,23,23","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:51:10.234315886+08:00","level":"DEBUG","msg":"GetUtilizationRate","VALUE":"100,100,100","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:51:18.544088954+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":1,\"nodeName\":\"gpu16\",\"nodeAddress\":\"172.18.127.61\",\"occupiedList\":[{\"nodeAddress\":\"172.18.127.1\",\"gpuIndex\":\"1,2,3\"},{\"nodeAddress\":\"172.18.127.2\",\"gpuIndex\":\"1,2,3\"}]}"}
+{"time":"2023-10-16T17:51:18.544138919+08:00","level":"DEBUG","msg":"get all GPU resource"}
+{"time":"2023-10-16T17:51:18.644210281+08:00","level":"DEBUG","msg":"resource rpc stream read over"}
+{"time":"2023-10-16T17:51:18.644227026+08:00","level":"DEBUG","msg":"GetIndexID","VALUE":"0,1,2,3,4,5,6,7","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:51:18.644232068+08:00","level":"DEBUG","msg":"GetOccupied","VALUE":"1,1,1,1,1,1,1,1","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:51:18.644243517+08:00","level":"DEBUG","msg":"GetTemperature","VALUE":"100,100,100,100,100,100,100,100,54","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:51:18.644246846+08:00","level":"DEBUG","msg":"GetMemRate","VALUE":"22,23,22,23,19,23,22,21","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:51:18.64425074+08:00","level":"DEBUG","msg":"GetUtilizationRate","VALUE":"100,100,100,100,100,100,100,100","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:51:20.19201461+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":2,\"nodeName\":\"gpu17\",\"nodeAddress\":\"172.18.127.62\",\"occupiedList\":[{\"nodeAddress\":\"172.18.127.62\",\"gpuIndex\":\"1,2,3\"},{\"nodeAddress\":\"172.18.127.61\",\"gpuIndex\":\"1,2,3\"}]}"}
+{"time":"2023-10-16T17:51:20.192065278+08:00","level":"DEBUG","msg":"get partial GPU resource"}
+{"time":"2023-10-16T17:51:20.234482615+08:00","level":"DEBUG","msg":"resource rpc stream read over"}
+{"time":"2023-10-16T17:51:20.234499247+08:00","level":"DEBUG","msg":"GetIndexID","VALUE":"1,2,3","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:51:20.234511742+08:00","level":"DEBUG","msg":"GetOccupied","VALUE":"1,1,1","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:51:20.234514934+08:00","level":"DEBUG","msg":"GetTemperature","VALUE":"100,100,100,57","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:51:20.234518256+08:00","level":"DEBUG","msg":"GetMemRate","VALUE":"23,23,22","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:51:20.234521191+08:00","level":"DEBUG","msg":"GetUtilizationRate","VALUE":"100,100,100","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:51:28.548188849+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":1,\"nodeName\":\"gpu16\",\"nodeAddress\":\"172.18.127.61\",\"occupiedList\":[{\"nodeAddress\":\"172.18.127.1\",\"gpuIndex\":\"1,2,3\"},{\"nodeAddress\":\"172.18.127.2\",\"gpuIndex\":\"1,2,3\"}]}"}
+{"time":"2023-10-16T17:51:28.548242361+08:00","level":"DEBUG","msg":"get all GPU resource"}
+{"time":"2023-10-16T17:51:28.650619498+08:00","level":"DEBUG","msg":"resource rpc stream read over"}
+{"time":"2023-10-16T17:51:28.650634799+08:00","level":"DEBUG","msg":"GetIndexID","VALUE":"0,1,2,3,4,5,6,7","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:51:28.650639361+08:00","level":"DEBUG","msg":"GetOccupied","VALUE":"1,1,1,1,1,1,1,1","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:51:28.65064301+08:00","level":"DEBUG","msg":"GetTemperature","VALUE":"100,100,100,100,100,100,100,100,54","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:51:28.650652803+08:00","level":"DEBUG","msg":"GetMemRate","VALUE":"18,23,23,22,22,21,23,22","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:51:28.650655838+08:00","level":"DEBUG","msg":"GetUtilizationRate","VALUE":"100,100,100,100,100,100,100,100","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:51:30.19188359+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":2,\"nodeName\":\"gpu17\",\"nodeAddress\":\"172.18.127.62\",\"occupiedList\":[{\"nodeAddress\":\"172.18.127.62\",\"gpuIndex\":\"1,2,3\"},{\"nodeAddress\":\"172.18.127.61\",\"gpuIndex\":\"1,2,3\"}]}"}
+{"time":"2023-10-16T17:51:30.191931435+08:00","level":"DEBUG","msg":"get partial GPU resource"}
+{"time":"2023-10-16T17:51:30.226227957+08:00","level":"DEBUG","msg":"resource rpc stream read over"}
+{"time":"2023-10-16T17:51:30.226251663+08:00","level":"DEBUG","msg":"GetIndexID","VALUE":"1,2,3","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:51:30.2262638+08:00","level":"DEBUG","msg":"GetOccupied","VALUE":"1,1,1","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:51:30.226279145+08:00","level":"DEBUG","msg":"GetTemperature","VALUE":"100,100,100,57","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:51:30.22628865+08:00","level":"DEBUG","msg":"GetMemRate","VALUE":"23,23,23","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:51:30.22629182+08:00","level":"DEBUG","msg":"GetUtilizationRate","VALUE":"100,100,100","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:51:38.550389554+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":1,\"nodeName\":\"gpu16\",\"nodeAddress\":\"172.18.127.61\",\"occupiedList\":[{\"nodeAddress\":\"172.18.127.1\",\"gpuIndex\":\"1,2,3\"},{\"nodeAddress\":\"172.18.127.2\",\"gpuIndex\":\"1,2,3\"}]}"}
+{"time":"2023-10-16T17:51:38.550442594+08:00","level":"DEBUG","msg":"get all GPU resource"}
+{"time":"2023-10-16T17:51:38.658097311+08:00","level":"DEBUG","msg":"resource rpc stream read over"}
+{"time":"2023-10-16T17:51:38.658132908+08:00","level":"DEBUG","msg":"GetIndexID","VALUE":"0,1,2,3,4,5,6,7","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:51:38.658138594+08:00","level":"DEBUG","msg":"GetOccupied","VALUE":"1,1,1,1,1,1,1,1","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:51:38.658142122+08:00","level":"DEBUG","msg":"GetTemperature","VALUE":"100,100,100,100,100,100,100,100,54","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:51:38.658155646+08:00","level":"DEBUG","msg":"GetMemRate","VALUE":"22,21,23,22,23,23,23,23","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:51:38.65815866+08:00","level":"DEBUG","msg":"GetUtilizationRate","VALUE":"100,100,100,100,100,100,100,100","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:51:40.191585612+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":2,\"nodeName\":\"gpu17\",\"nodeAddress\":\"172.18.127.62\",\"occupiedList\":[{\"nodeAddress\":\"172.18.127.62\",\"gpuIndex\":\"1,2,3\"},{\"nodeAddress\":\"172.18.127.61\",\"gpuIndex\":\"1,2,3\"}]}"}
+{"time":"2023-10-16T17:51:40.191641387+08:00","level":"DEBUG","msg":"get partial GPU resource"}
+{"time":"2023-10-16T17:51:40.223159278+08:00","level":"DEBUG","msg":"resource rpc stream read over"}
+{"time":"2023-10-16T17:51:40.223191858+08:00","level":"DEBUG","msg":"GetIndexID","VALUE":"1,2,3","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:51:40.223197862+08:00","level":"DEBUG","msg":"GetOccupied","VALUE":"1,1,1","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:51:40.223213096+08:00","level":"DEBUG","msg":"GetTemperature","VALUE":"100,100,100,57","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:51:40.223216244+08:00","level":"DEBUG","msg":"GetMemRate","VALUE":"23,23,23","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:51:40.223219119+08:00","level":"DEBUG","msg":"GetUtilizationRate","VALUE":"100,100,100","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:51:48.554904718+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":1,\"nodeName\":\"gpu16\",\"nodeAddress\":\"172.18.127.61\",\"occupiedList\":[{\"nodeAddress\":\"172.18.127.1\",\"gpuIndex\":\"1,2,3\"},{\"nodeAddress\":\"172.18.127.2\",\"gpuIndex\":\"1,2,3\"}]}"}
+{"time":"2023-10-16T17:51:48.554961816+08:00","level":"DEBUG","msg":"get all GPU resource"}
+{"time":"2023-10-16T17:51:48.629596141+08:00","level":"DEBUG","msg":"resource rpc stream read over"}
+{"time":"2023-10-16T17:51:48.629620049+08:00","level":"DEBUG","msg":"GetIndexID","VALUE":"0,1,2,3,4,5,6,7","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:51:48.629625325+08:00","level":"DEBUG","msg":"GetOccupied","VALUE":"1,1,1,1,1,1,1,1","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:51:48.629628522+08:00","level":"DEBUG","msg":"GetTemperature","VALUE":"100,100,100,100,100,100,100,100,54","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:51:48.629632012+08:00","level":"DEBUG","msg":"GetMemRate","VALUE":"22,23,22,23,23,23,22,23","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:51:48.629635029+08:00","level":"DEBUG","msg":"GetUtilizationRate","VALUE":"100,100,100,100,100,100,100,100","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:51:50.192646919+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":2,\"nodeName\":\"gpu17\",\"nodeAddress\":\"172.18.127.62\",\"occupiedList\":[{\"nodeAddress\":\"172.18.127.62\",\"gpuIndex\":\"1,2,3\"},{\"nodeAddress\":\"172.18.127.61\",\"gpuIndex\":\"1,2,3\"}]}"}
+{"time":"2023-10-16T17:51:50.192703911+08:00","level":"DEBUG","msg":"get partial GPU resource"}
+{"time":"2023-10-16T17:51:50.236039298+08:00","level":"DEBUG","msg":"resource rpc stream read over"}
+{"time":"2023-10-16T17:51:50.236061061+08:00","level":"DEBUG","msg":"GetIndexID","VALUE":"1,2,3","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:51:50.236073053+08:00","level":"DEBUG","msg":"GetOccupied","VALUE":"1,1,1","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:51:50.236076067+08:00","level":"DEBUG","msg":"GetTemperature","VALUE":"100,100,100,57","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:51:50.236079346+08:00","level":"DEBUG","msg":"GetMemRate","VALUE":"23,23,23","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:51:50.236082264+08:00","level":"DEBUG","msg":"GetUtilizationRate","VALUE":"100,100,100","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:51:58.563345375+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":1,\"nodeName\":\"gpu16\",\"nodeAddress\":\"172.18.127.61\",\"occupiedList\":[{\"nodeAddress\":\"172.18.127.1\",\"gpuIndex\":\"1,2,3\"},{\"nodeAddress\":\"172.18.127.2\",\"gpuIndex\":\"1,2,3\"}]}"}
+{"time":"2023-10-16T17:51:58.563421246+08:00","level":"DEBUG","msg":"get all GPU resource"}
+{"time":"2023-10-16T17:51:58.652825455+08:00","level":"DEBUG","msg":"resource rpc stream read over"}
+{"time":"2023-10-16T17:51:58.652846919+08:00","level":"DEBUG","msg":"GetIndexID","VALUE":"0,1,2,3,4,5,6,7","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:51:58.652852155+08:00","level":"DEBUG","msg":"GetOccupied","VALUE":"1,1,1,1,1,1,1,1","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:51:58.652855667+08:00","level":"DEBUG","msg":"GetTemperature","VALUE":"100,100,100,100,100,100,100,100,54","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:51:58.652866455+08:00","level":"DEBUG","msg":"GetMemRate","VALUE":"23,23,23,23,23,23,23,23","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:51:58.652869494+08:00","level":"DEBUG","msg":"GetUtilizationRate","VALUE":"100,100,100,100,100,100,100,100","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:52:00.192181786+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":2,\"nodeName\":\"gpu17\",\"nodeAddress\":\"172.18.127.62\",\"occupiedList\":[{\"nodeAddress\":\"172.18.127.62\",\"gpuIndex\":\"1,2,3\"},{\"nodeAddress\":\"172.18.127.61\",\"gpuIndex\":\"1,2,3\"}]}"}
+{"time":"2023-10-16T17:52:00.192230575+08:00","level":"DEBUG","msg":"get partial GPU resource"}
+{"time":"2023-10-16T17:52:00.226792629+08:00","level":"DEBUG","msg":"resource rpc stream read over"}
+{"time":"2023-10-16T17:52:00.226817043+08:00","level":"DEBUG","msg":"GetIndexID","VALUE":"1,2,3","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:52:00.226822517+08:00","level":"DEBUG","msg":"GetOccupied","VALUE":"1,1,1","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:52:00.226825746+08:00","level":"DEBUG","msg":"GetTemperature","VALUE":"100,100,100,55","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:52:00.226836417+08:00","level":"DEBUG","msg":"GetMemRate","VALUE":"23,23,23","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:52:00.22683982+08:00","level":"DEBUG","msg":"GetUtilizationRate","VALUE":"100,100,100","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:52:08.567493836+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":1,\"nodeName\":\"gpu16\",\"nodeAddress\":\"172.18.127.61\",\"occupiedList\":[{\"nodeAddress\":\"172.18.127.1\",\"gpuIndex\":\"1,2,3\"},{\"nodeAddress\":\"172.18.127.2\",\"gpuIndex\":\"1,2,3\"}]}"}
+{"time":"2023-10-16T17:52:08.567551934+08:00","level":"DEBUG","msg":"get all GPU resource"}
+{"time":"2023-10-16T17:52:08.685193779+08:00","level":"DEBUG","msg":"resource rpc stream read over"}
+{"time":"2023-10-16T17:52:08.685227109+08:00","level":"DEBUG","msg":"GetIndexID","VALUE":"0,1,2,3,4,5,6,7","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:52:08.685232838+08:00","level":"DEBUG","msg":"GetOccupied","VALUE":"1,1,1,1,1,1,1,1","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:52:08.685252147+08:00","level":"DEBUG","msg":"GetTemperature","VALUE":"100,100,100,100,100,100,100,100,55","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:52:08.685255589+08:00","level":"DEBUG","msg":"GetMemRate","VALUE":"23,23,23,23,23,23,23,23","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:52:08.685258509+08:00","level":"DEBUG","msg":"GetUtilizationRate","VALUE":"100,100,100,100,100,100,100,100","RPC_NODE":"gpu16"}
+{"time":"2023-10-16T17:52:10.191661911+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":2,\"nodeName\":\"gpu17\",\"nodeAddress\":\"172.18.127.62\",\"occupiedList\":[{\"nodeAddress\":\"172.18.127.62\",\"gpuIndex\":\"1,2,3\"},{\"nodeAddress\":\"172.18.127.61\",\"gpuIndex\":\"1,2,3\"}]}"}
+{"time":"2023-10-16T17:52:10.191730776+08:00","level":"DEBUG","msg":"get partial GPU resource"}
+{"time":"2023-10-16T17:52:10.224619737+08:00","level":"DEBUG","msg":"resource rpc stream read over"}
+{"time":"2023-10-16T17:52:10.224649221+08:00","level":"DEBUG","msg":"GetIndexID","VALUE":"1,2,3","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:52:10.224654274+08:00","level":"DEBUG","msg":"GetOccupied","VALUE":"1,1,1","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:52:10.224668118+08:00","level":"DEBUG","msg":"GetTemperature","VALUE":"100,100,100,55","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:52:10.224671639+08:00","level":"DEBUG","msg":"GetMemRate","VALUE":"20,23,22","RPC_NODE":"gpu17"}
+{"time":"2023-10-16T17:52:10.224674464+08:00","level":"DEBUG","msg":"GetUtilizationRate","VALUE":"100,100,100","RPC_NODE":"gpu17"}
