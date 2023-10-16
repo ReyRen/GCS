@@ -1,0 +1,146 @@
+{"time":"2023-10-16T14:48:21.727812857+08:00","level":"ERROR","msg":"cntxt.Reborn error","ERR_MSG":"daemon: Resource temporarily unavailable"}
+{"time":"2023-10-16T14:48:21.727893985+08:00","level":"INFO","msg":"- - - - - - -[GCS] started - - - - - - -"}
+{"time":"2023-10-16T14:48:21.72789834+08:00","level":"DEBUG","msg":"listenResourceHandler start"}
+{"time":"2023-10-16T14:48:21.727904035+08:00","level":"DEBUG","msg":"listenHandler start"}
+{"time":"2023-10-16T14:48:21.727914103+08:00","level":"DEBUG","msg":"init job queue success"}
+{"time":"2023-10-16T14:48:21.727917381+08:00","level":"DEBUG","msg":"init worker success"}
+{"time":"2023-10-16T14:48:21.727920014+08:00","level":"DEBUG","msg":"init flowcontrol success"}
+{"time":"2023-10-16T14:48:21.728034215+08:00","level":"ERROR","msg":"ListenAndServe error","ERR_MSG":"listen tcp 172.18.127.64:8066: bind: address already in use"}
+{"time":"2023-10-16T14:48:21.728073391+08:00","level":"ERROR","msg":"ListenAndServe error","ERR_MSG":"listen tcp 172.18.127.64:8067: bind: address already in use"}
+{"time":"2023-10-16T14:48:21.728133853+08:00","level":"DEBUG","msg":"start the worker success"}
+{"time":"2023-10-16T14:49:26.733723048+08:00","level":"INFO","msg":"- - - - - - -[GCS] started - - - - - - -"}
+{"time":"2023-10-16T14:49:26.733805462+08:00","level":"DEBUG","msg":"listenResourceHandler start"}
+{"time":"2023-10-16T14:49:26.733812144+08:00","level":"DEBUG","msg":"listenHandler start"}
+{"time":"2023-10-16T14:49:26.733828448+08:00","level":"DEBUG","msg":"init job queue success"}
+{"time":"2023-10-16T14:49:26.733833577+08:00","level":"DEBUG","msg":"init worker success"}
+{"time":"2023-10-16T14:49:26.733835866+08:00","level":"DEBUG","msg":"init flowcontrol success"}
+{"time":"2023-10-16T14:49:26.733924322+08:00","level":"DEBUG","msg":"start the worker success"}
+{"time":"2023-10-16T14:50:06.255886846+08:00","level":"INFO","msg":"- - - - - - -[GCS] started - - - - - - -"}
+{"time":"2023-10-16T14:50:06.255970678+08:00","level":"DEBUG","msg":"listenResourceHandler start"}
+{"time":"2023-10-16T14:50:06.255976825+08:00","level":"DEBUG","msg":"listenHandler start"}
+{"time":"2023-10-16T14:50:06.255988149+08:00","level":"DEBUG","msg":"init job queue success"}
+{"time":"2023-10-16T14:50:06.255991443+08:00","level":"DEBUG","msg":"init worker success"}
+{"time":"2023-10-16T14:50:06.255993726+08:00","level":"DEBUG","msg":"init flowcontrol success"}
+{"time":"2023-10-16T14:50:06.256227226+08:00","level":"DEBUG","msg":"start the worker success"}
+{"time":"2023-10-16T14:51:32.613009632+08:00","level":"DEBUG","msg":"Receive HTTP request, and upgrade to websocket","SOURCE_ADDR":"10.0.10.159:53524"}
+{"time":"2023-10-16T14:51:32.613039078+08:00","level":"DEBUG","msg":"newSelectNodes done"}
+{"time":"2023-10-16T14:51:32.613042671+08:00","level":"DEBUG","msg":"newReceiveMsgContent done"}
+{"time":"2023-10-16T14:51:32.613050533+08:00","level":"DEBUG","msg":"newReceiveMsgContent done"}
+{"time":"2023-10-16T14:51:32.613069349+08:00","level":"DEBUG","msg":"newReceiveMsg initialed ok"}
+{"time":"2023-10-16T14:51:32.613072312+08:00","level":"DEBUG","msg":"newSendMsg initialed ok"}
+{"time":"2023-10-16T14:51:32.613076232+08:00","level":"DEBUG","msg":"Job initialed ok"}
+{"time":"2023-10-16T14:51:32.706608074+08:00","level":"ERROR","msg":"jsonHandler error","ERR_MSG":"json: cannot unmarshal number into Go struct field RecvMsgContent.content.toolBoxName of type string"}
+{"time":"2023-10-16T14:51:32.706623335+08:00","level":"DEBUG","msg":"receive message display","RAW_MSG":"{\"admin\":true,\"type\":1,\"content\":{\"ids\":{\"uid\":0,\"tid\":0},\"command\":\"\",\"originalModelUrl\":\"66666\",\"continuousModelUrl\":\"666\",\"resourceType\":\"gpu\",\"modelType\":6,\"frameworkType\":3,\"toolBoxName\":6,\"params\":\"6666\",\"selectedDataset\":6,\"selectedNodes\":[]}}"}
+{"time":"2023-10-16T14:51:32.706628203+08:00","level":"DEBUG","msg":"receive msg to struct display","UID":0}
+{"time":"2023-10-16T14:51:32.706647636+08:00","level":"DEBUG","msg":"get resource info"}
+{"time":"2023-10-16T14:51:32.70817589+08:00","level":"DEBUG","msg":"swarm nodeListerName","nodeListerName":"gpu17,"}
+{"time":"2023-10-16T14:51:32.708211883+08:00","level":"DEBUG","msg":"swarm nodeListerAddr","nodeListerAddr":"172.18.127.62,"}
+{"time":"2023-10-16T14:51:32.708220559+08:00","level":"DEBUG","msg":"swarm nodesListerLabel","nodesListerLabel":"SXM-A800-80G,"}
+{"time":"2023-10-16T14:51:32.708223903+08:00","level":"DEBUG","msg":"swarm nodesListerStatus","nodesListerStatus":","}
+{"time":"2023-10-16T14:51:32.712887268+08:00","level":"DEBUG","msg":"Receive HTTP request, and upgrade to websocket","SOURCE_ADDR":"10.0.10.159:53525"}
+{"time":"2023-10-16T14:51:32.712916776+08:00","level":"DEBUG","msg":"newSelectNodes done"}
+{"time":"2023-10-16T14:51:32.712919708+08:00","level":"DEBUG","msg":"newReceiveMsgContent done"}
+{"time":"2023-10-16T14:51:32.712922828+08:00","level":"DEBUG","msg":"newReceiveMsgContent done"}
+{"time":"2023-10-16T14:51:32.712934119+08:00","level":"DEBUG","msg":"newReceiveMsg initialed ok"}
+{"time":"2023-10-16T14:51:32.712936777+08:00","level":"DEBUG","msg":"newSendMsg initialed ok"}
+{"time":"2023-10-16T14:51:32.712939333+08:00","level":"DEBUG","msg":"Job initialed ok"}
+{"time":"2023-10-16T14:57:32.812892089+08:00","level":"INFO","msg":"- - - - - - -[GCS] started - - - - - - -"}
+{"time":"2023-10-16T14:57:32.812975814+08:00","level":"DEBUG","msg":"listenResourceHandler start"}
+{"time":"2023-10-16T14:57:32.812983907+08:00","level":"DEBUG","msg":"listenHandler start"}
+{"time":"2023-10-16T14:57:32.812996569+08:00","level":"DEBUG","msg":"init job queue success"}
+{"time":"2023-10-16T14:57:32.813003155+08:00","level":"DEBUG","msg":"init worker success"}
+{"time":"2023-10-16T14:57:32.813007168+08:00","level":"DEBUG","msg":"init flowcontrol success"}
+{"time":"2023-10-16T14:57:32.813150279+08:00","level":"DEBUG","msg":"start the worker success"}
+{"time":"2023-10-16T14:59:04.451448898+08:00","level":"DEBUG","msg":"Receive HTTP request, and upgrade to websocket","SOURCE_ADDR":"10.0.10.159:54198"}
+{"time":"2023-10-16T14:59:04.45148727+08:00","level":"DEBUG","msg":"newSelectNodes done"}
+{"time":"2023-10-16T14:59:04.451491219+08:00","level":"DEBUG","msg":"newReceiveMsgContent done"}
+{"time":"2023-10-16T14:59:04.451494406+08:00","level":"DEBUG","msg":"newReceiveMsgContent done"}
+{"time":"2023-10-16T14:59:04.451497418+08:00","level":"DEBUG","msg":"newReceiveMsg initialed ok"}
+{"time":"2023-10-16T14:59:04.451508772+08:00","level":"DEBUG","msg":"newSendMsg initialed ok"}
+{"time":"2023-10-16T14:59:04.451512638+08:00","level":"DEBUG","msg":"Job initialed ok"}
+{"time":"2023-10-16T14:59:04.53280929+08:00","level":"ERROR","msg":"jsonHandler error","ERR_MSG":"json: cannot unmarshal number into Go struct field RecvMsgContent.content.selectedDataset of type string"}
+{"time":"2023-10-16T14:59:04.532826409+08:00","level":"DEBUG","msg":"receive message display","RAW_MSG":"{\"admin\":true,\"type\":1,\"content\":{\"ids\":{\"uid\":0,\"tid\":0},\"command\":\"\",\"originalModelUrl\":\"66666\",\"continuousModelUrl\":\"666\",\"resourceType\":\"gpu\",\"modelType\":6,\"frameworkType\":3,\"toolBoxName\":\"6\",\"params\":\"6666\",\"selectedDataset\":6,\"selectedNodes\":[]}}"}
+{"time":"2023-10-16T14:59:04.53283178+08:00","level":"DEBUG","msg":"receive msg to struct display","UID":0}
+{"time":"2023-10-16T14:59:04.53285642+08:00","level":"DEBUG","msg":"get resource info"}
+{"time":"2023-10-16T14:59:04.534551702+08:00","level":"DEBUG","msg":"swarm nodeListerName","nodeListerName":"gpu17,"}
+{"time":"2023-10-16T14:59:04.534572732+08:00","level":"DEBUG","msg":"swarm nodeListerAddr","nodeListerAddr":"172.18.127.62,"}
+{"time":"2023-10-16T14:59:04.534575986+08:00","level":"DEBUG","msg":"swarm nodesListerLabel","nodesListerLabel":"SXM-A800-80G,"}
+{"time":"2023-10-16T14:59:04.534579042+08:00","level":"DEBUG","msg":"swarm nodesListerStatus","nodesListerStatus":","}
+{"time":"2023-10-16T14:59:04.537366585+08:00","level":"DEBUG","msg":"Receive HTTP request, and upgrade to websocket","SOURCE_ADDR":"10.0.10.159:54200"}
+{"time":"2023-10-16T14:59:04.537394864+08:00","level":"DEBUG","msg":"newSelectNodes done"}
+{"time":"2023-10-16T14:59:04.537399614+08:00","level":"DEBUG","msg":"newReceiveMsgContent done"}
+{"time":"2023-10-16T14:59:04.537420857+08:00","level":"DEBUG","msg":"newReceiveMsgContent done"}
+{"time":"2023-10-16T14:59:04.53742829+08:00","level":"DEBUG","msg":"newReceiveMsg initialed ok"}
+{"time":"2023-10-16T14:59:04.537431552+08:00","level":"DEBUG","msg":"newSendMsg initialed ok"}
+{"time":"2023-10-16T14:59:04.537434132+08:00","level":"DEBUG","msg":"Job initialed ok"}
+{"time":"2023-10-16T15:04:10.692897678+08:00","level":"DEBUG","msg":"Receive HTTP request, and upgrade to websocket","SOURCE_ADDR":"10.0.10.159:55002"}
+{"time":"2023-10-16T15:04:10.692945201+08:00","level":"DEBUG","msg":"newSelectNodes done"}
+{"time":"2023-10-16T15:04:10.692948761+08:00","level":"DEBUG","msg":"newReceiveMsgContent done"}
+{"time":"2023-10-16T15:04:10.692952191+08:00","level":"DEBUG","msg":"newReceiveMsgContent done"}
+{"time":"2023-10-16T15:04:10.692955343+08:00","level":"DEBUG","msg":"newReceiveMsg initialed ok"}
+{"time":"2023-10-16T15:04:10.692966887+08:00","level":"DEBUG","msg":"newSendMsg initialed ok"}
+{"time":"2023-10-16T15:04:10.692969814+08:00","level":"DEBUG","msg":"Job initialed ok"}
+{"time":"2023-10-16T15:04:10.770720324+08:00","level":"DEBUG","msg":"receive message display","RAW_MSG":"{\"admin\":true,\"type\":1,\"content\":{\"ids\":{\"uid\":0,\"tid\":0},\"command\":\"\",\"originalModelUrl\":\"66666\",\"continuousModelUrl\":\"666\",\"resourceType\":\"gpu\",\"modelType\":6,\"frameworkType\":3,\"toolBoxName\":\"6\",\"params\":\"6666\",\"selectedDataset\":\"6\",\"selectedNodes\":[]}}"}
+{"time":"2023-10-16T15:04:10.77073563+08:00","level":"DEBUG","msg":"receive msg to struct display","UID":0}
+{"time":"2023-10-16T15:04:10.770751348+08:00","level":"DEBUG","msg":"get resource info"}
+{"time":"2023-10-16T15:04:10.771822646+08:00","level":"DEBUG","msg":"swarm nodeListerName","nodeListerName":"gpu17,"}
+{"time":"2023-10-16T15:04:10.771840486+08:00","level":"DEBUG","msg":"swarm nodeListerAddr","nodeListerAddr":"172.18.127.62,"}
+{"time":"2023-10-16T15:04:10.771843575+08:00","level":"DEBUG","msg":"swarm nodesListerLabel","nodesListerLabel":"SXM-A800-80G,"}
+{"time":"2023-10-16T15:04:10.77184659+08:00","level":"DEBUG","msg":"swarm nodesListerStatus","nodesListerStatus":","}
+{"time":"2023-10-16T15:04:10.776584741+08:00","level":"DEBUG","msg":"Receive HTTP request, and upgrade to websocket","SOURCE_ADDR":"10.0.10.159:55003"}
+{"time":"2023-10-16T15:04:10.776617347+08:00","level":"DEBUG","msg":"newSelectNodes done"}
+{"time":"2023-10-16T15:04:10.776621972+08:00","level":"DEBUG","msg":"newReceiveMsgContent done"}
+{"time":"2023-10-16T15:04:10.776632724+08:00","level":"DEBUG","msg":"newReceiveMsgContent done"}
+{"time":"2023-10-16T15:04:10.776635212+08:00","level":"DEBUG","msg":"newReceiveMsg initialed ok"}
+{"time":"2023-10-16T15:04:10.776637821+08:00","level":"DEBUG","msg":"newSendMsg initialed ok"}
+{"time":"2023-10-16T15:04:10.776640705+08:00","level":"DEBUG","msg":"Job initialed ok"}
+{"time":"2023-10-16T15:15:55.789115588+08:00","level":"INFO","msg":"- - - - - - -[GCS] started - - - - - - -"}
+{"time":"2023-10-16T15:15:55.7891896+08:00","level":"DEBUG","msg":"listenResourceHandler start"}
+{"time":"2023-10-16T15:15:55.789195036+08:00","level":"DEBUG","msg":"listenHandler start"}
+{"time":"2023-10-16T15:15:55.78920497+08:00","level":"DEBUG","msg":"init job queue success"}
+{"time":"2023-10-16T15:15:55.789208404+08:00","level":"DEBUG","msg":"init worker success"}
+{"time":"2023-10-16T15:15:55.789210868+08:00","level":"DEBUG","msg":"init flowcontrol success"}
+{"time":"2023-10-16T15:15:55.789311006+08:00","level":"DEBUG","msg":"start the worker success"}
+{"time":"2023-10-16T15:16:11.368497062+08:00","level":"DEBUG","msg":"Receive HTTP request, and upgrade to websocket","SOURCE_ADDR":"10.0.10.159:56011"}
+{"time":"2023-10-16T15:16:11.368530532+08:00","level":"DEBUG","msg":"newSelectNodes done"}
+{"time":"2023-10-16T15:16:11.368533938+08:00","level":"DEBUG","msg":"newReceiveMsgContent done"}
+{"time":"2023-10-16T15:16:11.368539382+08:00","level":"DEBUG","msg":"newReceiveMsgContent done"}
+{"time":"2023-10-16T15:16:11.368542549+08:00","level":"DEBUG","msg":"newReceiveMsg initialed ok"}
+{"time":"2023-10-16T15:16:11.368558894+08:00","level":"DEBUG","msg":"newSendMsg initialed ok"}
+{"time":"2023-10-16T15:16:11.368578569+08:00","level":"DEBUG","msg":"Job initialed ok"}
+{"time":"2023-10-16T15:16:11.525884248+08:00","level":"DEBUG","msg":"receive message display","RAW_MSG":"{\"admin\":true,\"type\":1,\"content\":{\"ids\":{\"uid\":0,\"tid\":0},\"command\":\"\",\"originalModelUrl\":\"66666\",\"continuousModelUrl\":\"666\",\"resourceType\":\"gpu\",\"modelType\":6,\"frameworkType\":3,\"toolBoxName\":\"6\",\"params\":\"6666\",\"selectedDataset\":\"6\",\"selectedNodes\":[]}}"}
+{"time":"2023-10-16T15:16:11.525912051+08:00","level":"DEBUG","msg":"receive msg to struct display","UID":0}
+{"time":"2023-10-16T15:16:11.525935608+08:00","level":"DEBUG","msg":"get resource info"}
+{"time":"2023-10-16T15:16:11.527274635+08:00","level":"DEBUG","msg":"swarm nodeListerName","nodeListerName":["gpu17"]}
+{"time":"2023-10-16T15:16:11.527303198+08:00","level":"DEBUG","msg":"swarm nodeListerAddr","nodeListerAddr":["172.18.127.62"]}
+{"time":"2023-10-16T15:16:11.527308298+08:00","level":"DEBUG","msg":"swarm nodesListerLabel","nodesListerLabel":["SXM-A800-80G"]}
+{"time":"2023-10-16T15:16:11.527319132+08:00","level":"DEBUG","msg":"swarm nodesListerStatus","nodesListerStatus":["ready"]}
+{"time":"2023-10-16T15:16:11.542845245+08:00","level":"DEBUG","msg":"Receive HTTP request, and upgrade to websocket","SOURCE_ADDR":"10.0.10.159:56012"}
+{"time":"2023-10-16T15:16:11.542880835+08:00","level":"DEBUG","msg":"newSelectNodes done"}
+{"time":"2023-10-16T15:16:11.542890998+08:00","level":"DEBUG","msg":"newReceiveMsgContent done"}
+{"time":"2023-10-16T15:16:11.542894289+08:00","level":"DEBUG","msg":"newReceiveMsgContent done"}
+{"time":"2023-10-16T15:16:11.54289687+08:00","level":"DEBUG","msg":"newReceiveMsg initialed ok"}
+{"time":"2023-10-16T15:16:11.542899776+08:00","level":"DEBUG","msg":"newSendMsg initialed ok"}
+{"time":"2023-10-16T15:16:11.542902808+08:00","level":"DEBUG","msg":"Job initialed ok"}
+{"time":"2023-10-16T15:22:47.150561523+08:00","level":"DEBUG","msg":"Receive HTTP request, and upgrade to websocket","SOURCE_ADDR":"10.0.10.159:56647"}
+{"time":"2023-10-16T15:22:47.150614113+08:00","level":"DEBUG","msg":"newSelectNodes done"}
+{"time":"2023-10-16T15:22:47.150617982+08:00","level":"DEBUG","msg":"newReceiveMsgContent done"}
+{"time":"2023-10-16T15:22:47.150621492+08:00","level":"DEBUG","msg":"newReceiveMsgContent done"}
+{"time":"2023-10-16T15:22:47.150624079+08:00","level":"DEBUG","msg":"newReceiveMsg initialed ok"}
+{"time":"2023-10-16T15:22:47.150638611+08:00","level":"DEBUG","msg":"newSendMsg initialed ok"}
+{"time":"2023-10-16T15:22:47.150641864+08:00","level":"DEBUG","msg":"Job initialed ok"}
+{"time":"2023-10-16T15:22:47.246335976+08:00","level":"DEBUG","msg":"receive message display","RAW_MSG":"{\"admin\":true,\"type\":1,\"content\":{\"ids\":{\"uid\":0,\"tid\":0},\"command\":\"\",\"originalModelUrl\":\"66666\",\"continuousModelUrl\":\"666\",\"resourceType\":\"gpu\",\"modelType\":6,\"frameworkType\":3,\"toolBoxName\":\"6\",\"params\":\"6666\",\"selectedDataset\":\"6\",\"selectedNodes\":[]}}"}
+{"time":"2023-10-16T15:22:47.246353642+08:00","level":"DEBUG","msg":"receive msg to struct display","UID":0}
+{"time":"2023-10-16T15:22:47.246367839+08:00","level":"DEBUG","msg":"get resource info"}
+{"time":"2023-10-16T15:22:47.247540048+08:00","level":"DEBUG","msg":"swarm nodeListerName","nodeListerName":["gpu17","gpu16"]}
+{"time":"2023-10-16T15:22:47.247564178+08:00","level":"DEBUG","msg":"swarm nodeListerAddr","nodeListerAddr":["172.18.127.62","172.18.127.61"]}
+{"time":"2023-10-16T15:22:47.247569767+08:00","level":"DEBUG","msg":"swarm nodesListerLabel","nodesListerLabel":["SXM-A800-80G","SXM-A800-80G"]}
+{"time":"2023-10-16T15:22:47.24757704+08:00","level":"DEBUG","msg":"swarm nodesListerStatus","nodesListerStatus":["ready","ready"]}
+{"time":"2023-10-16T15:22:47.251693072+08:00","level":"DEBUG","msg":"Receive HTTP request, and upgrade to websocket","SOURCE_ADDR":"10.0.10.159:56649"}
+{"time":"2023-10-16T15:22:47.251732211+08:00","level":"DEBUG","msg":"newSelectNodes done"}
+{"time":"2023-10-16T15:22:47.251737633+08:00","level":"DEBUG","msg":"newReceiveMsgContent done"}
+{"time":"2023-10-16T15:22:47.251746547+08:00","level":"DEBUG","msg":"newReceiveMsgContent done"}
+{"time":"2023-10-16T15:22:47.251749023+08:00","level":"DEBUG","msg":"newReceiveMsg initialed ok"}
+{"time":"2023-10-16T15:22:47.251751726+08:00","level":"DEBUG","msg":"newSendMsg initialed ok"}
+{"time":"2023-10-16T15:22:47.251754669+08:00","level":"DEBUG","msg":"Job initialed ok"}
+{"time":"2023-10-16T15:22:53.799301627+08:00","level":"DEBUG","msg":"receive message display","RAW_MSG":"{\"type\":1,\"nodeAddress\":\"\",\"occupiedList\":[{\"nodeAddress\":\"172.18.127.1\",\"gpuIndex\":\"1,2,3\"},{\"nodeAddress\":\"172.18.127.2\",\"gpuIndex\":\"1,2,3\"}],\"nodeName\":\"gpu17\"}"}

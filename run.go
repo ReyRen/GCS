@@ -14,6 +14,7 @@ import (
 	"time"
 )
 
+/*******************单独的获取资源状况的websocket handler*******************/
 func (c *ResourceClient) resourceHandler() {
 	defer func() {
 		err := c.conn.Close()
@@ -32,7 +33,7 @@ func (c *ResourceClient) resourceHandler() {
 		}
 		message = bytes.TrimSpace(bytes.Replace(message, newline, space, -1))
 		jsonHandler(message, c.rm)
-		_ = nvme_sys_handler(c)
+		_ = c.nvme_sys_handler()
 	}
 }
 
@@ -57,6 +58,9 @@ func resourcehandler(w http.ResponseWriter, r *http.Request) {
 	go client.resourceHandler()
 }
 
+/*******************单独的获取资源状况的websocket handler*******************/
+
+/*******************任务执行的的websocket handler*******************/
 func (h *MyHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 	upgrader.CheckOrigin = func(r *http.Request) bool {
@@ -185,7 +189,6 @@ func (h *MyHandler) recvMsgHandler(conn *websocket.Conn) {
 		jsonHandler(message, receiveMsg)
 
 		slog.Debug("receive message display", "RAW_MSG", string(message))
-		slog.Debug("receive msg to struct display", "UID", receiveMsg.Content.IDs.Uid)
 		/*接收连接进来的消息*/
 
 		//将新收到的 receiveMsg 更新给当前 job
@@ -193,9 +196,15 @@ func (h *MyHandler) recvMsgHandler(conn *websocket.Conn) {
 
 		go func() {
 			switch job.receiveMsg.Type {
+			//收到信息type是 1，表示获取物理节点状态信息
 			case MESSAGE_TYPE_RESOURCE_INFO:
-				//TODO 获取物理节点状态信息（docker swarm）
-				//TODO 如果物理节点状态正常，获取 GPU 信息（nvml_system）使用 grpc
+				slog.Debug("get resource info")
+				err = resourceInfo(job)
+				if err != nil {
+					slog.Error("get resourceInfo err", "ERR_MSG", err)
+					break
+				}
+				job.sendMsgSignalChan <- struct{}{}
 			case MESSAGE_TYPE_CREATE:
 				//新建任务需要加入队列中
 				slog.Info("create task, job commit to queue")
@@ -258,3 +267,5 @@ func (h *MyHandler) sendMsgHandler(job *Job) {
 		}
 	}
 }
+
+/*******************任务执行的的websocket handler*******************/

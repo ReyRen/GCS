@@ -5,63 +5,45 @@ import (
 	"github.com/docker/docker/api/types"
 	"github.com/docker/docker/client"
 	"log/slog"
+	"strings"
 )
 
-func docker_test() {
+func resourceInfo(job *Job) error {
 	ctx := context.Background()
 
 	cli, err := client.NewClientWithOpts(client.FromEnv, client.WithAPIVersionNegotiation())
 	if err != nil {
-		panic(err)
+		slog.Error("client.NewClientWithOpts err", "ERR_MSG", err.Error())
+		return err
 	}
 
 	defer cli.Close()
-	/*swarm, err := cli.SwarmInspect(ctx)
-	//slog.Debug("swarm information", "SWARM_JoinTokens", swarm.JoinTokens.Manager)
-	slog.Debug("swarm information", "SWARM_JoinTokens", swarm.ClusterInfo.)
-	*/
+
 	swarmNodes, err := cli.NodeList(ctx, types.NodeListOptions{})
+
+	var nodesListerName []string
+	var nodesListerAddr []string
+	var nodesListerLabel []string
+	var nodesListerStatus []string
+
 	for _, v := range swarmNodes {
-		slog.Debug("swarm information", "HOSTNAME", v.Description.Hostname)
-		slog.Debug("swarm information", "STATUS", v.Status)
-		slog.Debug("swarm information", "Availability", v.Spec.Availability)
-		slog.Debug("swarm information", "Role", v.Spec.Role)
-		slog.Debug("swarm information", "Annotation_name", v.Spec.Annotations.Name)
-	}
-	/*reader, err := cli.ImagePull(ctx, "docker.io/library/alpine", types.ImagePullOptions{})
-	if err != nil {
-		panic(err)
-	}
-
-	defer reader.Close()
-	io.Copy(os.Stdout, reader)
-
-	resp, err := cli.ContainerCreate(ctx, &container.Config{
-		Image: "alpine",
-		Cmd:   []string{"echo", "hello world"},
-		Tty:   false,
-	}, nil, nil, nil, "")
-	if err != nil {
-		panic(err)
-	}
-
-	if err := cli.ContainerStart(ctx, resp.ID, types.ContainerStartOptions{}); err != nil {
-		panic(err)
-	}
-
-	statusCh, errCh := cli.ContainerWait(ctx, resp.ID, container.WaitConditionNotRunning)
-	select {
-	case err := <-errCh:
-		if err != nil {
-			panic(err)
+		if v.Spec.Role == "manager" {
+			continue
 		}
-	case <-statusCh:
+		nodesListerName = append(nodesListerName, v.Description.Hostname)
+		nodesListerAddr = append(nodesListerAddr, v.Status.Addr)
+		nodesListerLabel = append(nodesListerLabel, GPU_TYPE)
+		nodesListerStatus = append(nodesListerStatus, string(v.Status.State))
 	}
+	slog.Debug("swarm nodeListerName", "nodeListerName", nodesListerName)
+	slog.Debug("swarm nodeListerAddr", "nodeListerAddr", nodesListerAddr)
+	slog.Debug("swarm nodesListerLabel", "nodesListerLabel", nodesListerLabel)
+	slog.Debug("swarm nodesListerStatus", "nodesListerStatus", nodesListerStatus)
+	job.sendMsg.Type = 1 //这个 type 没有被前端处理
+	job.sendMsg.Content.ResourceInfo.NodesListerAddr = strings.Join(nodesListerAddr, ",")
+	job.sendMsg.Content.ResourceInfo.NodesListerName = strings.Join(nodesListerName, ",")
+	job.sendMsg.Content.ResourceInfo.NodesListerStatus = strings.Join(nodesListerStatus, ",")
+	job.sendMsg.Content.ResourceInfo.NodesListerLabel = strings.Join(nodesListerLabel, ",")
 
-	out, err := cli.ContainerLogs(ctx, resp.ID, types.ContainerLogsOptions{ShowStdout: true})
-	if err != nil {
-		panic(err)
-	}
-
-	stdcopy.StdCopy(os.Stdout, os.Stderr, out)*/
+	return nil
 }

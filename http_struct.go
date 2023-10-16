@@ -117,6 +117,7 @@ type SelectNodes struct {
 
 type ResourceInfo struct {
 	NodesListerName   string `json:"nodesListerName"`
+	NodesListerAddr   string `json:"nodesListerAddr"`
 	NodesListerLabel  string `json:"nodesListerLabel"`
 	NodesListerStatus string `json:"nodesListerStatus"`
 }
@@ -134,6 +135,7 @@ func newSendMsgContent() *SendMsgContent {
 		Log: "",
 		ResourceInfo: &ResourceInfo{
 			NodesListerName:   "",
+			NodesListerAddr:   "",
 			NodesListerLabel:  "",
 			NodesListerStatus: "",
 		},
@@ -150,23 +152,20 @@ func newSendMsg() *SendMsg {
 
 /*************RESOURCE STRUCT SET*************/
 type recvResourceMsg struct {
-	Type          int              `json:"type"`
-	OccupiedList  *[]OccupiedLists `json:"occupiedList"`
-	NodeAddress   string           `json:"nodeAddress"`
-	ContainerName string           `json:"containerName"`
+	Type         int              `json:"type"`
+	OccupiedList *[]OccupiedLists `json:"occupiedList"`
 }
 type sendResourceMsg struct {
+	NodeAddress string `json:"nodeAddress"`
 	Utilize     string `json:"utilize"`
 	MemUtilize  string `json:"memUtilize"`
 	Temperature string `json:"temp"`
 	Occupied    string `json:"occupied"`
-	Uid         string `json:"uid"`
-	Tid         string `json:"tid"`
+	GPUIndex    string `json:"gpuIndex"`
 }
 type OccupiedLists struct {
-	Uid           string `json:"uid"`
-	Tid           string `json:"tid"`
-	ContainerName string `json:"containerName"`
+	NodeAddress string `json:"nodeAddress"`
+	GPUIndex    string `json:"gpuIndex"`
 }
 type ResourceClient struct {
 	conn *websocket.Conn

@@ -2,22 +2,35 @@ package main
 
 import (
 	pb "GCS/proto"
+	"encoding/json"
+	"github.com/gorilla/websocket"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 	"io"
 	"log/slog"
-	"strconv"
 	"time"
 )
 
-func nvme_sys_handler(c *ResourceClient) error {
+func (c *ResourceClient) nvme_sys_handler() error {
+
+	for _, v := range *c.rm.OccupiedList {
+		err := c.grpcHandler(v.NodeAddress, v.GPUIndex)
+		if err != nil {
+			slog.Error("resource grpcHandler error",
+				"ERR_MSG", err.Error())
+			return err
+		}
+	}
+	return nil
+}
+
+func (c *ResourceClient) grpcHandler(addr string, gpuIdx string) error {
 	// 连接grpc服务器
-	conn, err := grpc.Dial(c.rm.NodeAddress+GCS_INFO_CATCH_GRPC_PORT, grpc.WithTransportCredentials(insecure.NewCredentials()))
+	conn, err := grpc.Dial(addr+GCS_INFO_CATCH_GRPC_PORT, grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
 		slog.Error("resource grpc.Dial get error",
-			"ERR_MSG", err.Error(),
-			"RPC_ADDR", c.rm.NodeAddress)
+			"ERR_MSG", err.Error())
 		return err
 	}
 	// 延迟关闭连接
@@ -30,11 +43,10 @@ func nvme_sys_handler(c *ResourceClient) error {
 	// 延迟关闭请求会话
 	defer cancel()
 
-	stream, err := rpcClient.NvmlUtilizationRate(ctx, &pb.NvmlInfoReuqestMsg{Type: strconv.Itoa(1)})
+	stream, err := rpcClient.NvmlUtilizationRate(ctx, &pb.NvmlInfoReuqestMsg{IndexID: gpuIdx})
 	if err != nil {
 		slog.Error(" client.NvmlUtilizationRate stream get err",
-			"ERR_MSG", err.Error(),
-			"RPC_ADDR", c.rm.NodeAddress)
+			"ERR_MSG", err.Error())
 		return err
 	}
 	for {
@@ -42,21 +54,46 @@ func nvme_sys_handler(c *ResourceClient) error {
 		resp, err := stream.Recv()
 		// err==io.EOF则表示服务端关闭stream了 退出
 		if err == io.EOF {
-			slog.Debug("resource rpc stream server closed")
+			slog.Debug("resource rpc stream read over")
 			break
 		}
 		if err != nil {
 			slog.Error("resource rpc stream server receive error",
-				"ERR_MSG", err.Error(),
-				"RPC_ADDR", c.rm.NodeAddress)
+				"ERR_MSG", err.Error())
 			continue
 		}
-		slog.Info("GetIndexID", "VALUE", resp.GetIndexID())
-		slog.Info("GetOccupied", "VALUE", resp.GetOccupied())
-		slog.Info("GetTemperature", "VALUE", resp.GetTemperature())
-		slog.Info("GetMemRate", "VALUE", resp.GetMemRate())
-		slog.Info("GetUtilizationRate", "VALUE", resp.GetUtilizationRate())
+		//组装到 sendmsg 中
+		slog.Debug("GetIndexID", "VALUE", resp.GetIndexID())
+		c.sm.GPUIndex = AssembleToRespondString(resp.GetIndexID())
+		slog.Debug("GetOccupied", "VALUE", resp.GetOccupied())
+		c.sm.Occupied = AssembleToRespondString(resp.GetOccupied())
+		slog.Debug("GetTemperature", "VALUE", resp.GetTemperature())
+		c.sm.Temperature = AssembleToRespondString(resp.GetTemperature())
+		slog.Debug("GetMemRate", "VALUE", resp.GetMemRate())
+		c.sm.MemUtilize = AssembleToRespondString(resp.GetMemRate())
+		slog.Debug("GetUtilizationRate", "VALUE", resp.GetUtilizationRate())
+		c.sm.Utilize = AssembleToRespondString(resp.GetUtilizationRate())
+
+		c.sm.NodeAddress = addr
 	}
 
+	//send
+	w, err := c.conn.NextWriter(websocket.TextMessage)
+	if err != nil {
+		slog.Error("c.conn.NextWriter error",
+			"ERR_MSG", err.Error())
+		return err
+	}
+	sdmsg, _ := json.Marshal(c.sm)
+	_, err = w.Write(sdmsg)
+	if err != nil {
+		slog.Error("w.Write error",
+			"ERR_MSG", err.Error())
+	}
+	if err := w.Close(); err != nil {
+		slog.Error("w.Close error",
+			"ERR_MSG", err.Error())
+		return err
+	}
 	return nil
 }

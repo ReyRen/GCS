@@ -20,7 +20,7 @@ func listenHandler() {
 }
 
 func listenResourceHandler() {
-	http.HandleFunc("/", func(writer http.ResponseWriter, request *http.Request) {
+	http.HandleFunc("/resource", func(writer http.ResponseWriter, request *http.Request) {
 		resourcehandler(writer, request)
 	})
 	err := http.ListenAndServe(GCS_RESOURCE_WITH_PORT, nil)

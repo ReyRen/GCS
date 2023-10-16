@@ -5,6 +5,7 @@ import (
 	"github.com/gorilla/websocket"
 	"log/slog"
 	"math/rand"
+	"strconv"
 	"time"
 )
 
@@ -12,6 +13,8 @@ const (
 	GCS_ADDR_WITH_PORT       = "172.18.127.64:8066" // gcs self address and port
 	GCS_RESOURCE_WITH_PORT   = "172.18.127.64:8067" // gcs resource self address and port
 	GCS_INFO_CATCH_GRPC_PORT = ":50001"
+
+	GPU_TYPE = "SXM-A800-80G"
 
 	MESSAGE_TYPE_RESOURCE_INFO = 1
 	MESSAGE_TYPE_CREATE        = 2
@@ -51,4 +54,32 @@ func GetRandomString(l int) string {
 func GetContainerName(uid string, tid string) string {
 	randomString := GetRandomString(8)
 	return randomString + "-" + uid + "-" + tid
+}
+
+func AssembleToRespondString(raw interface{}) string {
+
+	var tmpString string
+	switch raw.(type) {
+	case int32:
+		for _, value := range raw.([]int32) {
+			if value == 99999 {
+				// error get
+				tmpString += " ,"
+				continue
+			}
+			tmpString += strconv.Itoa(int(value))
+			tmpString += ","
+		}
+	case uint32:
+		for _, value := range raw.([]uint32) {
+			if value == 99999 {
+				// error get
+				tmpString += " ,"
+				continue
+			}
+			tmpString += strconv.Itoa(int(value))
+			tmpString += ","
+		}
+	}
+	return tmpString
 }
