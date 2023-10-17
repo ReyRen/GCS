@@ -9,7 +9,6 @@ import (
 	"google.golang.org/grpc/credentials/insecure"
 	"io"
 	"log/slog"
-	"time"
 )
 
 func (c *ResourceClient) nvme_sys_handler() error {
@@ -54,11 +53,11 @@ func (c *ResourceClient) grpcHandler(addr string, gpuIdx string) error {
 	// 初始化客户端
 	rpcClient := pb.NewGcsInfoCatchServiceDockerClient(conn)
 	// 初始化上下文，设置请求超时时间为1秒
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+	//ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	// 延迟关闭请求会话
-	defer cancel()
+	//defer cancel()
 
-	stream, err := rpcClient.NvmlUtilizationRate(ctx, &pb.NvmlInfoReuqestMsg{IndexID: gpuIdx})
+	stream, err := rpcClient.NvmlUtilizationRate(context.Background(), &pb.NvmlInfoReuqestMsg{IndexID: gpuIdx})
 	if err != nil {
 		slog.Error(" client.NvmlUtilizationRate stream get err",
 			"ERR_MSG", err.Error())

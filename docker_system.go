@@ -8,6 +8,9 @@ import (
 	"strings"
 )
 
+/*
+这个函数是通过docker swarm获取到各个物理 node 的信息
+*/
 func resourceInfo(job *Job) error {
 	ctx := context.Background()
 

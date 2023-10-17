@@ -45,11 +45,12 @@ func main() {
 	}()
 	//Daemon system ready
 
-	slog.Debug("listenResourceHandler start")
+	/*slog.Debug("listenResourceHandler start")
 	go listenResourceHandler()
 
 	slog.Debug("listenHandler start")
-	go listenHandler()
+	go listenHandler()*/
+	docker_test()
 
 	<-ctx.Done()
 }

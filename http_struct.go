@@ -53,7 +53,7 @@ type Job struct {
 
 /*************QUEUE JOB HANDLE STRUCT SET*************/
 
-/*********xxxxxx xxxxx struct*********/
+/*************RECEIVE MESSAGE STRUCT SET*************/
 type Ids struct {
 	Uid int `json:"uid"`
 	Tid int `json:"tid"`
@@ -112,9 +112,12 @@ func newReceiveMsgContent() *RecvMsgContent {
 type SelectNodes struct {
 	NodeNames string `json:"nodeName"`
 	NodeIp    string `json:"nodeIp"`
-	GPUIdx    int    `json:"gpuidx"`
+	GPUIndex  string `json:"gpuIndex"`
 }
 
+/*************RECEIVE MESSAGE STRUCT SET*************/
+
+/*************SEND MESSAGE STRUCT SET*************/
 type ResourceInfo struct {
 	NodesListerName   string `json:"nodesListerName"`
 	NodesListerAddr   string `json:"nodesListerAddr"`
@@ -122,8 +125,9 @@ type ResourceInfo struct {
 	NodesListerStatus string `json:"nodesListerStatus"`
 }
 type SendMsgContent struct {
-	Log          string        `json:"log"`
-	ResourceInfo *ResourceInfo `json:"resourceInfo"`
+	Log           string `json:"log"`
+	ContainerName string
+	ResourceInfo  *ResourceInfo `json:"resourceInfo"`
 }
 type SendMsg struct {
 	Type    int             `json:"type"`
@@ -150,7 +154,9 @@ func newSendMsg() *SendMsg {
 	}
 }
 
-/*************RESOURCE STRUCT SET*************/
+/*************SEND MESSAGE STRUCT SET*************/
+
+/*************NODE RESOURCE STRUCT SET*************/
 type recvResourceMsg struct {
 	Type         int              `json:"type"`
 	NodeName     string           `json:"nodeName"`
@@ -174,4 +180,4 @@ type ResourceClient struct {
 	sm   *sendResourceMsg
 }
 
-/*************RESOURCE STRUCT SET*************/
+/*************NODE RESOURCE STRUCT SET*************/

@@ -11,6 +11,7 @@ import (
 	"io"
 	"log/slog"
 	"net/http"
+	"strconv"
 	"time"
 )
 
@@ -97,6 +98,10 @@ func (h *MyHandler) recvMsgHandler(conn *websocket.Conn) {
 		conn:       conn,
 		DoneChan:   make(chan struct{}),
 		handleJob: func(j *Job, addrWithPort string) error {
+
+			j.sendMsg.Type = TRAINNING_CREATION_SEND
+			j.sendMsgSignalChan <- struct{}{}
+
 			// 连接grpc服务器
 			conn, err := grpc.Dial(addrWithPort, grpc.WithTransportCredentials(insecure.NewCredentials()))
 			if err != nil {
@@ -112,47 +117,52 @@ func (h *MyHandler) recvMsgHandler(conn *websocket.Conn) {
 			// 初始化客户端
 			client := pb.NewGcsInfoCatchServiceDockerClient(conn)
 			// 初始化上下文，设置请求超时时间为1秒
-			ctx, cancel := context.WithTimeout(context.Background(), time.Second)
+			//ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 			// 延迟关闭请求会话
-			defer cancel()
+			//defer cancel()
 
-			// 调用获取stream
-			stream, err := client.DockerContainerImagePull(ctx, &pb.ImagePullRequestMsg{ImageName: j.receiveMsg.Content.ImageName})
-			if err != nil {
-				slog.Error(" client.DockerContainerImagePull stream get err",
-					"ERR_MSG", err.Error(),
-					"UID", j.receiveMsg.Content.IDs.Uid,
-					"TID", j.receiveMsg.Content.IDs.Tid)
-				return err
-			}
+			// create container
+			for _, v := range *j.receiveMsg.Content.SelectedNodes {
+				if v.NodeIp+GCS_INFO_CATCH_GRPC_PORT == addrWithPort {
+					stream, err := client.DockerContainerRun(context.Background(), &pb.ContainerRunRequestMsg{
+						ImageName:     j.sendMsg.Content.ContainerName,
+						ContainerName: v.GPUIndex,
+						GpuIdx:        j.receiveMsg.Content.ImageName,
+					})
 
-			// 循环获取服务端推送的消息
-			for {
-				// 通过 Recv() 不断获取服务端send()推送的消息
-				resp, err := stream.Recv()
-				// err==io.EOF则表示服务端关闭stream了 退出
-				if err == io.EOF {
-					slog.Debug("rpc stream server closed")
+					if err != nil {
+						slog.Error("rpc DockerContainerStart receive error",
+							"ERR_MSG", err.Error(),
+							"UID", j.receiveMsg.Content.IDs.Uid,
+							"TID", j.receiveMsg.Content.IDs.Tid)
+						return err
+					}
+					// 循环获取服务端推送的消息
+					for {
+						// 通过 Recv() 不断获取服务端send()推送的消息
+						resp, err := stream.Recv()
+						// err==io.EOF则表示服务端关闭stream了 退出
+						if err == io.EOF {
+							slog.Debug("rpc stream server closed")
+							break
+						}
+						if err != nil {
+							slog.Error("rpc stream server receive error",
+								"ERR_MSG", err.Error(),
+								"UID", j.receiveMsg.Content.IDs.Uid,
+								"TID", j.receiveMsg.Content.IDs.Tid)
+							break
+						}
+						//j.sendMsg.Content.Log = resp.GetImageResp()
+						slog.Debug("receive rpc image pull log",
+							"UID", j.receiveMsg.Content.IDs.Uid,
+							"TID", j.receiveMsg.Content.IDs.Tid,
+							"OTHER_MSG", resp.GetRunResp())
+					}
 					break
 				}
-				if err != nil {
-					slog.Error("rpc stream server receive error",
-						"ERR_MSG", err.Error(),
-						"UID", j.receiveMsg.Content.IDs.Uid,
-						"TID", j.receiveMsg.Content.IDs.Tid)
-					continue
-				}
-				j.sendMsg.Content.Log = resp.GetImageResp()
-				slog.Debug("receive rpc image pull log",
-					"UID", j.receiveMsg.Content.IDs.Uid,
-					"TID", j.receiveMsg.Content.IDs.Tid,
-					"OTHER_MSG", j.sendMsg.Content.Log)
-				j.sendMsg.Type = 3
-				j.sendMsgSignalChan <- struct{}{}
 			}
-
-			// TODO create container
-			//client.DockerContainerStart()
+			//查看状态
 
 			return nil
 		},
@@ -206,13 +216,17 @@ func (h *MyHandler) recvMsgHandler(conn *websocket.Conn) {
 					break
 				}
 				job.sendMsgSignalChan <- struct{}{}
-			case MESSAGE_TYPE_CREATE:
+			case MESSAGE_TYPE_START_CREATION:
 				//新建任务需要加入队列中
 				slog.Info("create task, job commit to queue")
+				//一个任务统一一个 containerName，所以先创建
+				job.sendMsg.Content.ContainerName = GetContainerName(strconv.Itoa(job.receiveMsg.Content.IDs.Uid),
+					strconv.Itoa(job.receiveMsg.Content.IDs.Tid))
+				//提交任务
 				h.flowControl.CommitJob(job)
 				slog.Info("commit job to job queue success")
 				/*
-					这是一个会阻塞的函数，直到有向job.DoneChan中写入
+					阻塞函数，直到有向job.DoneChan中写入
 				*/
 				job.WaitDone()
 				//执行完 done 就可以释放队列任务，并且此处不阻塞了
@@ -270,3 +284,103 @@ func (h *MyHandler) sendMsgHandler(job *Job) {
 }
 
 /*******************任务执行的的websocket handler*******************/
+
+func docker_test() {
+	conn, err := grpc.Dial("172.18.127.62:50001", grpc.WithTransportCredentials(insecure.NewCredentials()))
+	if err != nil {
+		slog.Error("grpc.Dial get error",
+			"ERR_MSG", err.Error())
+	}
+	// 延迟关闭连接
+	defer conn.Close()
+
+	// 初始化客户端
+	client := pb.NewGcsInfoCatchServiceDockerClient(conn)
+	// 初始化上下文，设置请求超时时间为1秒
+	//ctx, cancel := context.WithTimeout(context.Background(), 999*time.Hour)
+	// 延迟关闭请求会话
+	//defer cancel()
+
+	// create container
+	stream, err := client.DockerContainerRun(context.Background(), &pb.ContainerRunRequestMsg{
+		ImageName: "172.18.127.68:80/base-images/ubuntu22_cuda118_python311:v1.1",
+		//ImageName:     "172.18.127.68:80/web-images/229end:v1",
+		ContainerName: "ssss-1111-222-333",
+		GpuIdx:        "2,3,4",
+	})
+
+	for {
+		// 通过 Recv() 不断获取服务端send()推送的消息
+		resp, err := stream.Recv()
+		// err==io.EOF则表示服务端关闭stream了 退出
+		if err == io.EOF {
+			slog.Debug("rpc stream server closed")
+			break
+		}
+		if err != nil {
+			slog.Error("receive rpc container create log",
+				"ERR_MSG", err.Error())
+			break
+		}
+		//j.sendMsg.Content.Log = resp.GetImageResp()
+		slog.Debug("receive rpc container create log",
+			"OTHER_MSG", resp.GetRunResp())
+		if resp.GetRunResp() == "CONTAINER_RUNNING" {
+			slog.Debug("receive rpc container create log",
+				"CONTAINER_IPS", resp.GetContainerIp())
+		}
+	}
+	//查看状态
+	go func() {
+		for {
+			time.Sleep(3 * time.Second)
+			docker_status_test("ssss-1111-222-333")
+		}
+	}()
+
+	for {
+
+	}
+}
+
+// 查看状态
+func docker_status_test(containerName string) {
+	conn, err := grpc.Dial("172.18.127.62:50001", grpc.WithTransportCredentials(insecure.NewCredentials()))
+	if err != nil {
+		slog.Error("grpc.Dial get error",
+			"ERR_MSG", err.Error())
+	}
+	// 延迟关闭连接
+	defer conn.Close()
+	client := pb.NewGcsInfoCatchServiceDockerClient(conn)
+
+	stream, err := client.DockerContainerStatus(context.Background(), &pb.StatusRequestMsg{ContainerName: containerName})
+	if err != nil {
+		slog.Error("DockerContainerStatus error",
+			"ERR_MSG", err.Error())
+		return
+	}
+
+	for {
+		// 通过 Recv() 不断获取服务端send()推送的消息
+		resp, err := stream.Recv()
+		// err==io.EOF则表示服务端关闭stream了 退出
+		if err == io.EOF {
+			slog.Debug("rpc stream server closed")
+			break
+		}
+		if err != nil {
+			if resp.GetStatusResp() == "CONTAINER_REMOVE" {
+				slog.Debug("receive rpc container status",
+					"OTHER_MSG", resp.GetStatusResp())
+			} else {
+				slog.Error("receive rpc container create log",
+					"ERR_MSG", err.Error())
+			}
+			break
+		}
+		//j.sendMsg.Content.Log = resp.GetImageResp()
+		slog.Debug("receive rpc container status",
+			"OTHER_MSG", resp.GetStatusResp())
+	}
+}

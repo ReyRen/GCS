@@ -18,15 +18,17 @@ const (
 	GPU_TYPE = "SXM-A800-80G"
 
 	//这个是主 websockethandler 的
-	MESSAGE_TYPE_NODE_INFO = 1
-	MESSAGE_TYPE_CREATE    = 2
-	MESSAGE_TYPE_LOG       = 3
-	MESSAGE_TYPE_STOP      = 4
+	MESSAGE_TYPE_NODE_INFO      = 1
+	MESSAGE_TYPE_START_CREATION = 2
+	MESSAGE_TYPE_LOG            = 3
+	MESSAGE_TYPE_STOP           = 4
 
 	//这个是GPU 资源情况的 websockethandler 的
 	RESOUECE_GET_TYPE_ALL     = 1 //获取所有资源
 	RESOUECE_GET_TYPE_PARTIAL = 2 //获取gpuindex 资源
 	GPU_ALL_INDEX_STRING      = "0,1,2,3,4,5,6,7"
+
+	TRAINNING_CREATION_SEND = 10
 )
 
 // http to websocket upgrade variables
