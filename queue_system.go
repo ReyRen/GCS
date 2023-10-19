@@ -21,7 +21,6 @@ func NewFlowControl() *FlowControl {
 }
 
 func (m *WorkerManager) createWorker() error {
-
 	go func() {
 		slog.Debug("start the worker success")
 		var job *Job
@@ -34,15 +33,67 @@ func (m *WorkerManager) createWorker() error {
 				slog.Debug("pop the job",
 					"UID", job.receiveMsg.Content.IDs.Uid,
 					"TID", job.receiveMsg.Content.IDs.Tid)
-				job.Execute()
-				slog.Debug("execute job done",
-					"UID", job.receiveMsg.Content.IDs.Uid,
-					"TID", job.receiveMsg.Content.IDs.Tid)
-				job.Done()
+
+				//判断资源是否满足
+				slog.Debug("Check resource free or not")
+				free := true
+				for _, v := range *job.receiveMsg.Content.SelectedNodes {
+					// true说明有被占用
+					if checkGPUOccupiedOrNot(v.NodeAddress, v.GPUIndex) {
+						free = false
+						job.sendMsg.Type = 17 //表示资源不满足，不进行任务提交，直接返回
+						job.sendMsgSignalChan <- struct{}{}
+						break
+					} else {
+						slog.Debug("selected gpu free", "NODE_ADDR", v.NodeAddress)
+					}
+				}
+				if !free {
+					//说明资源不满足，那么就必须停止任务创建
+					slog.Debug("resource cannot use, task over")
+					job.Done()
+				} else {
+					//TODO 给 socket 发送创建容器开始
+					//给 websocket 发送创建容器开始
+					job.sendMsg.Type = 11 //表示容器创建中
+					job.sendMsgSignalChan <- struct{}{}
+					err := job.Execute()
+					if err != nil {
+						//说明创建任务的过程中，有问题
+						slog.Debug("execute job error, execute delete containers",
+							"UID", job.receiveMsg.Content.IDs.Uid,
+							"TID", job.receiveMsg.Content.IDs.Tid)
+						//TODO 给 socket 发送创建容器异常
+						//websocket 发送创建容器异常
+						job.sendMsg.Type = 18 //表示容器创建有问题
+						job.sendMsgSignalChan <- struct{}{}
+						//将该任务的容器不管有没有创建成功都删除一遍
+						for _, v := range *job.receiveMsg.Content.SelectedNodes {
+							err := dockerDeleteHandler(v.NodeAddress, job.sendMsg.Content.ContainerName)
+							if err != nil {
+								slog.Error("dockerDeleteHandler get error")
+							}
+						}
+						job.Done()
+					} else {
+						//TODO 给 socket 发送训练中
+						//给websocket 发送训练中
+						job.sendMsg.Type = 12 // 表示容器创建成功，并且执行程序了
+						job.sendMsg.Content.ContainerName = job.sendMsg.Content.ContainerName
+						err = resourceInfo(job)
+						if err != nil {
+							slog.Error("get resourceInfo err", "ERR_MSG", err)
+						}
+						job.sendMsgSignalChan <- struct{}{}
+						slog.Debug("execute job done",
+							"UID", job.receiveMsg.Content.IDs.Uid,
+							"TID", job.receiveMsg.Content.IDs.Tid)
+						job.Done()
+					}
+				}
 			}
 		}
 	}()
-
 	return nil
 }
 
@@ -54,13 +105,10 @@ func (c *FlowControl) CommitJob(job *Job) {
 }
 
 func (job *Job) Done() {
-	job.DoneChan <- struct{}{}
 	slog.Debug("job done",
 		"UID", job.receiveMsg.Content.IDs.Uid,
 		"TID", job.receiveMsg.Content.IDs.Tid)
-	if _, ok := <-job.DoneChan; ok {
-		close(job.DoneChan)
-	}
+	job.DoneChan <- struct{}{}
 }
 
 func (job *Job) WaitDone() {
@@ -74,14 +122,25 @@ func (job *Job) Execute() error {
 	slog.Debug("start execute job",
 		"UID", job.receiveMsg.Content.IDs.Uid,
 		"TID", job.receiveMsg.Content.IDs.Tid)
-	var addrWithPort string
-	for _, v := range *job.receiveMsg.Content.SelectedNodes {
-		addrWithPort = v.NodeIp + GCS_INFO_CATCH_GRPC_PORT
+	master := false
+	for k, v := range *job.receiveMsg.Content.SelectedNodes {
+		if k+1 == len(*job.receiveMsg.Content.SelectedNodes) {
+			//说明是最后一个容器的创建
+			master = true
+		}
 		slog.Debug("grpc execute to server",
-			"GRPC_SERVER", addrWithPort,
+			"GRPC_SERVER", v.NodeAddress+GCS_INFO_CATCH_GRPC_PORT,
 			"UID", job.receiveMsg.Content.IDs.Uid,
 			"TID", job.receiveMsg.Content.IDs.Tid)
-		return job.handleJob(job, addrWithPort)
+		err := job.handleJob(job, v.NodeAddress+GCS_INFO_CATCH_GRPC_PORT, v.GPUIndex, master)
+		if err != nil {
+			// 说明单个任务创建失败
+			slog.Error("grpc execute to server: execute error!!",
+				"GRPC_SERVER", v.NodeAddress+GCS_INFO_CATCH_GRPC_PORT,
+				"UID", job.receiveMsg.Content.IDs.Uid,
+				"TID", job.receiveMsg.Content.IDs.Tid)
+			return err
+		}
 	}
 	return nil
 }
@@ -99,8 +158,6 @@ func (q *JobQueue) PushJob(job *Job) {
 	slog.Debug("push the job to the jobqueue",
 		"UID", job.receiveMsg.Content.IDs.Uid,
 		"TID", job.receiveMsg.Content.IDs.Tid)
-
-	//TODO 在这里判断资源情况，如果资源情况是不满足的
 
 	/*
 		q.noticeChan是个带有 1 个缓冲区的 channel

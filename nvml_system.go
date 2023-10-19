@@ -9,6 +9,7 @@ import (
 	"google.golang.org/grpc/credentials/insecure"
 	"io"
 	"log/slog"
+	"strings"
 )
 
 func (c *ResourceClient) nvme_sys_handler() error {
@@ -67,14 +68,14 @@ func (c *ResourceClient) grpcHandler(addr string, gpuIdx string) error {
 		// 通过 Recv() 不断获取服务端send()推送的消息
 		resp, err := stream.Recv()
 		// err==io.EOF则表示服务端关闭stream了 退出
-		if err == io.EOF {
+		if err == io.EOF { //说明资源读取正常完成了，所以 break 出循环
 			slog.Debug("resource rpc stream read over")
 			break
 		}
-		if err != nil {
+		if err != nil && err != io.EOF {
 			slog.Error("resource rpc stream server receive error",
 				"ERR_MSG", err.Error())
-			continue
+			return err
 		}
 		//组装到 sendmsg 中
 		c.sm.GPUIndex = AssembleToRespondString(resp.GetIndexID())
@@ -108,4 +109,39 @@ func (c *ResourceClient) grpcHandler(addr string, gpuIdx string) error {
 		return err
 	}
 	return nil
+}
+
+func checkGPUOccupiedOrNot(addr string, gpuIndex string) bool {
+	conn, err := grpc.Dial(addr+GCS_INFO_CATCH_GRPC_PORT, grpc.WithTransportCredentials(insecure.NewCredentials()))
+	if err != nil {
+		slog.Error("resource grpc.Dial get error",
+			"ERR_MSG", err.Error())
+		return false
+	}
+	// 延迟关闭连接
+	defer conn.Close()
+
+	// 初始化客户端
+	rpcClient := pb.NewGcsInfoCatchServiceDockerClient(conn)
+
+	stream, err := rpcClient.NvmlUtilizationRate(context.Background(), &pb.NvmlInfoReuqestMsg{IndexID: gpuIndex})
+	if err != nil {
+		slog.Error(" client.NvmlUtilizationRate stream get err",
+			"ERR_MSG", err.Error())
+		return false
+	}
+
+	// 通过 Recv() 不断获取服务端send()推送的消息
+	resp, err := stream.Recv()
+	// err==io.EOF则表示服务端关闭stream了 退出
+	if err == io.EOF {
+		slog.Debug("resource rpc stream read over")
+		return true //因为只有一次读取，如果第一次读取就是 EOF，说明有问题，所以不能被使用
+	}
+	if err != nil && err != io.EOF {
+		slog.Error("resource rpc stream server receive error",
+			"ERR_MSG", err.Error())
+		return true //读取 stream 出错了，说明有问题，所以不能被使用
+	}
+	return strings.Contains(AssembleToRespondString(resp.GetOccupied()), "1")
 }

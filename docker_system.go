@@ -1,9 +1,13 @@
 package main
 
 import (
+	pb "GCS/proto"
 	"context"
 	"github.com/docker/docker/api/types"
 	"github.com/docker/docker/client"
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials/insecure"
+	"io"
 	"log/slog"
 	"strings"
 )
@@ -38,15 +42,46 @@ func resourceInfo(job *Job) error {
 		nodesListerLabel = append(nodesListerLabel, GPU_TYPE)
 		nodesListerStatus = append(nodesListerStatus, string(v.Status.State))
 	}
+
 	slog.Debug("swarm nodeListerName", "nodeListerName", nodesListerName)
 	slog.Debug("swarm nodeListerAddr", "nodeListerAddr", nodesListerAddr)
 	slog.Debug("swarm nodesListerLabel", "nodesListerLabel", nodesListerLabel)
 	slog.Debug("swarm nodesListerStatus", "nodesListerStatus", nodesListerStatus)
-	job.sendMsg.Type = 1 //这个 type 没有被前端处理
+
 	job.sendMsg.Content.ResourceInfo.NodesListerAddr = strings.Join(nodesListerAddr, ",")
 	job.sendMsg.Content.ResourceInfo.NodesListerName = strings.Join(nodesListerName, ",")
 	job.sendMsg.Content.ResourceInfo.NodesListerStatus = strings.Join(nodesListerStatus, ",")
 	job.sendMsg.Content.ResourceInfo.NodesListerLabel = strings.Join(nodesListerLabel, ",")
 
+	return nil
+}
+
+func dockerDeleteHandler(addr string, containerName string) error {
+	conn, err := grpc.Dial(addr+GCS_INFO_CATCH_GRPC_PORT, grpc.WithTransportCredentials(insecure.NewCredentials()))
+	if err != nil {
+		slog.Error("grpc.Dial get error",
+			"ERR_MSG", err.Error())
+	}
+	// 延迟关闭连接
+	defer conn.Close()
+	client := pb.NewGcsInfoCatchServiceDockerClient(conn)
+	stream, err := client.DockerContainerDelete(context.Background(), &pb.DeleteRequestMsg{ContainName: containerName})
+	for {
+		// 通过 Recv() 不断获取服务端send()推送的消息
+		resp, err := stream.Recv()
+		// err==io.EOF则表示服务端关闭stream了 退出
+		if err == io.EOF {
+			slog.Debug("delete EOF")
+			break
+		}
+		if err != nil && err != io.EOF {
+			slog.Error("receive rpc container delete",
+				"ERR_MSG", err.Error())
+			break
+			//这里如果没有对应的容器名字，会出现 delete 的错误，但是其实是正常的，所以break
+		}
+		slog.Debug("receive rpc container delete",
+			"OTHER_MSG", resp.GetDeleteResp())
+	}
 	return nil
 }

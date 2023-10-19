@@ -90,3 +90,24 @@ func AssembleToRespondString(raw interface{}) string {
 	}
 	return strings.Join(tmpString, ",")
 }
+
+/*func socketClientCreate(uid int, tid int, statusCode int) error {
+	slog.Debug("socket client creating")
+	// create socket client
+	conn, err := net.Dial("tcp", socketServer)
+	if err != nil {
+		slog.Error("")
+		Error.Printf("[%d, %d]: clientSocket err: %s\n", c.userIds.Uid, c.userIds.Tid, err)
+		return
+	}
+	defer conn.Close()
+	var socketSendMsg socketSendMsg
+	socketSendMsg.Uid = uid
+	socketSendMsg.Tid = tid
+	socketSendMsg.StatusId = statusCode
+	socketmsg, _ := json.Marshal(socketSendMsg)
+	_, err = conn.Write(socketmsg)
+	if err != nil {
+		Error.Printf("[%d, %d]: clientSocket send err: %s\n", c.userIds.Uid, c.userIds.Tid, err)
+	}
+}*/

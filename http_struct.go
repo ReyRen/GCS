@@ -47,7 +47,7 @@ type Job struct {
 	conn       *websocket.Conn
 	DoneChan   chan struct{}
 	//handleJob只执行create容器的操作，一旦容器创建成功，即可退出
-	handleJob         func(j *Job, addrWithPort string) error
+	handleJob         func(j *Job, addrWithPort string, gpuIndex string, master bool) error
 	sendMsgSignalChan chan struct{}
 }
 
@@ -60,6 +60,7 @@ type Ids struct {
 }
 type RecvMsgContent struct {
 	IDs                *Ids           `json:"ids"`
+	ContainerName      string         `json:"containerName"`
 	OriginalModelUrl   string         `json:"originalModelUrl"`
 	ContinuousModelUrl string         `json:"continuousModelUrl"`
 	ModelName          string         `json:"modelName"`
@@ -76,10 +77,12 @@ type RecvMsgContent struct {
 	CommandBox         string         `json:"cmd"`
 }
 type RecvMsg struct {
-	Type        int             `json:"type"`
-	Admin       bool            `json:"admin"`
-	Content     *RecvMsgContent `json:"content"`
-	FtpFileName string
+	Type         int             `json:"type"`
+	Admin        bool            `json:"admin"`
+	Content      *RecvMsgContent `json:"content"`
+	Paramaters   []string
+	ContainerIps []string
+	FtpFileName  string
 }
 
 func newReceiveMsg() *RecvMsg {
@@ -110,14 +113,15 @@ func newReceiveMsgContent() *RecvMsgContent {
 }
 
 type SelectNodes struct {
-	NodeNames string `json:"nodeName"`
-	NodeIp    string `json:"nodeIp"`
-	GPUIndex  string `json:"gpuIndex"`
+	NodeName    string `json:"nodeName"`
+	NodeAddress string `json:"nodeAddress"`
+	NodeLabel   string `json:"nodeLabel"`
+	GPUIndex    string `json:"gpuIndex"`
 }
 
 /*************RECEIVE MESSAGE STRUCT SET*************/
 
-/*************SEND MESSAGE STRUCT SET*************/
+/*************NODE RESOURCE MESSAGE STRUCT SET*************/
 type ResourceInfo struct {
 	NodesListerName   string `json:"nodesListerName"`
 	NodesListerAddr   string `json:"nodesListerAddr"`
@@ -125,8 +129,8 @@ type ResourceInfo struct {
 	NodesListerStatus string `json:"nodesListerStatus"`
 }
 type SendMsgContent struct {
-	Log           string `json:"log"`
-	ContainerName string
+	Log           string        `json:"log"`
+	ContainerName string        `json:"containerName"`
 	ResourceInfo  *ResourceInfo `json:"resourceInfo"`
 }
 type SendMsg struct {
@@ -154,9 +158,9 @@ func newSendMsg() *SendMsg {
 	}
 }
 
-/*************SEND MESSAGE STRUCT SET*************/
+/*************NODE RESOURCE MESSAGE STRUCT SET*************/
 
-/*************NODE RESOURCE STRUCT SET*************/
+/*************GPU RESOURCE STRUCT SET*************/
 type recvResourceMsg struct {
 	Type         int              `json:"type"`
 	NodeName     string           `json:"nodeName"`
@@ -181,3 +185,18 @@ type ResourceClient struct {
 }
 
 /*************NODE RESOURCE STRUCT SET*************/
+
+/*************SOCKET STRUCT SET*************/
+type socketSendMsg struct {
+	Uid           int                  `json:"uid"`
+	Tid           int                  `json:"tid"`
+	StatusId      int                  `json:"statusId"`
+	ContainerInfo *[]containerInfoList `json:"containerInfo"`
+	ContainerName string               `json:"containerName"`
+}
+type containerInfoList struct {
+	NodeAddress string `json:"nodeAddress"`
+	GPUIndex    string `json:"gpuIndex"`
+}
+
+/*************SOCKET STRUCT SET*************/
