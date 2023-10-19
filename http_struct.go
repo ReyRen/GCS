@@ -189,14 +189,15 @@ type ResourceClient struct {
 
 /*************SOCKET STRUCT SET*************/
 type socketSendMsg struct {
-	Uid           int                  `json:"uid"`
-	Tid           int                  `json:"tid"`
-	StatusId      int                  `json:"statusId"`
-	ContainerInfo *[]containerInfoList `json:"containerInfo"`
-	ContainerName string               `json:"containerName"`
+	Uid               int                  `json:"uid"`
+	Tid               int                  `json:"tid"`
+	StatusId          int                  `json:"statusId"`
+	ContainerInfoList *[]containerInfoList `json:"containerInfo"`
+	ContainerName     string               `json:"containerName"`
 }
 type containerInfoList struct {
 	NodeAddress string `json:"nodeAddress"`
+	NodeName    string `json:"nodeName"`
 	GPUIndex    string `json:"gpuIndex"`
 }
 

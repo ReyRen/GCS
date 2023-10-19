@@ -5,6 +5,7 @@ import (
 	"github.com/gorilla/websocket"
 	"log/slog"
 	"math/rand"
+	"net"
 	"strconv"
 	"strings"
 	"time"
@@ -29,6 +30,8 @@ const (
 	GPU_ALL_INDEX_STRING      = "0,1,2,3,4,5,6,7"
 
 	TRAINNING_CREATION_SEND = 10
+
+	socketServer = "172.18.127.66:8020"
 )
 
 // http to websocket upgrade variables
@@ -91,23 +94,35 @@ func AssembleToRespondString(raw interface{}) string {
 	return strings.Join(tmpString, ",")
 }
 
-/*func socketClientCreate(uid int, tid int, statusCode int) error {
+func socketClientCreate(job *Job, statusCode int) error {
 	slog.Debug("socket client creating")
 	// create socket client
 	conn, err := net.Dial("tcp", socketServer)
 	if err != nil {
-		slog.Error("")
-		Error.Printf("[%d, %d]: clientSocket err: %s\n", c.userIds.Uid, c.userIds.Tid, err)
-		return
+		slog.Error("socketClientCreate err", "UID", job.receiveMsg.Content.IDs.Uid, "TID", job.receiveMsg.Content.IDs.Tid)
+		return err
 	}
 	defer conn.Close()
+	var containerInfo containerInfoList
+	var tmpSlice []containerInfoList
 	var socketSendMsg socketSendMsg
-	socketSendMsg.Uid = uid
-	socketSendMsg.Tid = tid
+	socketSendMsg.Uid = job.receiveMsg.Content.IDs.Uid
+	socketSendMsg.Tid = job.receiveMsg.Content.IDs.Tid
 	socketSendMsg.StatusId = statusCode
+
+	for _, v := range *job.receiveMsg.Content.SelectedNodes {
+		containerInfo.GPUIndex = v.GPUIndex
+		containerInfo.NodeAddress = v.NodeAddress
+		containerInfo.NodeName = v.NodeName
+		tmpSlice = append(tmpSlice, containerInfo)
+	}
+	socketSendMsg.ContainerInfoList = &tmpSlice
+
 	socketmsg, _ := json.Marshal(socketSendMsg)
 	_, err = conn.Write(socketmsg)
 	if err != nil {
-		Error.Printf("[%d, %d]: clientSocket send err: %s\n", c.userIds.Uid, c.userIds.Tid, err)
+		slog.Error("socketClientCreate write err", "UID", job.receiveMsg.Content.IDs.Uid, "TID", job.receiveMsg.Content.IDs.Tid)
+		return err
 	}
-}*/
+	return nil
+}

@@ -53,17 +53,29 @@ func (m *WorkerManager) createWorker() error {
 					slog.Debug("resource cannot use, task over")
 					job.Done()
 				} else {
-					//TODO 给 socket 发送创建容器开始
+					//给 socket 发送创建容器开始
+					err := socketClientCreate(job, 4)
+					if err != nil {
+						slog.Debug("socketClientCreate error in  container creating")
+						return
+					}
+					slog.Debug("socket send:container creating")
 					//给 websocket 发送创建容器开始
 					job.sendMsg.Type = 11 //表示容器创建中
 					job.sendMsgSignalChan <- struct{}{}
-					err := job.Execute()
+					err = job.Execute()
 					if err != nil {
 						//说明创建任务的过程中，有问题
 						slog.Debug("execute job error, execute delete containers",
 							"UID", job.receiveMsg.Content.IDs.Uid,
 							"TID", job.receiveMsg.Content.IDs.Tid)
-						//TODO 给 socket 发送创建容器异常
+						//给 socket 发送创建容器异常
+						err := socketClientCreate(job, 14)
+						if err != nil {
+							slog.Debug("socketClientCreate error in  container create failed")
+							return
+						}
+						slog.Debug("socket send:container create failed")
 						//websocket 发送创建容器异常
 						job.sendMsg.Type = 18 //表示容器创建有问题
 						job.sendMsgSignalChan <- struct{}{}
@@ -76,7 +88,13 @@ func (m *WorkerManager) createWorker() error {
 						}
 						job.Done()
 					} else {
-						//TODO 给 socket 发送训练中
+						//给 socket 发送训练中
+						err := socketClientCreate(job, 6)
+						if err != nil {
+							slog.Debug("socketClientCreate error in  container running")
+							return
+						}
+						slog.Debug("socket send:container running")
 						//给websocket 发送训练中
 						job.sendMsg.Type = 12 // 表示容器创建成功，并且执行程序了
 						job.sendMsg.Content.ContainerName = job.sendMsg.Content.ContainerName

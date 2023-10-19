@@ -236,6 +236,7 @@ func (h *MyHandler) recvMsgHandler(conn *websocket.Conn) {
 				//执行完 done 就可以释放队列任务，并且此处不阻塞了
 				if job.sendMsg.Type == 12 {
 					//TODO goroutine可以进行日志传输到ftp 下了
+					// TODO 训练正常结束 7 和训练一场结束 8 返回给 socket
 				}
 
 			//收到信息type是 1，表示获取物理节点状态信息
