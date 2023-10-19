@@ -61,6 +61,7 @@ type Ids struct {
 type RecvMsgContent struct {
 	IDs                *Ids           `json:"ids"`
 	ContainerName      string         `json:"containerName"`
+	LogAddress         string         `json:"logAddress"`
 	OriginalModelUrl   string         `json:"originalModelUrl"`
 	ContinuousModelUrl string         `json:"continuousModelUrl"`
 	ModelName          string         `json:"modelName"`

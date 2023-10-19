@@ -56,6 +56,38 @@ func resourceInfo(job *Job) error {
 	return nil
 }
 
+func dockerLogHandler(job *Job) error {
+	conn, err := grpc.Dial(job.receiveMsg.Content.LogAddress+GCS_INFO_CATCH_GRPC_PORT, grpc.WithTransportCredentials(insecure.NewCredentials()))
+	if err != nil {
+		slog.Error("grpc.Dial get error",
+			"ERR_MSG", err.Error())
+		return err
+	}
+	// 延迟关闭连接
+	defer conn.Close()
+	client := pb.NewGcsInfoCatchServiceDockerClient(conn)
+	stream, err := client.DockerContainerLogs(context.Background(), &pb.LogsRequestMsg{ContainerName: job.receiveMsg.Content.ContainerName})
+	for {
+		// 通过 Recv() 不断获取服务端send()推送的消息
+		resp, err := stream.Recv()
+		// err==io.EOF则表示服务端关闭stream了 退出
+		if err == io.EOF {
+			slog.Debug("log EOF")
+			break
+		}
+		if err != nil && err != io.EOF {
+			slog.Error("receive rpc container delete",
+				"ERR_MSG", err.Error())
+			return err
+		}
+		job.sendMsg.Content.Log = resp.GetLogsResp()
+		job.sendMsgSignalChan <- struct{}{}
+		slog.Debug("receive rpc container delete",
+			"OTHER_MSG", resp.GetLogsResp())
+	}
+	return nil
+}
+
 func dockerDeleteHandler(addr string, containerName string) error {
 	conn, err := grpc.Dial(addr+GCS_INFO_CATCH_GRPC_PORT, grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {

@@ -13,7 +13,6 @@ import (
 	"net/http"
 	"strconv"
 	"strings"
-	"time"
 )
 
 /*******************单独的获取资源状况的websocket handler*******************/
@@ -196,7 +195,6 @@ func (h *MyHandler) recvMsgHandler(conn *websocket.Conn) {
 		if _, ok := <-job.sendMsgSignalChan; ok {
 			close(job.sendMsgSignalChan)
 		}
-		/* TODO pop队列 */
 	}()
 
 	go h.sendMsgHandler(job)
@@ -236,6 +234,9 @@ func (h *MyHandler) recvMsgHandler(conn *websocket.Conn) {
 				*/
 				job.WaitDone()
 				//执行完 done 就可以释放队列任务，并且此处不阻塞了
+				if job.sendMsg.Type == 12 {
+					//TODO goroutine可以进行日志传输到ftp 下了
+				}
 
 			//收到信息type是 1，表示获取物理节点状态信息
 			case MESSAGE_TYPE_NODE_INFO:
@@ -247,10 +248,20 @@ func (h *MyHandler) recvMsgHandler(conn *websocket.Conn) {
 				}
 				job.sendMsgSignalChan <- struct{}{}
 			case MESSAGE_TYPE_LOG:
-				//TODO 获取容器日志
-				//TODO 如果发现获取日志出现 EOF，说明日志结束，name 就执行delete操作
+				//获取容器日志
+				err := dockerLogHandler(job)
+				if err != nil {
+					slog.Error("dockerLogHandler get error", "ERR_MSG", err.Error())
+					return
+				}
 			case MESSAGE_TYPE_STOP:
-				//TODO 任务停止（docker_system） 使用 grpc
+				//任务停止（docker_system） 使用 grpc
+				for _, v := range *job.receiveMsg.Content.SelectedNodes {
+					err := dockerDeleteHandler(v.NodeAddress, job.sendMsg.Content.ContainerName)
+					if err != nil {
+						slog.Error("dockerDeleteHandler get error")
+					}
+				}
 			default:
 				slog.Warn("receive message type not implemented", "OTHER_MSG", job.receiveMsg.Type)
 			}
@@ -300,117 +311,7 @@ func (h *MyHandler) sendMsgHandler(job *Job) {
 
 /*******************任务执行的的websocket handler*******************/
 
-func docker_test() {
-	conn, err := grpc.Dial("172.18.127.62:50001", grpc.WithTransportCredentials(insecure.NewCredentials()))
-	if err != nil {
-		slog.Error("grpc.Dial get error",
-			"ERR_MSG", err.Error())
-	}
-	// 延迟关闭连接
-	defer conn.Close()
-
-	// 初始化客户端
-	client := pb.NewGcsInfoCatchServiceDockerClient(conn)
-	// 初始化上下文，设置请求超时时间为1秒
-	//ctx, cancel := context.WithTimeout(context.Background(), 999*time.Hour)
-	// 延迟关闭请求会话
-	//defer cancel()
-
-	// create container
-	stream, err := client.DockerContainerRun(context.Background(), &pb.ContainerRunRequestMsg{
-		ImageName:     "172.18.127.68:80/base-images/ubuntu22_cuda118_python311:v1.1",
-		ContainerName: "ssss-1111-222-333",
-		GpuIdx:        "2,3,4",
-		Master:        true,
-		Paramaters:    "--A sss --B sdd --C ss",
-	})
-
-	for {
-		// 通过 Recv() 不断获取服务端send()推送的消息
-		resp, err := stream.Recv()
-		// err==io.EOF则表示服务端关闭stream了 退出
-		if err == io.EOF {
-			slog.Debug("111rpc stream server closed")
-			break
-		}
-		if err != nil {
-			slog.Error("receive rpc container create log",
-				"ERR_MSG", err.Error())
-			break
-		}
-		slog.Debug("receive rpc container create",
-			"OTHER_MSG", resp.GetRunResp())
-		//j.sendMsg.Content.Log = resp.GetImageResp()
-
-		if resp.GetRunResp() == "CONTAINER_RUNNING" {
-			slog.Debug("receive rpc container create",
-				"CONTAINER_IPS", resp.GetContainerIp())
-		}
-		//查看状态
-		go func() {
-			for {
-				time.Sleep(3 * time.Second)
-				err := docker_status_test("ssss-1111-222-333")
-				if err != nil {
-					break
-				}
-				/*err = docker_exec_test()
-				if err != nil {
-					break
-				}*/
-				err = docker_log_test("ssss-1111-222-333")
-				if err != nil {
-					break
-				}
-			}
-		}()
-	}
-	for {
-
-	}
-}
-
-// 查看日志
-func docker_log_test(containerName string) error {
-	conn, err := grpc.Dial("172.18.127.62:50001", grpc.WithTransportCredentials(insecure.NewCredentials()))
-	if err != nil {
-		slog.Error("grpc.Dial get error",
-			"ERR_MSG", err.Error())
-	}
-	// 延迟关闭连接
-	defer conn.Close()
-	client := pb.NewGcsInfoCatchServiceDockerClient(conn)
-	stream, err := client.DockerContainerLogs(context.Background(), &pb.LogsRequestMsg{ContainerName: containerName})
-	if err != nil {
-		slog.Error("DockerContainerLogs error",
-			"ERR_MSG", err.Error())
-		return err
-	}
-	for {
-		// 通过 Recv() 不断获取服务端send()推送的消息
-		resp, err := stream.Recv()
-		// err==io.EOF则表示服务端关闭stream了 退出
-		if err == io.EOF {
-			slog.Debug("rpc stream server closed")
-			return nil
-		}
-		if err != nil {
-			slog.Error("receive rpc container log",
-				"ERR_MSG", err.Error())
-			return err
-		}
-		/*if resp.GetStatusResp() == "CONTAINER_REMOVE" {
-			slog.Debug("receive rpc container status",
-				"OTHER_MSG", resp.GetStatusResp())
-		}*/
-		//j.sendMsg.Content.Log = resp.GetImageResp()
-		slog.Debug("receive rpc container log",
-			"OTHER_MSG", resp.GetLogsResp())
-		//return nil
-	}
-}
-
-// 查看状态
+/*// 查看状态
 func docker_status_test(containerName string) error {
 	conn, err := grpc.Dial("172.18.127.62:50001", grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
@@ -445,4 +346,4 @@ func docker_status_test(containerName string) error {
 		slog.Debug("receive rpc container status",
 			"OTHER_MSG", resp.GetStatusResp())
 	}
-}
+}*/
