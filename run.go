@@ -216,9 +216,22 @@ func (h *MyHandler) recvMsgHandler(conn *websocket.Conn) {
 		//将新收到的 receiveMsg 更新给当前 job
 		job.receiveMsg = receiveMsg
 
+		//初始化日志文件
+		job.receiveMsg.LogPathName = LOG_STOR_PRE_PATH +
+			strconv.Itoa(job.receiveMsg.Content.IDs.Uid) +
+			"/" +
+			strconv.Itoa(job.receiveMsg.Content.IDs.Tid) +
+			"/log/log.txt"
+
 		go func() {
 			switch job.receiveMsg.Type {
 			case MESSAGE_TYPE_START_CREATION:
+				if len(*job.receiveMsg.Content.SelectedNodes) == 0 {
+					//表示传入的参数有问题，不能开始训练（这个应该前段限制，这里也做一下限制吧）
+					slog.Error("Get create message invalid.return back!!!")
+					break
+				}
+
 				job.sendMsg.Type = 10 //表示训练指令已发送
 				job.sendMsgSignalChan <- struct{}{}
 				//新建任务需要加入队列中
@@ -235,8 +248,12 @@ func (h *MyHandler) recvMsgHandler(conn *websocket.Conn) {
 				job.WaitDone()
 				//执行完 done 就可以释放队列任务，并且此处不阻塞了
 				if job.sendMsg.Type == 12 {
-					//TODO goroutine可以进行日志传输到ftp 下了
-					// TODO 训练正常结束 7 和训练一场结束 8 返回给 socket
+					go func() {
+						err := logStoreHandler(job)
+						if err != nil {
+							return
+						}
+					}()
 				}
 
 			//收到信息type是 1，表示获取物理节点状态信息
@@ -262,6 +279,15 @@ func (h *MyHandler) recvMsgHandler(conn *websocket.Conn) {
 					if err != nil {
 						slog.Error("dockerDeleteHandler get error")
 					}
+				}
+				// 给 ws返回 13 表示训练正常结束
+				job.sendMsg.Type = 13
+				job.sendMsgSignalChan <- struct{}{}
+				// 给 socket 返回 7训练结束
+				err := socketClientCreate(job, 7)
+				if err != nil {
+					slog.Debug("socketClientCreate error in container delete")
+					return
 				}
 			default:
 				slog.Warn("receive message type not implemented", "OTHER_MSG", job.receiveMsg.Type)

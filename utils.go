@@ -18,6 +18,9 @@ const (
 
 	GPU_TYPE = "SXM-A800-80G"
 
+	//LOG_STOR_PRE_PATH = "/storage-ftp-data/user/"
+	LOG_STOR_PRE_PATH = "/home/ftper/ftp/user/"
+
 	//这个是主 websockethandler 的
 	MESSAGE_TYPE_NODE_INFO      = 1
 	MESSAGE_TYPE_START_CREATION = 2

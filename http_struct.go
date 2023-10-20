@@ -83,7 +83,7 @@ type RecvMsg struct {
 	Content      *RecvMsgContent `json:"content"`
 	Paramaters   []string
 	ContainerIps []string
-	FtpFileName  string
+	LogPathName  string
 }
 
 func newReceiveMsg() *RecvMsg {
@@ -93,7 +93,7 @@ func newReceiveMsg() *RecvMsg {
 		Type:        -1,
 		Admin:       false,
 		Content:     receiveMsgContent,
-		FtpFileName: "",
+		LogPathName: "",
 	}
 }
 

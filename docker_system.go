@@ -56,6 +56,45 @@ func resourceInfo(job *Job) error {
 	return nil
 }
 
+func logStoreHandler(job *Job) error {
+	conn, err := grpc.Dial(job.receiveMsg.Content.LogAddress+GCS_INFO_CATCH_GRPC_PORT, grpc.WithTransportCredentials(insecure.NewCredentials()))
+	if err != nil {
+		slog.Error("grpc.Dial get error",
+			"ERR_MSG", err.Error())
+		return err
+	}
+	// 延迟关闭连接
+	defer conn.Close()
+	client := pb.NewGcsInfoCatchServiceDockerClient(conn)
+	stor, err := client.DockerLogStor(context.Background(), &pb.DockerLogStorReqMsg{
+		LogFilePath:   job.receiveMsg.LogPathName,
+		ContainerName: job.receiveMsg.Content.ContainerName,
+	})
+	if err != nil && err != io.EOF {
+		slog.Error("DockerLogStor get error", "ERR_MSG", err.Error())
+		return err
+	}
+	if stor.GetLogStorResp() == "LOGSTOR_OVER" {
+		// EOF get 进行删除工作
+		for _, v := range *job.receiveMsg.Content.SelectedNodes {
+			err := dockerDeleteHandler(v.NodeAddress, job.sendMsg.Content.ContainerName)
+			if err != nil {
+				slog.Error("dockerDeleteHandler get error")
+			}
+		}
+		// 给 ws返回 13 表示训练正常结束
+		job.sendMsg.Type = 13
+		job.sendMsgSignalChan <- struct{}{}
+		// 给 socket 返回 7训练结束
+		err := socketClientCreate(job, 7)
+		if err != nil {
+			slog.Debug("socketClientCreate error in logstor")
+		}
+	}
+
+	return nil
+}
+
 func dockerLogHandler(job *Job) error {
 	conn, err := grpc.Dial(job.receiveMsg.Content.LogAddress+GCS_INFO_CATCH_GRPC_PORT, grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
