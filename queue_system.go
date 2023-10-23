@@ -145,6 +145,7 @@ func (job *Job) Execute() error {
 		if k+1 == len(*job.receiveMsg.Content.SelectedNodes) {
 			//说明是最后一个容器的创建
 			master = true
+			job.receiveMsg.Content.LogAddress = v.NodeAddress
 		}
 		slog.Debug("grpc execute to server",
 			"GRPC_SERVER", v.NodeAddress+GCS_INFO_CATCH_GRPC_PORT,

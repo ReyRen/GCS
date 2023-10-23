@@ -217,10 +217,13 @@ func (h *MyHandler) recvMsgHandler(conn *websocket.Conn) {
 		job.receiveMsg = receiveMsg
 
 		//初始化日志文件
+		/*job.receiveMsg.LogPathName = LOG_STOR_PRE_PATH +
+		strconv.Itoa(job.receiveMsg.Content.IDs.Uid) +
+		"/" +
+		strconv.Itoa(job.receiveMsg.Content.IDs.Tid) +
+		"/log/log.txt"*/
 		job.receiveMsg.LogPathName = LOG_STOR_PRE_PATH +
 			strconv.Itoa(job.receiveMsg.Content.IDs.Uid) +
-			"/" +
-			strconv.Itoa(job.receiveMsg.Content.IDs.Tid) +
 			"/log/log.txt"
 
 		go func() {
@@ -275,7 +278,7 @@ func (h *MyHandler) recvMsgHandler(conn *websocket.Conn) {
 			case MESSAGE_TYPE_STOP:
 				//任务停止（docker_system） 使用 grpc
 				for _, v := range *job.receiveMsg.Content.SelectedNodes {
-					err := dockerDeleteHandler(v.NodeAddress, job.sendMsg.Content.ContainerName)
+					err := dockerDeleteHandler(v.NodeAddress, job.receiveMsg.Content.ContainerName)
 					if err != nil {
 						slog.Error("dockerDeleteHandler get error")
 					}
