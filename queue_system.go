@@ -41,7 +41,7 @@ func (m *WorkerManager) createWorker() error {
 					// true说明有被占用
 					if checkGPUOccupiedOrNot(v.NodeAddress, v.GPUIndex) {
 						free = false
-						job.sendMsg.Type = 17 //表示资源不满足，不进行任务提交，直接返回
+						job.sendMsg.Type = 11 //表示资源不满足，不进行任务提交，直接返回
 						job.sendMsgSignalChan <- struct{}{}
 						break
 					} else {
@@ -61,7 +61,7 @@ func (m *WorkerManager) createWorker() error {
 					}
 					slog.Debug("socket send:container creating")
 					//给 websocket 发送创建容器开始
-					job.sendMsg.Type = 11 //表示容器创建中
+					job.sendMsg.Type = 12 //表示容器创建中
 					job.sendMsgSignalChan <- struct{}{}
 					err = job.Execute()
 					if err != nil {
@@ -70,14 +70,14 @@ func (m *WorkerManager) createWorker() error {
 							"UID", job.receiveMsg.Content.IDs.Uid,
 							"TID", job.receiveMsg.Content.IDs.Tid)
 						//给 socket 发送创建容器异常
-						err := socketClientCreate(job, 14)
+						err := socketClientCreate(job, 401)
 						if err != nil {
 							slog.Debug("socketClientCreate error in  container create failed")
 							return
 						}
 						slog.Debug("socket send:container create failed")
 						//websocket 发送创建容器异常
-						job.sendMsg.Type = 18 //表示容器创建有问题
+						job.sendMsg.Type = 14 //表示容器创建有问题
 						job.sendMsgSignalChan <- struct{}{}
 						//将该任务的容器不管有没有创建成功都删除一遍
 						for _, v := range *job.receiveMsg.Content.SelectedNodes {
@@ -96,7 +96,7 @@ func (m *WorkerManager) createWorker() error {
 						}
 						slog.Debug("socket send:container running")
 						//给websocket 发送训练中
-						job.sendMsg.Type = 12 // 表示容器创建成功，并且执行程序了
+						job.sendMsg.Type = 13 // 表示容器创建成功，并且执行程序了
 						job.sendMsg.Content.ContainerName = job.sendMsg.Content.ContainerName
 						err = resourceInfo(job)
 						if err != nil {

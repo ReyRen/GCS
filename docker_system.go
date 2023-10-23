@@ -83,7 +83,7 @@ func logStoreHandler(job *Job) error {
 			}
 		}
 		// 给 ws返回 13 表示训练正常结束
-		job.sendMsg.Type = 13
+		job.sendMsg.Type = 15
 		job.sendMsgSignalChan <- struct{}{}
 		// 给 socket 返回 7训练结束
 		err := socketClientCreate(job, 7)
@@ -119,6 +119,7 @@ func dockerLogHandler(job *Job) error {
 				"ERR_MSG", err.Error())
 			return err
 		}
+		job.sendMsg.Type = 3 //发送日志
 		job.sendMsg.Content.Log = resp.GetLogsResp()
 		job.sendMsgSignalChan <- struct{}{}
 		slog.Debug("receive rpc container delete",

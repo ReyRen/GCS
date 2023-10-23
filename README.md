@@ -2,7 +2,7 @@
 graceful container schedule for AI trainning, support Infiniband, GDRDMA
 
 ## 简介
-这个程序需要和 grpc 客户端程序进行交互 https://github.com/ReyRen/GCS-Info-Catch。 如图为两者之间的关系。
+这个程序需要和 grpc 客户端程序进行交互 https://github.com/ReyRen/GCS-Info-Catch 如图为两者之间的关系。
 
 GCS（Graceful Container Schedule）主要是摒弃了在分布式训练中使用kubernetes/slurm等训练集群，完全轻量化的部署，
 轻量化的使用。通过这样，可以除去冗余的部分，精准做到以下特点：
@@ -18,7 +18,7 @@ GCS（Graceful Container Schedule）主要是摒弃了在分布式训练中使�
 
 
 ## 大体使用方式
-1. 安装 https://golang.google.cn/doc/install. 这里使用的是v1.21.2
+1. 安装 https://golang.google.cn/doc/install 这里使用的是v1.21.2
 2. 环境变量设置为(.bashrc下)
 ```shell
   export PATH=$PATH:/usr/local/go/bin
@@ -30,3 +30,8 @@ GCS（Graceful Container Schedule）主要是摒弃了在分布式训练中使�
 4. 相应的镜像仓库/http、ftp /大容量告诉存储挂载，这些都准备好
 5. Docker 默认安装好（最新版本），nvidia-docker 安装好并且设置为默认 runtime
 6. 执行 make run即可
+7. 主节点上启动docker swarm（这是唯一没有用代码替代的，用来保证不同物理节点上的容器之间的通讯）
+```shell
+    docker swarm init --advertise-addr=materIP
+    docker network create -d overlay --attachable a800-attachable-overlay-network
+```

@@ -35,7 +35,7 @@ func (c *ResourceClient) resourceHandler() {
 		message = bytes.TrimSpace(bytes.Replace(message, newline, space, -1))
 		slog.Debug("receive resource message display", "RAW_MSG", string(message))
 		jsonHandler(message, c.rm)
-		_ = c.nvme_sys_handler()
+		_ = c.nvml_sys_handler()
 	}
 }
 
@@ -247,7 +247,7 @@ func (h *MyHandler) recvMsgHandler(conn *websocket.Conn) {
 				*/
 				job.WaitDone()
 				//执行完 done 就可以释放队列任务，并且此处不阻塞了
-				if job.sendMsg.Type == 12 {
+				if job.sendMsg.Type == 13 {
 					go func() {
 						err := logStoreHandler(job)
 						if err != nil {
@@ -281,7 +281,7 @@ func (h *MyHandler) recvMsgHandler(conn *websocket.Conn) {
 					}
 				}
 				// 给 ws返回 13 表示训练正常结束
-				job.sendMsg.Type = 13
+				job.sendMsg.Type = 15
 				job.sendMsgSignalChan <- struct{}{}
 				// 给 socket 返回 7训练结束
 				err := socketClientCreate(job, 7)

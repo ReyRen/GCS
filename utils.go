@@ -12,14 +12,17 @@ import (
 )
 
 const (
+	//GCS log 文件名以及路径
+	GCS_LOG_PATH = "./log/gcs.log"
+
 	GCS_ADDR_WITH_PORT       = "172.18.127.64:8066" // gcs self address and port
 	GCS_RESOURCE_WITH_PORT   = "172.18.127.64:8067" // gcs resource self address and port
 	GCS_INFO_CATCH_GRPC_PORT = ":50001"
 
 	GPU_TYPE = "SXM-A800-80G"
 
-	//LOG_STOR_PRE_PATH = "/storage-ftp-data/user/"
-	LOG_STOR_PRE_PATH = "/home/ftper/ftp/user/"
+	LOG_STOR_PRE_PATH = "/storage-ftp-data/user/"
+	//LOG_STOR_PRE_PATH = "/home/ftper/ftp/user/"
 
 	//这个是主 websockethandler 的
 	MESSAGE_TYPE_NODE_INFO      = 1
@@ -106,20 +109,22 @@ func socketClientCreate(job *Job, statusCode int) error {
 		return err
 	}
 	defer conn.Close()
-	var containerInfo containerInfoList
-	var tmpSlice []containerInfoList
+	//var containerInfo containerInfoList
+	//var tmpSlice []containerInfoList
 	var socketSendMsg socketSendMsg
 	socketSendMsg.Uid = job.receiveMsg.Content.IDs.Uid
 	socketSendMsg.Tid = job.receiveMsg.Content.IDs.Tid
+	socketSendMsg.ContainerName = job.sendMsg.Content.ContainerName
 	socketSendMsg.StatusId = statusCode
-
-	for _, v := range *job.receiveMsg.Content.SelectedNodes {
-		containerInfo.GPUIndex = v.GPUIndex
-		containerInfo.NodeAddress = v.NodeAddress
-		containerInfo.NodeName = v.NodeName
-		tmpSlice = append(tmpSlice, containerInfo)
-	}
-	socketSendMsg.ContainerInfoList = &tmpSlice
+	/*
+		for _, v := range *job.receiveMsg.Content.SelectedNodes {
+			containerInfo.GPUIndex = v.GPUIndex
+			containerInfo.NodeAddress = v.NodeAddress
+			containerInfo.NodeName = v.NodeName
+			tmpSlice = append(tmpSlice, containerInfo)
+		}
+		socketSendMsg.ContainerInfoList = &tmpSlice
+	*/
 
 	socketmsg, _ := json.Marshal(socketSendMsg)
 	_, err = conn.Write(socketmsg)

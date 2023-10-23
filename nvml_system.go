@@ -12,7 +12,7 @@ import (
 	"strings"
 )
 
-func (c *ResourceClient) nvme_sys_handler() error {
+func (c *ResourceClient) nvml_sys_handler() error {
 
 	switch c.rm.Type {
 	case RESOUECE_GET_TYPE_ALL:

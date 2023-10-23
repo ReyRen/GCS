@@ -1,7 +1,392 @@
-{"time":"2023-10-20T15:20:49.296567413+08:00","level":"INFO","msg":"- - - - - - -[GCS] started - - - - - - -"}
-{"time":"2023-10-20T15:20:49.296659341+08:00","level":"DEBUG","msg":"listenResourceHandler start"}
-{"time":"2023-10-20T15:20:49.296668748+08:00","level":"DEBUG","msg":"listenHandler start"}
-{"time":"2023-10-20T15:20:49.296682603+08:00","level":"DEBUG","msg":"init job queue success"}
-{"time":"2023-10-20T15:20:49.296686748+08:00","level":"DEBUG","msg":"init worker success"}
-{"time":"2023-10-20T15:20:49.296689554+08:00","level":"DEBUG","msg":"init flowcontrol success"}
-{"time":"2023-10-20T15:20:49.296759165+08:00","level":"DEBUG","msg":"start the worker success"}
+{"time":"2023-10-20T19:20:47.647555409+08:00","level":"ERROR","msg":"cntxt.Reborn error","ERR_MSG":"daemon: Resource temporarily unavailable"}
+{"time":"2023-10-20T19:20:47.647637236+08:00","level":"INFO","msg":"- - - - - - -[GCS] started - - - - - - -"}
+{"time":"2023-10-20T19:20:47.647641306+08:00","level":"DEBUG","msg":"listenResourceHandler start"}
+{"time":"2023-10-20T19:20:47.647645596+08:00","level":"DEBUG","msg":"listenHandler start"}
+{"time":"2023-10-20T19:20:47.647656047+08:00","level":"DEBUG","msg":"init job queue success"}
+{"time":"2023-10-20T19:20:47.647659206+08:00","level":"DEBUG","msg":"init worker success"}
+{"time":"2023-10-20T19:20:47.647661372+08:00","level":"DEBUG","msg":"init flowcontrol success"}
+{"time":"2023-10-20T19:20:47.647790953+08:00","level":"ERROR","msg":"ListenAndServe error","ERR_MSG":"listen tcp 172.18.127.64:8066: bind: address already in use"}
+{"time":"2023-10-20T19:20:47.647813512+08:00","level":"ERROR","msg":"ListenAndServe error","ERR_MSG":"listen tcp 172.18.127.64:8067: bind: address already in use"}
+{"time":"2023-10-20T19:20:47.647873145+08:00","level":"DEBUG","msg":"start the worker success"}
+{"time":"2023-10-20T19:20:55.385853255+08:00","level":"INFO","msg":"- - - - - - -[GCS] started - - - - - - -"}
+{"time":"2023-10-20T19:20:55.385939483+08:00","level":"DEBUG","msg":"listenResourceHandler start"}
+{"time":"2023-10-20T19:20:55.385947749+08:00","level":"DEBUG","msg":"listenHandler start"}
+{"time":"2023-10-20T19:20:55.385960823+08:00","level":"DEBUG","msg":"init job queue success"}
+{"time":"2023-10-20T19:20:55.385965256+08:00","level":"DEBUG","msg":"init worker success"}
+{"time":"2023-10-20T19:20:55.385967924+08:00","level":"DEBUG","msg":"init flowcontrol success"}
+{"time":"2023-10-20T19:20:55.38607606+08:00","level":"DEBUG","msg":"start the worker success"}
+{"time":"2023-10-20T19:22:48.143730356+08:00","level":"DEBUG","msg":"Receive HTTP request, and upgrade to websocket","SOURCE_ADDR":"10.0.10.159:56387"}
+{"time":"2023-10-20T19:22:48.143761831+08:00","level":"DEBUG","msg":"newSelectNodes done"}
+{"time":"2023-10-20T19:22:48.143765415+08:00","level":"DEBUG","msg":"newReceiveMsgContent done"}
+{"time":"2023-10-20T19:22:48.143768837+08:00","level":"DEBUG","msg":"newReceiveMsgContent done"}
+{"time":"2023-10-20T19:22:48.143780329+08:00","level":"DEBUG","msg":"newReceiveMsg initialed ok"}
+{"time":"2023-10-20T19:22:48.143783272+08:00","level":"DEBUG","msg":"newSendMsg initialed ok"}
+{"time":"2023-10-20T19:22:48.143786161+08:00","level":"DEBUG","msg":"Job initialed ok"}
+{"time":"2023-10-20T19:22:48.144025015+08:00","level":"DEBUG","msg":"Receive HTTP Resource request, and upgrade to websocket","SOURCE_ADDR":"10.0.10.159:56388"}
+{"time":"2023-10-20T19:22:48.166817391+08:00","level":"DEBUG","msg":"receive message display","RAW_MSG":"{\"admin\":false,\"type\":1,\"content\":{\"ids\":{\"uid\":6,\"tid\":236},\"command\":\"\",\"containerName\":\"\",\"logAddress\":\"\",\"modelName\":null,\"originalModelUrl\":null,\"continuousModelUrl\":null,\"resourceType\":\"gpu\",\"modelType\":7,\"frameworkType\":-1,\"toolBoxName\":\"无\",\"params\":\"\",\"selectedDataset\":\"null\",\"imageName\":\"base-images/ubuntu22_cuda118_python311:v1.1\",\"distributingMethod\":3,\"cmd\":\"\",\"selectedNodes\":[]}}"}
+{"time":"2023-10-20T19:22:48.166837685+08:00","level":"DEBUG","msg":"get resource info"}
+{"time":"2023-10-20T19:22:48.168181979+08:00","level":"DEBUG","msg":"swarm nodeListerName","nodeListerName":["gpu14","gpu17","gpu15","gpu16"]}
+{"time":"2023-10-20T19:22:48.168205136+08:00","level":"DEBUG","msg":"swarm nodeListerAddr","nodeListerAddr":["172.18.127.59","172.18.127.62","172.18.127.60","172.18.127.61"]}
+{"time":"2023-10-20T19:22:48.168211195+08:00","level":"DEBUG","msg":"swarm nodesListerLabel","nodesListerLabel":["SXM-A800-80G","SXM-A800-80G","SXM-A800-80G","SXM-A800-80G"]}
+{"time":"2023-10-20T19:22:48.168214355+08:00","level":"DEBUG","msg":"swarm nodesListerStatus","nodesListerStatus":["ready","ready","ready","ready"]}
+{"time":"2023-10-20T19:22:48.183595544+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":1,\"nodeName\":\"gpu14\",\"nodeAddress\":\"172.18.127.59\",\"occupiedList\":[]}"}
+{"time":"2023-10-20T19:22:48.183666845+08:00","level":"DEBUG","msg":"get all GPU resource"}
+{"time":"2023-10-20T19:22:48.184328222+08:00","level":"ERROR","msg":" client.NvmlUtilizationRate stream get err","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:22:48.184378102+08:00","level":"ERROR","msg":"resource grpcHandler error","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:22:48.184396054+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":1,\"nodeName\":\"gpu14\",\"nodeAddress\":\"172.18.127.59\",\"occupiedList\":[]}"}
+{"time":"2023-10-20T19:22:48.184407982+08:00","level":"DEBUG","msg":"get all GPU resource"}
+{"time":"2023-10-20T19:22:48.184734264+08:00","level":"ERROR","msg":" client.NvmlUtilizationRate stream get err","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:22:48.184762748+08:00","level":"ERROR","msg":"resource grpcHandler error","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:22:58.178422873+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":1,\"nodeName\":\"gpu14\",\"nodeAddress\":\"172.18.127.59\",\"occupiedList\":[]}"}
+{"time":"2023-10-20T19:22:58.178462535+08:00","level":"DEBUG","msg":"get all GPU resource"}
+{"time":"2023-10-20T19:22:58.178920164+08:00","level":"ERROR","msg":" client.NvmlUtilizationRate stream get err","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:22:58.178959727+08:00","level":"ERROR","msg":"resource grpcHandler error","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:23:08.177554022+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":1,\"nodeName\":\"gpu14\",\"nodeAddress\":\"172.18.127.59\",\"occupiedList\":[]}"}
+{"time":"2023-10-20T19:23:08.177598707+08:00","level":"DEBUG","msg":"get all GPU resource"}
+{"time":"2023-10-20T19:23:08.177997128+08:00","level":"ERROR","msg":" client.NvmlUtilizationRate stream get err","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:23:08.178026723+08:00","level":"ERROR","msg":"resource grpcHandler error","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:23:11.516373521+08:00","level":"DEBUG","msg":"receive message display","RAW_MSG":"{\"admin\":false,\"type\":2,\"content\":{\"ids\":{\"uid\":6,\"tid\":236},\"command\":\"START\",\"containerName\":\"\",\"logAddress\":\"\",\"modelName\":null,\"originalModelUrl\":null,\"continuousModelUrl\":null,\"resourceType\":\"gpu\",\"modelType\":7,\"frameworkType\":-1,\"toolBoxName\":\"无\",\"params\":\"\",\"selectedDataset\":\"null\",\"imageName\":\"base-images/ubuntu22_cuda118_python311:v1.1\",\"distributingMethod\":3,\"cmd\":\"\",\"selectedNodes\":[{\"nodeName\":\"gpu17\",\"nodeAddress\":\"172.18.127.62\",\"nodeLabel\":\"SXM-A800-80G\",\"gpuIndex\":\"0,1\"},{\"nodeName\":\"gpu16\",\"nodeAddress\":\"172.18.127.61\",\"nodeLabel\":\"SXM-A800-80G\",\"gpuIndex\":\"0,1\"}]}}"}
+{"time":"2023-10-20T19:23:11.516417142+08:00","level":"INFO","msg":"create container signal"}
+{"time":"2023-10-20T19:23:11.516454818+08:00","level":"DEBUG","msg":"push the job to the jobqueue","UID":6,"TID":236}
+{"time":"2023-10-20T19:23:11.516478594+08:00","level":"DEBUG","msg":"commit job success","UID":6,"TID":236}
+{"time":"2023-10-20T19:23:11.516483461+08:00","level":"INFO","msg":"commit job to job queue success"}
+{"time":"2023-10-20T19:23:11.516497237+08:00","level":"DEBUG","msg":"get a job notification from job queue"}
+{"time":"2023-10-20T19:23:11.516515419+08:00","level":"DEBUG","msg":"pop the job","UID":6,"TID":236}
+{"time":"2023-10-20T19:23:11.516527541+08:00","level":"DEBUG","msg":"Check resource free or not"}
+{"time":"2023-10-20T19:23:11.554307251+08:00","level":"DEBUG","msg":"selected gpu free","NODE_ADDR":"172.18.127.62"}
+{"time":"2023-10-20T19:23:11.594665447+08:00","level":"DEBUG","msg":"selected gpu free","NODE_ADDR":"172.18.127.61"}
+{"time":"2023-10-20T19:23:11.594682048+08:00","level":"DEBUG","msg":"socket client creating"}
+{"time":"2023-10-20T19:23:11.594878234+08:00","level":"DEBUG","msg":"socket send:container creating"}
+{"time":"2023-10-20T19:23:11.594887857+08:00","level":"DEBUG","msg":"start execute job","UID":6,"TID":236}
+{"time":"2023-10-20T19:23:11.594892007+08:00","level":"DEBUG","msg":"grpc execute to server","GRPC_SERVER":"172.18.127.62:50001","UID":6,"TID":236}
+{"time":"2023-10-20T19:23:18.177000075+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":1,\"nodeName\":\"gpu14\",\"nodeAddress\":\"172.18.127.59\",\"occupiedList\":[]}"}
+{"time":"2023-10-20T19:23:18.177045107+08:00","level":"DEBUG","msg":"get all GPU resource"}
+{"time":"2023-10-20T19:23:18.177587434+08:00","level":"ERROR","msg":" client.NvmlUtilizationRate stream get err","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:23:18.177644316+08:00","level":"ERROR","msg":"resource grpcHandler error","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:23:18.784131135+08:00","level":"DEBUG","msg":"receive container run","UID":6,"TID":236,"OTHER_MSG":"IMAGE_ERROR"}
+{"time":"2023-10-20T19:23:18.784169759+08:00","level":"ERROR","msg":"rpc stream server receive error","ERR_MSG":"rpc error: code = Unknown desc = Error response from daemon: Head \"https://registry-1.docker.io/v2/base-images/ubuntu22_cuda118_python311/manifests/v1.1\": unauthorized: incorrect username or password","UID":6,"TID":236}
+{"time":"2023-10-20T19:23:18.784251453+08:00","level":"ERROR","msg":"grpc execute to server: execute error!!","GRPC_SERVER":"172.18.127.62:50001","UID":6,"TID":236}
+{"time":"2023-10-20T19:23:18.784258549+08:00","level":"DEBUG","msg":"execute job error, execute delete containers","UID":6,"TID":236}
+{"time":"2023-10-20T19:23:18.784263329+08:00","level":"DEBUG","msg":"socket client creating"}
+{"time":"2023-10-20T19:23:18.784500061+08:00","level":"DEBUG","msg":"socket send:container create failed"}
+{"time":"2023-10-20T19:23:18.787457307+08:00","level":"ERROR","msg":"receive rpc container delete","ERR_MSG":"rpc error: code = Unknown desc = Error response from daemon: No such container: 1laagn05-6-236"}
+{"time":"2023-10-20T19:23:18.795371119+08:00","level":"ERROR","msg":"receive rpc container delete","ERR_MSG":"rpc error: code = Unknown desc = Error response from daemon: No such container: 1laagn05-6-236"}
+{"time":"2023-10-20T19:23:18.795414237+08:00","level":"DEBUG","msg":"job done","UID":6,"TID":236}
+{"time":"2023-10-20T19:23:28.177774682+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":1,\"nodeName\":\"gpu14\",\"nodeAddress\":\"172.18.127.59\",\"occupiedList\":[]}"}
+{"time":"2023-10-20T19:23:28.177825212+08:00","level":"DEBUG","msg":"get all GPU resource"}
+{"time":"2023-10-20T19:23:28.17826477+08:00","level":"ERROR","msg":" client.NvmlUtilizationRate stream get err","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:23:28.178314758+08:00","level":"ERROR","msg":"resource grpcHandler error","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:23:38.17746344+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":1,\"nodeName\":\"gpu14\",\"nodeAddress\":\"172.18.127.59\",\"occupiedList\":[]}"}
+{"time":"2023-10-20T19:23:38.177506456+08:00","level":"DEBUG","msg":"get all GPU resource"}
+{"time":"2023-10-20T19:23:38.177899601+08:00","level":"ERROR","msg":" client.NvmlUtilizationRate stream get err","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:23:38.177941906+08:00","level":"ERROR","msg":"resource grpcHandler error","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:23:44.841658778+08:00","level":"ERROR","msg":"websocket.IsUnexpectedCloseError error","ERR_MSG":"websocket: close 1005 (no status)"}
+{"time":"2023-10-20T19:23:44.841748797+08:00","level":"ERROR","msg":"websocket.IsUnexpectedCloseError error","ERR_MSG":"websocket: close 1005 (no status)"}
+{"time":"2023-10-20T19:25:54.872017417+08:00","level":"DEBUG","msg":"Receive HTTP request, and upgrade to websocket","SOURCE_ADDR":"10.0.10.159:56739"}
+{"time":"2023-10-20T19:25:54.872060847+08:00","level":"DEBUG","msg":"newSelectNodes done"}
+{"time":"2023-10-20T19:25:54.872064522+08:00","level":"DEBUG","msg":"newReceiveMsgContent done"}
+{"time":"2023-10-20T19:25:54.87206814+08:00","level":"DEBUG","msg":"newReceiveMsgContent done"}
+{"time":"2023-10-20T19:25:54.872071277+08:00","level":"DEBUG","msg":"newReceiveMsg initialed ok"}
+{"time":"2023-10-20T19:25:54.872081089+08:00","level":"DEBUG","msg":"newSendMsg initialed ok"}
+{"time":"2023-10-20T19:25:54.872083924+08:00","level":"DEBUG","msg":"Job initialed ok"}
+{"time":"2023-10-20T19:25:54.872416185+08:00","level":"DEBUG","msg":"Receive HTTP Resource request, and upgrade to websocket","SOURCE_ADDR":"10.0.10.159:56740"}
+{"time":"2023-10-20T19:25:54.893964954+08:00","level":"DEBUG","msg":"receive message display","RAW_MSG":"{\"admin\":false,\"type\":1,\"content\":{\"ids\":{\"uid\":6,\"tid\":238},\"command\":\"\",\"containerName\":\"\",\"logAddress\":\"\",\"modelName\":null,\"originalModelUrl\":null,\"continuousModelUrl\":null,\"resourceType\":\"gpu\",\"modelType\":7,\"frameworkType\":-1,\"toolBoxName\":\"无\",\"params\":\"\",\"selectedDataset\":\"null\",\"imageName\":\"base-images/ubuntu22_cuda118_python311:v1.1\",\"distributingMethod\":3,\"cmd\":\"\",\"selectedNodes\":[]}}"}
+{"time":"2023-10-20T19:25:54.893982486+08:00","level":"DEBUG","msg":"get resource info"}
+{"time":"2023-10-20T19:25:54.895028169+08:00","level":"DEBUG","msg":"swarm nodeListerName","nodeListerName":["gpu14","gpu17","gpu15","gpu16"]}
+{"time":"2023-10-20T19:25:54.895052383+08:00","level":"DEBUG","msg":"swarm nodeListerAddr","nodeListerAddr":["172.18.127.59","172.18.127.62","172.18.127.60","172.18.127.61"]}
+{"time":"2023-10-20T19:25:54.895058175+08:00","level":"DEBUG","msg":"swarm nodesListerLabel","nodesListerLabel":["SXM-A800-80G","SXM-A800-80G","SXM-A800-80G","SXM-A800-80G"]}
+{"time":"2023-10-20T19:25:54.895061499+08:00","level":"DEBUG","msg":"swarm nodesListerStatus","nodesListerStatus":["ready","ready","ready","ready"]}
+{"time":"2023-10-20T19:25:54.903287237+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":1,\"nodeName\":\"gpu14\",\"nodeAddress\":\"172.18.127.59\",\"occupiedList\":[]}"}
+{"time":"2023-10-20T19:25:54.903318287+08:00","level":"DEBUG","msg":"get all GPU resource"}
+{"time":"2023-10-20T19:25:54.903733964+08:00","level":"ERROR","msg":" client.NvmlUtilizationRate stream get err","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:25:54.903764541+08:00","level":"ERROR","msg":"resource grpcHandler error","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:25:54.903780272+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":1,\"nodeName\":\"gpu14\",\"nodeAddress\":\"172.18.127.59\",\"occupiedList\":[]}"}
+{"time":"2023-10-20T19:25:54.903796802+08:00","level":"DEBUG","msg":"get all GPU resource"}
+{"time":"2023-10-20T19:25:54.904216807+08:00","level":"ERROR","msg":" client.NvmlUtilizationRate stream get err","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:25:54.904251684+08:00","level":"ERROR","msg":"resource grpcHandler error","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:26:01.049112839+08:00","level":"DEBUG","msg":"Receive HTTP request, and upgrade to websocket","SOURCE_ADDR":"10.0.10.159:56766"}
+{"time":"2023-10-20T19:26:01.049145891+08:00","level":"DEBUG","msg":"newSelectNodes done"}
+{"time":"2023-10-20T19:26:01.04914937+08:00","level":"DEBUG","msg":"newReceiveMsgContent done"}
+{"time":"2023-10-20T19:26:01.049153365+08:00","level":"DEBUG","msg":"newReceiveMsgContent done"}
+{"time":"2023-10-20T19:26:01.049158453+08:00","level":"DEBUG","msg":"newReceiveMsg initialed ok"}
+{"time":"2023-10-20T19:26:01.049170633+08:00","level":"DEBUG","msg":"newSendMsg initialed ok"}
+{"time":"2023-10-20T19:26:01.049173365+08:00","level":"DEBUG","msg":"Job initialed ok"}
+{"time":"2023-10-20T19:26:01.04998584+08:00","level":"DEBUG","msg":"Receive HTTP Resource request, and upgrade to websocket","SOURCE_ADDR":"10.0.10.159:56767"}
+{"time":"2023-10-20T19:26:01.072902604+08:00","level":"DEBUG","msg":"receive message display","RAW_MSG":"{\"admin\":false,\"type\":1,\"content\":{\"ids\":{\"uid\":6,\"tid\":238},\"command\":\"\",\"containerName\":\"\",\"logAddress\":\"\",\"modelName\":null,\"originalModelUrl\":null,\"continuousModelUrl\":null,\"resourceType\":\"gpu\",\"modelType\":7,\"frameworkType\":-1,\"toolBoxName\":\"无\",\"params\":\"\",\"selectedDataset\":\"null\",\"imageName\":\"base-images/ubuntu22_cuda118_python311:v1.1\",\"distributingMethod\":3,\"cmd\":\"\",\"selectedNodes\":[]}}"}
+{"time":"2023-10-20T19:26:01.072919652+08:00","level":"DEBUG","msg":"get resource info"}
+{"time":"2023-10-20T19:26:01.073921182+08:00","level":"DEBUG","msg":"swarm nodeListerName","nodeListerName":["gpu14","gpu17","gpu15","gpu16"]}
+{"time":"2023-10-20T19:26:01.073940016+08:00","level":"DEBUG","msg":"swarm nodeListerAddr","nodeListerAddr":["172.18.127.59","172.18.127.62","172.18.127.60","172.18.127.61"]}
+{"time":"2023-10-20T19:26:01.073944965+08:00","level":"DEBUG","msg":"swarm nodesListerLabel","nodesListerLabel":["SXM-A800-80G","SXM-A800-80G","SXM-A800-80G","SXM-A800-80G"]}
+{"time":"2023-10-20T19:26:01.073948399+08:00","level":"DEBUG","msg":"swarm nodesListerStatus","nodesListerStatus":["ready","ready","ready","ready"]}
+{"time":"2023-10-20T19:26:01.080959106+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":1,\"nodeName\":\"gpu14\",\"nodeAddress\":\"172.18.127.59\",\"occupiedList\":[]}"}
+{"time":"2023-10-20T19:26:01.080984173+08:00","level":"DEBUG","msg":"get all GPU resource"}
+{"time":"2023-10-20T19:26:01.081344458+08:00","level":"ERROR","msg":" client.NvmlUtilizationRate stream get err","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:26:01.081381372+08:00","level":"ERROR","msg":"resource grpcHandler error","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:26:01.081399647+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":1,\"nodeName\":\"gpu14\",\"nodeAddress\":\"172.18.127.59\",\"occupiedList\":[]}"}
+{"time":"2023-10-20T19:26:01.081412434+08:00","level":"DEBUG","msg":"get all GPU resource"}
+{"time":"2023-10-20T19:26:01.081746849+08:00","level":"ERROR","msg":" client.NvmlUtilizationRate stream get err","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:26:01.081768988+08:00","level":"ERROR","msg":"resource grpcHandler error","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:26:11.079839639+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":1,\"nodeName\":\"gpu14\",\"nodeAddress\":\"172.18.127.59\",\"occupiedList\":[]}"}
+{"time":"2023-10-20T19:26:11.079891332+08:00","level":"DEBUG","msg":"get all GPU resource"}
+{"time":"2023-10-20T19:26:11.080340117+08:00","level":"ERROR","msg":" client.NvmlUtilizationRate stream get err","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:26:11.080364423+08:00","level":"ERROR","msg":"resource grpcHandler error","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:26:21.080335465+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":1,\"nodeName\":\"gpu14\",\"nodeAddress\":\"172.18.127.59\",\"occupiedList\":[]}"}
+{"time":"2023-10-20T19:26:21.080379959+08:00","level":"DEBUG","msg":"get all GPU resource"}
+{"time":"2023-10-20T19:26:21.080855855+08:00","level":"ERROR","msg":" client.NvmlUtilizationRate stream get err","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:26:21.080891222+08:00","level":"ERROR","msg":"resource grpcHandler error","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:26:26.536395788+08:00","level":"ERROR","msg":"websocket.IsUnexpectedCloseError error","ERR_MSG":"websocket: close 1005 (no status)"}
+{"time":"2023-10-20T19:26:26.53650911+08:00","level":"ERROR","msg":"websocket.IsUnexpectedCloseError error","ERR_MSG":"websocket: close 1005 (no status)"}
+{"time":"2023-10-20T19:26:48.924482512+08:00","level":"DEBUG","msg":"Receive HTTP request, and upgrade to websocket","SOURCE_ADDR":"10.0.10.159:56865"}
+{"time":"2023-10-20T19:26:48.924514806+08:00","level":"DEBUG","msg":"newSelectNodes done"}
+{"time":"2023-10-20T19:26:48.924518053+08:00","level":"DEBUG","msg":"newReceiveMsgContent done"}
+{"time":"2023-10-20T19:26:48.92452534+08:00","level":"DEBUG","msg":"newReceiveMsgContent done"}
+{"time":"2023-10-20T19:26:48.924535823+08:00","level":"DEBUG","msg":"newReceiveMsg initialed ok"}
+{"time":"2023-10-20T19:26:48.924538873+08:00","level":"DEBUG","msg":"newSendMsg initialed ok"}
+{"time":"2023-10-20T19:26:48.924541752+08:00","level":"DEBUG","msg":"Job initialed ok"}
+{"time":"2023-10-20T19:26:48.924870235+08:00","level":"DEBUG","msg":"Receive HTTP Resource request, and upgrade to websocket","SOURCE_ADDR":"10.0.10.159:56866"}
+{"time":"2023-10-20T19:26:48.946454719+08:00","level":"DEBUG","msg":"receive message display","RAW_MSG":"{\"admin\":false,\"type\":1,\"content\":{\"ids\":{\"uid\":6,\"tid\":239},\"command\":\"\",\"containerName\":\"\",\"logAddress\":\"\",\"modelName\":null,\"originalModelUrl\":null,\"continuousModelUrl\":null,\"resourceType\":\"gpu\",\"modelType\":7,\"frameworkType\":-1,\"toolBoxName\":\"无\",\"params\":\"\",\"selectedDataset\":\"null\",\"imageName\":\"172.18.127.68:80/base-images/ubuntu22_cuda118_python311:v1.1\",\"distributingMethod\":3,\"cmd\":\"\",\"selectedNodes\":[]}}"}
+{"time":"2023-10-20T19:26:48.946478516+08:00","level":"DEBUG","msg":"get resource info"}
+{"time":"2023-10-20T19:26:48.947543051+08:00","level":"DEBUG","msg":"swarm nodeListerName","nodeListerName":["gpu14","gpu17","gpu15","gpu16"]}
+{"time":"2023-10-20T19:26:48.94755996+08:00","level":"DEBUG","msg":"swarm nodeListerAddr","nodeListerAddr":["172.18.127.59","172.18.127.62","172.18.127.60","172.18.127.61"]}
+{"time":"2023-10-20T19:26:48.94756971+08:00","level":"DEBUG","msg":"swarm nodesListerLabel","nodesListerLabel":["SXM-A800-80G","SXM-A800-80G","SXM-A800-80G","SXM-A800-80G"]}
+{"time":"2023-10-20T19:26:48.947573612+08:00","level":"DEBUG","msg":"swarm nodesListerStatus","nodesListerStatus":["ready","ready","ready","ready"]}
+{"time":"2023-10-20T19:26:48.962637384+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":1,\"nodeName\":\"gpu14\",\"nodeAddress\":\"172.18.127.59\",\"occupiedList\":[]}"}
+{"time":"2023-10-20T19:26:48.962663223+08:00","level":"DEBUG","msg":"get all GPU resource"}
+{"time":"2023-10-20T19:26:48.963044495+08:00","level":"ERROR","msg":" client.NvmlUtilizationRate stream get err","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:26:48.963074219+08:00","level":"ERROR","msg":"resource grpcHandler error","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:26:48.963086104+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":1,\"nodeName\":\"gpu14\",\"nodeAddress\":\"172.18.127.59\",\"occupiedList\":[]}"}
+{"time":"2023-10-20T19:26:48.96309589+08:00","level":"DEBUG","msg":"get all GPU resource"}
+{"time":"2023-10-20T19:26:48.963385626+08:00","level":"ERROR","msg":" client.NvmlUtilizationRate stream get err","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:26:48.963418687+08:00","level":"ERROR","msg":"resource grpcHandler error","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:26:57.367171344+08:00","level":"DEBUG","msg":"receive message display","RAW_MSG":"{\"admin\":false,\"type\":2,\"content\":{\"ids\":{\"uid\":6,\"tid\":239},\"command\":\"START\",\"containerName\":\"\",\"logAddress\":\"\",\"modelName\":null,\"originalModelUrl\":null,\"continuousModelUrl\":null,\"resourceType\":\"gpu\",\"modelType\":7,\"frameworkType\":-1,\"toolBoxName\":\"无\",\"params\":\"\",\"selectedDataset\":\"null\",\"imageName\":\"172.18.127.68:80/base-images/ubuntu22_cuda118_python311:v1.1\",\"distributingMethod\":3,\"cmd\":\"\",\"selectedNodes\":[{\"nodeName\":\"gpu17\",\"nodeAddress\":\"172.18.127.62\",\"nodeLabel\":\"SXM-A800-80G\",\"gpuIndex\":\"1,2\"},{\"nodeName\":\"gpu16\",\"nodeAddress\":\"172.18.127.61\",\"nodeLabel\":\"SXM-A800-80G\",\"gpuIndex\":\"1,2\"}]}}"}
+{"time":"2023-10-20T19:26:57.367213535+08:00","level":"INFO","msg":"create container signal"}
+{"time":"2023-10-20T19:26:57.367236538+08:00","level":"DEBUG","msg":"push the job to the jobqueue","UID":6,"TID":239}
+{"time":"2023-10-20T19:26:57.367251838+08:00","level":"DEBUG","msg":"commit job success","UID":6,"TID":239}
+{"time":"2023-10-20T19:26:57.367262422+08:00","level":"INFO","msg":"commit job to job queue success"}
+{"time":"2023-10-20T19:26:57.367271661+08:00","level":"DEBUG","msg":"get a job notification from job queue"}
+{"time":"2023-10-20T19:26:57.367276281+08:00","level":"DEBUG","msg":"pop the job","UID":6,"TID":239}
+{"time":"2023-10-20T19:26:57.367283058+08:00","level":"DEBUG","msg":"Check resource free or not"}
+{"time":"2023-10-20T19:26:57.392160412+08:00","level":"DEBUG","msg":"selected gpu free","NODE_ADDR":"172.18.127.62"}
+{"time":"2023-10-20T19:26:57.417325792+08:00","level":"DEBUG","msg":"selected gpu free","NODE_ADDR":"172.18.127.61"}
+{"time":"2023-10-20T19:26:57.417341873+08:00","level":"DEBUG","msg":"socket client creating"}
+{"time":"2023-10-20T19:26:57.41751918+08:00","level":"DEBUG","msg":"socket send:container creating"}
+{"time":"2023-10-20T19:26:57.417527438+08:00","level":"DEBUG","msg":"start execute job","UID":6,"TID":239}
+{"time":"2023-10-20T19:26:57.417531205+08:00","level":"DEBUG","msg":"grpc execute to server","GRPC_SERVER":"172.18.127.62:50001","UID":6,"TID":239}
+{"time":"2023-10-20T19:26:58.957321492+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":1,\"nodeName\":\"gpu14\",\"nodeAddress\":\"172.18.127.59\",\"occupiedList\":[]}"}
+{"time":"2023-10-20T19:26:58.957344225+08:00","level":"DEBUG","msg":"get all GPU resource"}
+{"time":"2023-10-20T19:26:58.957696291+08:00","level":"ERROR","msg":" client.NvmlUtilizationRate stream get err","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:26:58.957726377+08:00","level":"ERROR","msg":"resource grpcHandler error","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:27:00.553833525+08:00","level":"DEBUG","msg":"receive container run","UID":6,"TID":239,"OTHER_MSG":"IMAGE_PULLING"}
+{"time":"2023-10-20T19:27:00.553851054+08:00","level":"DEBUG","msg":"receive container run","UID":6,"TID":239,"OTHER_MSG":"CONTAINER_CREATING"}
+{"time":"2023-10-20T19:27:01.38117263+08:00","level":"DEBUG","msg":"receive container run","UID":6,"TID":239,"OTHER_MSG":"CONTAINER_CREATED"}
+{"time":"2023-10-20T19:27:01.885959819+08:00","level":"DEBUG","msg":"receive container run","UID":6,"TID":239,"OTHER_MSG":"CONTAINER_RUNNING"}
+{"time":"2023-10-20T19:27:01.886045925+08:00","level":"DEBUG","msg":"grpc execute to server","GRPC_SERVER":"172.18.127.61:50001","UID":6,"TID":239}
+{"time":"2023-10-20T19:27:04.998694206+08:00","level":"DEBUG","msg":"receive container run","UID":6,"TID":239,"OTHER_MSG":"IMAGE_PULLING"}
+{"time":"2023-10-20T19:27:04.998723407+08:00","level":"DEBUG","msg":"receive container run","UID":6,"TID":239,"OTHER_MSG":"CONTAINER_CREATING"}
+{"time":"2023-10-20T19:27:05.814814433+08:00","level":"DEBUG","msg":"receive container run","UID":6,"TID":239,"OTHER_MSG":"CONTAINER_CREATED"}
+{"time":"2023-10-20T19:27:06.317858077+08:00","level":"DEBUG","msg":"receive container run","UID":6,"TID":239,"OTHER_MSG":"CONTAINER_RUNNING"}
+{"time":"2023-10-20T19:27:06.317945187+08:00","level":"DEBUG","msg":"socket client creating"}
+{"time":"2023-10-20T19:27:06.31816319+08:00","level":"DEBUG","msg":"socket send:container running"}
+{"time":"2023-10-20T19:27:06.319256233+08:00","level":"DEBUG","msg":"swarm nodeListerName","nodeListerName":["gpu14","gpu17","gpu15","gpu16"]}
+{"time":"2023-10-20T19:27:06.3192724+08:00","level":"DEBUG","msg":"swarm nodeListerAddr","nodeListerAddr":["172.18.127.59","172.18.127.62","172.18.127.60","172.18.127.61"]}
+{"time":"2023-10-20T19:27:06.319280062+08:00","level":"DEBUG","msg":"swarm nodesListerLabel","nodesListerLabel":["SXM-A800-80G","SXM-A800-80G","SXM-A800-80G","SXM-A800-80G"]}
+{"time":"2023-10-20T19:27:06.319285408+08:00","level":"DEBUG","msg":"swarm nodesListerStatus","nodesListerStatus":["ready","ready","ready","ready"]}
+{"time":"2023-10-20T19:27:06.319305521+08:00","level":"DEBUG","msg":"execute job done","UID":6,"TID":239}
+{"time":"2023-10-20T19:27:06.319315437+08:00","level":"DEBUG","msg":"job done","UID":6,"TID":239}
+{"time":"2023-10-20T19:27:06.319560293+08:00","level":"ERROR","msg":"DockerLogStor get error","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp :50001: connect: connection refused\""}
+{"time":"2023-10-20T19:27:08.955214215+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":1,\"nodeName\":\"gpu14\",\"nodeAddress\":\"172.18.127.59\",\"occupiedList\":[]}"}
+{"time":"2023-10-20T19:27:08.955242258+08:00","level":"DEBUG","msg":"get all GPU resource"}
+{"time":"2023-10-20T19:27:08.955586657+08:00","level":"ERROR","msg":" client.NvmlUtilizationRate stream get err","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:27:08.955607633+08:00","level":"ERROR","msg":"resource grpcHandler error","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:27:19.56920364+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":1,\"nodeName\":\"gpu14\",\"nodeAddress\":\"172.18.127.59\",\"occupiedList\":[]}"}
+{"time":"2023-10-20T19:27:19.569247123+08:00","level":"DEBUG","msg":"get all GPU resource"}
+{"time":"2023-10-20T19:27:19.569686854+08:00","level":"ERROR","msg":" client.NvmlUtilizationRate stream get err","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:27:19.569711824+08:00","level":"ERROR","msg":"resource grpcHandler error","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:27:29.568364534+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":1,\"nodeName\":\"gpu14\",\"nodeAddress\":\"172.18.127.59\",\"occupiedList\":[]}"}
+{"time":"2023-10-20T19:27:29.56840219+08:00","level":"DEBUG","msg":"get all GPU resource"}
+{"time":"2023-10-20T19:27:29.568782432+08:00","level":"ERROR","msg":" client.NvmlUtilizationRate stream get err","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:27:29.568818125+08:00","level":"ERROR","msg":"resource grpcHandler error","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:27:39.569319214+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":1,\"nodeName\":\"gpu14\",\"nodeAddress\":\"172.18.127.59\",\"occupiedList\":[]}"}
+{"time":"2023-10-20T19:27:39.569357777+08:00","level":"DEBUG","msg":"get all GPU resource"}
+{"time":"2023-10-20T19:27:39.569792674+08:00","level":"ERROR","msg":" client.NvmlUtilizationRate stream get err","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:27:39.569854606+08:00","level":"ERROR","msg":"resource grpcHandler error","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:27:49.568915164+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":1,\"nodeName\":\"gpu14\",\"nodeAddress\":\"172.18.127.59\",\"occupiedList\":[]}"}
+{"time":"2023-10-20T19:27:49.569301456+08:00","level":"DEBUG","msg":"get all GPU resource"}
+{"time":"2023-10-20T19:27:49.570083432+08:00","level":"ERROR","msg":" client.NvmlUtilizationRate stream get err","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:27:49.570124546+08:00","level":"ERROR","msg":"resource grpcHandler error","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:27:59.568970274+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":1,\"nodeName\":\"gpu14\",\"nodeAddress\":\"172.18.127.59\",\"occupiedList\":[]}"}
+{"time":"2023-10-20T19:27:59.569006498+08:00","level":"DEBUG","msg":"get all GPU resource"}
+{"time":"2023-10-20T19:27:59.569408379+08:00","level":"ERROR","msg":" client.NvmlUtilizationRate stream get err","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:27:59.569434598+08:00","level":"ERROR","msg":"resource grpcHandler error","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:28:09.569519496+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":1,\"nodeName\":\"gpu14\",\"nodeAddress\":\"172.18.127.59\",\"occupiedList\":[]}"}
+{"time":"2023-10-20T19:28:09.569573436+08:00","level":"DEBUG","msg":"get all GPU resource"}
+{"time":"2023-10-20T19:28:09.570049171+08:00","level":"ERROR","msg":" client.NvmlUtilizationRate stream get err","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:28:09.570088869+08:00","level":"ERROR","msg":"resource grpcHandler error","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:29:05.662995925+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":1,\"nodeName\":\"gpu14\",\"nodeAddress\":\"172.18.127.59\",\"occupiedList\":[]}"}
+{"time":"2023-10-20T19:29:05.663044009+08:00","level":"DEBUG","msg":"get all GPU resource"}
+{"time":"2023-10-20T19:29:05.663472135+08:00","level":"ERROR","msg":" client.NvmlUtilizationRate stream get err","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:29:05.663503742+08:00","level":"ERROR","msg":"resource grpcHandler error","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:29:54.157524485+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":1,\"nodeName\":\"gpu14\",\"nodeAddress\":\"172.18.127.59\",\"occupiedList\":[]}"}
+{"time":"2023-10-20T19:29:54.157856413+08:00","level":"DEBUG","msg":"get all GPU resource"}
+{"time":"2023-10-20T19:29:54.158528602+08:00","level":"ERROR","msg":" client.NvmlUtilizationRate stream get err","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:29:54.158561241+08:00","level":"ERROR","msg":"resource grpcHandler error","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:29:58.948897084+08:00","level":"ERROR","msg":"websocket.IsUnexpectedCloseError error","ERR_MSG":"websocket: close 1005 (no status)"}
+{"time":"2023-10-20T19:29:58.948947143+08:00","level":"ERROR","msg":"websocket.IsUnexpectedCloseError error","ERR_MSG":"websocket: close 1005 (no status)"}
+{"time":"2023-10-20T19:29:59.074838014+08:00","level":"DEBUG","msg":"Receive HTTP request, and upgrade to websocket","SOURCE_ADDR":"10.0.10.159:57167"}
+{"time":"2023-10-20T19:29:59.074860128+08:00","level":"DEBUG","msg":"newSelectNodes done"}
+{"time":"2023-10-20T19:29:59.074863299+08:00","level":"DEBUG","msg":"newReceiveMsgContent done"}
+{"time":"2023-10-20T19:29:59.07487277+08:00","level":"DEBUG","msg":"newReceiveMsgContent done"}
+{"time":"2023-10-20T19:29:59.074878073+08:00","level":"DEBUG","msg":"newReceiveMsg initialed ok"}
+{"time":"2023-10-20T19:29:59.074889814+08:00","level":"DEBUG","msg":"newSendMsg initialed ok"}
+{"time":"2023-10-20T19:29:59.074892376+08:00","level":"DEBUG","msg":"Job initialed ok"}
+{"time":"2023-10-20T19:29:59.077561577+08:00","level":"DEBUG","msg":"receive message display","RAW_MSG":"{\"admin\":false,\"type\":1,\"content\":{\"ids\":{\"uid\":6,\"tid\":0},\"command\":\"\",\"originalModelUrl\":\"\",\"continuousModelUrl\":\"\",\"resourceType\":\"gpu\",\"modelType\":null,\"frameworkType\":null,\"toolBoxName\":null,\"params\":\"\",\"selectedDataset\":null,\"selectedNodes\":[]}}"}
+{"time":"2023-10-20T19:29:59.07757653+08:00","level":"DEBUG","msg":"get resource info"}
+{"time":"2023-10-20T19:29:59.078676269+08:00","level":"DEBUG","msg":"swarm nodeListerName","nodeListerName":["gpu14","gpu17","gpu15","gpu16"]}
+{"time":"2023-10-20T19:29:59.078693138+08:00","level":"DEBUG","msg":"swarm nodeListerAddr","nodeListerAddr":["172.18.127.59","172.18.127.62","172.18.127.60","172.18.127.61"]}
+{"time":"2023-10-20T19:29:59.078700736+08:00","level":"DEBUG","msg":"swarm nodesListerLabel","nodesListerLabel":["SXM-A800-80G","SXM-A800-80G","SXM-A800-80G","SXM-A800-80G"]}
+{"time":"2023-10-20T19:29:59.078706201+08:00","level":"DEBUG","msg":"swarm nodesListerStatus","nodesListerStatus":["ready","ready","ready","ready"]}
+{"time":"2023-10-20T19:29:59.081228297+08:00","level":"DEBUG","msg":"Receive HTTP Resource request, and upgrade to websocket","SOURCE_ADDR":"10.0.10.159:57168"}
+{"time":"2023-10-20T19:30:03.820489571+08:00","level":"ERROR","msg":"websocket.IsUnexpectedCloseError error","ERR_MSG":"websocket: close 1005 (no status)"}
+{"time":"2023-10-20T19:30:03.820753717+08:00","level":"ERROR","msg":"websocket.IsUnexpectedCloseError error","ERR_MSG":"websocket: close 1005 (no status)"}
+{"time":"2023-10-20T19:30:03.920154816+08:00","level":"DEBUG","msg":"Receive HTTP request, and upgrade to websocket","SOURCE_ADDR":"10.0.10.159:57190"}
+{"time":"2023-10-20T19:30:03.920186827+08:00","level":"DEBUG","msg":"newSelectNodes done"}
+{"time":"2023-10-20T19:30:03.920190275+08:00","level":"DEBUG","msg":"newReceiveMsgContent done"}
+{"time":"2023-10-20T19:30:03.920197163+08:00","level":"DEBUG","msg":"newReceiveMsgContent done"}
+{"time":"2023-10-20T19:30:03.920209049+08:00","level":"DEBUG","msg":"newReceiveMsg initialed ok"}
+{"time":"2023-10-20T19:30:03.920214237+08:00","level":"DEBUG","msg":"newSendMsg initialed ok"}
+{"time":"2023-10-20T19:30:03.920227583+08:00","level":"DEBUG","msg":"Job initialed ok"}
+{"time":"2023-10-20T19:30:03.920951769+08:00","level":"DEBUG","msg":"Receive HTTP Resource request, and upgrade to websocket","SOURCE_ADDR":"10.0.10.159:57192"}
+{"time":"2023-10-20T19:30:03.923182432+08:00","level":"DEBUG","msg":"receive message display","RAW_MSG":"{\"admin\":false,\"type\":1,\"content\":{\"ids\":{\"uid\":6,\"tid\":239},\"command\":\"\",\"containerName\":\"\",\"logAddress\":\"\",\"modelName\":null,\"originalModelUrl\":null,\"continuousModelUrl\":null,\"resourceType\":\"gpu\",\"modelType\":7,\"frameworkType\":-1,\"toolBoxName\":\"无\",\"params\":\"\",\"selectedDataset\":\"null\",\"imageName\":\"172.18.127.68:80/base-images/ubuntu22_cuda118_python311:v1.1\",\"distributingMethod\":3,\"cmd\":\"\",\"selectedNodes\":[{\"nodeName\":\"gpu17\",\"nodeAddress\":\"172.18.127.62\",\"nodeLabel\":\"SXM-A800-80G\",\"gpuIndex\":\"1,2\"},{\"nodeName\":\"gpu16\",\"nodeAddress\":\"172.18.127.61\",\"nodeLabel\":\"SXM-A800-80G\",\"gpuIndex\":\"1,2\"}]}}"}
+{"time":"2023-10-20T19:30:03.923206158+08:00","level":"DEBUG","msg":"get resource info"}
+{"time":"2023-10-20T19:30:03.924325354+08:00","level":"DEBUG","msg":"swarm nodeListerName","nodeListerName":["gpu14","gpu17","gpu15","gpu16"]}
+{"time":"2023-10-20T19:30:03.924338598+08:00","level":"DEBUG","msg":"swarm nodeListerAddr","nodeListerAddr":["172.18.127.59","172.18.127.62","172.18.127.60","172.18.127.61"]}
+{"time":"2023-10-20T19:30:03.924349587+08:00","level":"DEBUG","msg":"swarm nodesListerLabel","nodesListerLabel":["SXM-A800-80G","SXM-A800-80G","SXM-A800-80G","SXM-A800-80G"]}
+{"time":"2023-10-20T19:30:03.924354763+08:00","level":"DEBUG","msg":"swarm nodesListerStatus","nodesListerStatus":["ready","ready","ready","ready"]}
+{"time":"2023-10-20T19:30:03.927027342+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":1,\"nodeName\":\"gpu14\",\"nodeAddress\":\"172.18.127.59\",\"occupiedList\":[]}"}
+{"time":"2023-10-20T19:30:03.927054892+08:00","level":"DEBUG","msg":"get all GPU resource"}
+{"time":"2023-10-20T19:30:03.927442467+08:00","level":"ERROR","msg":" client.NvmlUtilizationRate stream get err","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:30:03.927471776+08:00","level":"ERROR","msg":"resource grpcHandler error","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:30:03.927487101+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":1,\"nodeName\":\"gpu14\",\"nodeAddress\":\"172.18.127.59\",\"occupiedList\":[]}"}
+{"time":"2023-10-20T19:30:03.927499629+08:00","level":"DEBUG","msg":"get all GPU resource"}
+{"time":"2023-10-20T19:30:03.927778344+08:00","level":"ERROR","msg":" client.NvmlUtilizationRate stream get err","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:30:03.927799496+08:00","level":"ERROR","msg":"resource grpcHandler error","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:30:13.928269407+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":1,\"nodeName\":\"gpu14\",\"nodeAddress\":\"172.18.127.59\",\"occupiedList\":[]}"}
+{"time":"2023-10-20T19:30:13.928305084+08:00","level":"DEBUG","msg":"get all GPU resource"}
+{"time":"2023-10-20T19:30:13.928761739+08:00","level":"ERROR","msg":" client.NvmlUtilizationRate stream get err","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:30:13.928793502+08:00","level":"ERROR","msg":"resource grpcHandler error","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:30:23.92725593+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":1,\"nodeName\":\"gpu14\",\"nodeAddress\":\"172.18.127.59\",\"occupiedList\":[]}"}
+{"time":"2023-10-20T19:30:23.927294635+08:00","level":"DEBUG","msg":"get all GPU resource"}
+{"time":"2023-10-20T19:30:23.927730659+08:00","level":"ERROR","msg":" client.NvmlUtilizationRate stream get err","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:30:23.927762033+08:00","level":"ERROR","msg":"resource grpcHandler error","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:30:33.927892581+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":1,\"nodeName\":\"gpu14\",\"nodeAddress\":\"172.18.127.59\",\"occupiedList\":[]}"}
+{"time":"2023-10-20T19:30:33.927933447+08:00","level":"DEBUG","msg":"get all GPU resource"}
+{"time":"2023-10-20T19:30:33.928354448+08:00","level":"ERROR","msg":" client.NvmlUtilizationRate stream get err","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:30:33.928384964+08:00","level":"ERROR","msg":"resource grpcHandler error","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:30:43.927448889+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":1,\"nodeName\":\"gpu14\",\"nodeAddress\":\"172.18.127.59\",\"occupiedList\":[]}"}
+{"time":"2023-10-20T19:30:43.927490317+08:00","level":"DEBUG","msg":"get all GPU resource"}
+{"time":"2023-10-20T19:30:43.927899349+08:00","level":"ERROR","msg":" client.NvmlUtilizationRate stream get err","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:30:43.927934253+08:00","level":"ERROR","msg":"resource grpcHandler error","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:30:50.994201051+08:00","level":"ERROR","msg":"websocket.IsUnexpectedCloseError error","ERR_MSG":"websocket: close 1005 (no status)"}
+{"time":"2023-10-20T19:30:50.994373546+08:00","level":"ERROR","msg":"websocket.IsUnexpectedCloseError error","ERR_MSG":"websocket: close 1005 (no status)"}
+{"time":"2023-10-20T19:30:51.088346708+08:00","level":"DEBUG","msg":"Receive HTTP request, and upgrade to websocket","SOURCE_ADDR":"10.0.10.159:57263"}
+{"time":"2023-10-20T19:30:51.088374932+08:00","level":"DEBUG","msg":"newSelectNodes done"}
+{"time":"2023-10-20T19:30:51.088377814+08:00","level":"DEBUG","msg":"newReceiveMsgContent done"}
+{"time":"2023-10-20T19:30:51.088383291+08:00","level":"DEBUG","msg":"newReceiveMsgContent done"}
+{"time":"2023-10-20T19:30:51.088385791+08:00","level":"DEBUG","msg":"newReceiveMsg initialed ok"}
+{"time":"2023-10-20T19:30:51.088388362+08:00","level":"DEBUG","msg":"newSendMsg initialed ok"}
+{"time":"2023-10-20T19:30:51.088391027+08:00","level":"DEBUG","msg":"Job initialed ok"}
+{"time":"2023-10-20T19:30:51.090983793+08:00","level":"DEBUG","msg":"receive message display","RAW_MSG":"{\"admin\":false,\"type\":1,\"content\":{\"ids\":{\"uid\":6,\"tid\":0},\"command\":\"\",\"originalModelUrl\":\"\",\"continuousModelUrl\":\"\",\"resourceType\":\"gpu\",\"modelType\":null,\"frameworkType\":null,\"toolBoxName\":null,\"params\":\"\",\"selectedDataset\":null,\"selectedNodes\":[]}}"}
+{"time":"2023-10-20T19:30:51.090999465+08:00","level":"DEBUG","msg":"get resource info"}
+{"time":"2023-10-20T19:30:51.092175674+08:00","level":"DEBUG","msg":"swarm nodeListerName","nodeListerName":["gpu14","gpu17","gpu15","gpu16"]}
+{"time":"2023-10-20T19:30:51.092197485+08:00","level":"DEBUG","msg":"swarm nodeListerAddr","nodeListerAddr":["172.18.127.59","172.18.127.62","172.18.127.60","172.18.127.61"]}
+{"time":"2023-10-20T19:30:51.092205308+08:00","level":"DEBUG","msg":"swarm nodesListerLabel","nodesListerLabel":["SXM-A800-80G","SXM-A800-80G","SXM-A800-80G","SXM-A800-80G"]}
+{"time":"2023-10-20T19:30:51.092208907+08:00","level":"DEBUG","msg":"swarm nodesListerStatus","nodesListerStatus":["ready","ready","ready","ready"]}
+{"time":"2023-10-20T19:30:51.093966189+08:00","level":"DEBUG","msg":"Receive HTTP Resource request, and upgrade to websocket","SOURCE_ADDR":"10.0.10.159:57264"}
+{"time":"2023-10-20T19:30:53.443573625+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":1,\"nodeName\":\"gpu17\",\"nodeAddress\":\"172.18.127.62\",\"occupiedList\":[{\"nodeAddress\":\"172.18.127.62\",\"gpuIndex\":\"1,2,3\"},{\"nodeAddress\":\"172.18.127.61\",\"gpuIndex\":\"1,2,3\"}]}"}
+{"time":"2023-10-20T19:30:53.443632063+08:00","level":"DEBUG","msg":"get all GPU resource"}
+{"time":"2023-10-20T19:30:53.523783347+08:00","level":"DEBUG","msg":"resource rpc stream read over"}
+{"time":"2023-10-20T19:30:53.523796742+08:00","level":"DEBUG","msg":"GetIndexID","VALUE":"0,1,2,3,4,5,6,7","RPC_NODE":"gpu17"}
+{"time":"2023-10-20T19:30:53.523804667+08:00","level":"DEBUG","msg":"GetOccupied","VALUE":"0,0,0,0,0,0,0,0","RPC_NODE":"gpu17"}
+{"time":"2023-10-20T19:30:53.52381026+08:00","level":"DEBUG","msg":"GetTemperature","VALUE":"0,0,0,0,0,0,0,0,32","RPC_NODE":"gpu17"}
+{"time":"2023-10-20T19:30:53.523822597+08:00","level":"DEBUG","msg":"GetMemRate","VALUE":"0,0,0,0,0,0,0,0","RPC_NODE":"gpu17"}
+{"time":"2023-10-20T19:30:53.523825471+08:00","level":"DEBUG","msg":"GetUtilizationRate","VALUE":"0,0,0,0,0,0,0,0","RPC_NODE":"gpu17"}
+{"time":"2023-10-20T19:30:53.523932985+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":1,\"nodeName\":\"gpu17\",\"nodeAddress\":\"172.18.127.62\",\"occupiedList\":[{\"nodeAddress\":\"172.18.127.62\",\"gpuIndex\":\"1,2,3\"},{\"nodeAddress\":\"172.18.127.61\",\"gpuIndex\":\"1,2,3\"}]}"}
+{"time":"2023-10-20T19:30:53.523948286+08:00","level":"DEBUG","msg":"get all GPU resource"}
+{"time":"2023-10-20T19:30:53.601046364+08:00","level":"DEBUG","msg":"resource rpc stream read over"}
+{"time":"2023-10-20T19:30:53.601065249+08:00","level":"DEBUG","msg":"GetIndexID","VALUE":"0,1,2,3,4,5,6,7","RPC_NODE":"gpu17"}
+{"time":"2023-10-20T19:30:53.601069743+08:00","level":"DEBUG","msg":"GetOccupied","VALUE":"0,0,0,0,0,0,0,0","RPC_NODE":"gpu17"}
+{"time":"2023-10-20T19:30:53.601080382+08:00","level":"DEBUG","msg":"GetTemperature","VALUE":"0,0,0,0,0,0,0,0,32","RPC_NODE":"gpu17"}
+{"time":"2023-10-20T19:30:53.601083385+08:00","level":"DEBUG","msg":"GetMemRate","VALUE":"0,0,0,0,0,0,0,0","RPC_NODE":"gpu17"}
+{"time":"2023-10-20T19:30:53.601086153+08:00","level":"DEBUG","msg":"GetUtilizationRate","VALUE":"0,0,0,0,0,0,0,0","RPC_NODE":"gpu17"}
+{"time":"2023-10-20T19:31:01.098623139+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":1,\"nodeName\":\"gpu17\",\"nodeAddress\":\"172.18.127.62\",\"occupiedList\":[{\"nodeAddress\":\"172.18.127.62\",\"gpuIndex\":\"1,2,3\"},{\"nodeAddress\":\"172.18.127.61\",\"gpuIndex\":\"1,2,3\"}]}"}
+{"time":"2023-10-20T19:31:01.098672455+08:00","level":"DEBUG","msg":"get all GPU resource"}
+{"time":"2023-10-20T19:31:01.177823893+08:00","level":"DEBUG","msg":"resource rpc stream read over"}
+{"time":"2023-10-20T19:31:01.177836312+08:00","level":"DEBUG","msg":"GetIndexID","VALUE":"0,1,2,3,4,5,6,7","RPC_NODE":"gpu17"}
+{"time":"2023-10-20T19:31:01.177840515+08:00","level":"DEBUG","msg":"GetOccupied","VALUE":"0,0,0,0,0,0,0,0","RPC_NODE":"gpu17"}
+{"time":"2023-10-20T19:31:01.17785024+08:00","level":"DEBUG","msg":"GetTemperature","VALUE":"0,0,0,0,0,0,0,0,32","RPC_NODE":"gpu17"}
+{"time":"2023-10-20T19:31:01.177853798+08:00","level":"DEBUG","msg":"GetMemRate","VALUE":"0,0,0,0,0,0,0,0","RPC_NODE":"gpu17"}
+{"time":"2023-10-20T19:31:01.177859015+08:00","level":"DEBUG","msg":"GetUtilizationRate","VALUE":"0,0,0,0,0,0,0,0","RPC_NODE":"gpu17"}
+{"time":"2023-10-20T19:31:06.412490012+08:00","level":"ERROR","msg":"websocket.IsUnexpectedCloseError error","ERR_MSG":"websocket: close 1005 (no status)"}
+{"time":"2023-10-20T19:31:06.412606454+08:00","level":"ERROR","msg":"websocket.IsUnexpectedCloseError error","ERR_MSG":"websocket: close 1005 (no status)"}
+{"time":"2023-10-20T19:31:08.135415807+08:00","level":"DEBUG","msg":"Receive HTTP request, and upgrade to websocket","SOURCE_ADDR":"10.0.10.159:57309"}
+{"time":"2023-10-20T19:31:08.135444794+08:00","level":"DEBUG","msg":"newSelectNodes done"}
+{"time":"2023-10-20T19:31:08.135447753+08:00","level":"DEBUG","msg":"newReceiveMsgContent done"}
+{"time":"2023-10-20T19:31:08.135457942+08:00","level":"DEBUG","msg":"newReceiveMsgContent done"}
+{"time":"2023-10-20T19:31:08.13546773+08:00","level":"DEBUG","msg":"newReceiveMsg initialed ok"}
+{"time":"2023-10-20T19:31:08.135470598+08:00","level":"DEBUG","msg":"newSendMsg initialed ok"}
+{"time":"2023-10-20T19:31:08.13547299+08:00","level":"DEBUG","msg":"Job initialed ok"}
+{"time":"2023-10-20T19:31:08.136535305+08:00","level":"DEBUG","msg":"Receive HTTP Resource request, and upgrade to websocket","SOURCE_ADDR":"10.0.10.159:57310"}
+{"time":"2023-10-20T19:31:08.146151119+08:00","level":"DEBUG","msg":"receive message display","RAW_MSG":"{\"admin\":false,\"type\":1,\"content\":{\"ids\":{\"uid\":6,\"tid\":239},\"command\":\"\",\"containerName\":\"\",\"logAddress\":\"\",\"modelName\":null,\"originalModelUrl\":null,\"continuousModelUrl\":null,\"resourceType\":\"gpu\",\"modelType\":7,\"frameworkType\":-1,\"toolBoxName\":\"无\",\"params\":\"\",\"selectedDataset\":\"null\",\"imageName\":\"172.18.127.68:80/base-images/ubuntu22_cuda118_python311:v1.1\",\"distributingMethod\":3,\"cmd\":\"\",\"selectedNodes\":[{\"nodeName\":\"gpu17\",\"nodeAddress\":\"172.18.127.62\",\"nodeLabel\":\"SXM-A800-80G\",\"gpuIndex\":\"1,2\"},{\"nodeName\":\"gpu16\",\"nodeAddress\":\"172.18.127.61\",\"nodeLabel\":\"SXM-A800-80G\",\"gpuIndex\":\"1,2\"}]}}"}
+{"time":"2023-10-20T19:31:08.146169787+08:00","level":"DEBUG","msg":"get resource info"}
+{"time":"2023-10-20T19:31:08.147223259+08:00","level":"DEBUG","msg":"swarm nodeListerName","nodeListerName":["gpu14","gpu17","gpu15","gpu16"]}
+{"time":"2023-10-20T19:31:08.14724199+08:00","level":"DEBUG","msg":"swarm nodeListerAddr","nodeListerAddr":["172.18.127.59","172.18.127.62","172.18.127.60","172.18.127.61"]}
+{"time":"2023-10-20T19:31:08.147245823+08:00","level":"DEBUG","msg":"swarm nodesListerLabel","nodesListerLabel":["SXM-A800-80G","SXM-A800-80G","SXM-A800-80G","SXM-A800-80G"]}
+{"time":"2023-10-20T19:31:08.147253537+08:00","level":"DEBUG","msg":"swarm nodesListerStatus","nodesListerStatus":["ready","ready","ready","ready"]}
+{"time":"2023-10-20T19:31:08.156567111+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":1,\"nodeName\":\"gpu14\",\"nodeAddress\":\"172.18.127.59\",\"occupiedList\":[]}"}
+{"time":"2023-10-20T19:31:08.156596298+08:00","level":"DEBUG","msg":"get all GPU resource"}
+{"time":"2023-10-20T19:31:08.157002728+08:00","level":"ERROR","msg":" client.NvmlUtilizationRate stream get err","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:31:08.157036711+08:00","level":"ERROR","msg":"resource grpcHandler error","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:31:08.157056097+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":1,\"nodeName\":\"gpu14\",\"nodeAddress\":\"172.18.127.59\",\"occupiedList\":[]}"}
+{"time":"2023-10-20T19:31:08.157069019+08:00","level":"DEBUG","msg":"get all GPU resource"}
+{"time":"2023-10-20T19:31:08.157392784+08:00","level":"ERROR","msg":" client.NvmlUtilizationRate stream get err","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:31:08.157423697+08:00","level":"ERROR","msg":"resource grpcHandler error","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:31:09.010787443+08:00","level":"DEBUG","msg":"receive message display","RAW_MSG":"{\"admin\":false,\"type\":4,\"content\":{\"ids\":{\"uid\":6,\"tid\":239},\"command\":\"STOP\",\"containerName\":\"\",\"logAddress\":\"\",\"modelName\":null,\"originalModelUrl\":null,\"continuousModelUrl\":null,\"resourceType\":\"gpu\",\"modelType\":7,\"frameworkType\":-1,\"toolBoxName\":\"无\",\"params\":\"\",\"selectedDataset\":\"null\",\"imageName\":\"172.18.127.68:80/base-images/ubuntu22_cuda118_python311:v1.1\",\"distributingMethod\":3,\"cmd\":\"\",\"selectedNodes\":[{\"nodeName\":\"gpu17\",\"nodeAddress\":\"172.18.127.62\",\"nodeLabel\":\"SXM-A800-80G\",\"gpuIndex\":\"1,2\"},{\"nodeName\":\"gpu16\",\"nodeAddress\":\"172.18.127.61\",\"nodeLabel\":\"SXM-A800-80G\",\"gpuIndex\":\"1,2\"}]}}"}
+{"time":"2023-10-20T19:31:09.013903067+08:00","level":"ERROR","msg":"receive rpc container delete","ERR_MSG":"rpc error: code = Unknown desc = Error response from daemon: page not found"}
+{"time":"2023-10-20T19:31:09.01982438+08:00","level":"ERROR","msg":"receive rpc container delete","ERR_MSG":"rpc error: code = Unknown desc = Error response from daemon: page not found"}
+{"time":"2023-10-20T19:31:09.01988116+08:00","level":"DEBUG","msg":"socket client creating"}
+{"time":"2023-10-20T19:31:18.153309346+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":1,\"nodeName\":\"gpu14\",\"nodeAddress\":\"172.18.127.59\",\"occupiedList\":[]}"}
+{"time":"2023-10-20T19:31:18.153348289+08:00","level":"DEBUG","msg":"get all GPU resource"}
+{"time":"2023-10-20T19:31:18.153755476+08:00","level":"ERROR","msg":" client.NvmlUtilizationRate stream get err","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:31:18.153779222+08:00","level":"ERROR","msg":"resource grpcHandler error","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:31:28.152339634+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":1,\"nodeName\":\"gpu14\",\"nodeAddress\":\"172.18.127.59\",\"occupiedList\":[]}"}
+{"time":"2023-10-20T19:31:28.152382733+08:00","level":"DEBUG","msg":"get all GPU resource"}
+{"time":"2023-10-20T19:31:28.152824575+08:00","level":"ERROR","msg":" client.NvmlUtilizationRate stream get err","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:31:28.152856135+08:00","level":"ERROR","msg":"resource grpcHandler error","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:31:38.570072154+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":1,\"nodeName\":\"gpu14\",\"nodeAddress\":\"172.18.127.59\",\"occupiedList\":[]}"}
+{"time":"2023-10-20T19:31:38.570108407+08:00","level":"DEBUG","msg":"get all GPU resource"}
+{"time":"2023-10-20T19:31:38.570574984+08:00","level":"ERROR","msg":" client.NvmlUtilizationRate stream get err","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:31:38.570605642+08:00","level":"ERROR","msg":"resource grpcHandler error","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:31:48.570172187+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":1,\"nodeName\":\"gpu14\",\"nodeAddress\":\"172.18.127.59\",\"occupiedList\":[]}"}
+{"time":"2023-10-20T19:31:48.570208401+08:00","level":"DEBUG","msg":"get all GPU resource"}
+{"time":"2023-10-20T19:31:48.570621461+08:00","level":"ERROR","msg":" client.NvmlUtilizationRate stream get err","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:31:48.57067005+08:00","level":"ERROR","msg":"resource grpcHandler error","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:31:58.570717563+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":1,\"nodeName\":\"gpu14\",\"nodeAddress\":\"172.18.127.59\",\"occupiedList\":[]}"}
+{"time":"2023-10-20T19:31:58.571056968+08:00","level":"DEBUG","msg":"get all GPU resource"}
+{"time":"2023-10-20T19:31:58.571614589+08:00","level":"ERROR","msg":" client.NvmlUtilizationRate stream get err","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:31:58.571640417+08:00","level":"ERROR","msg":"resource grpcHandler error","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:32:08.570346861+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":1,\"nodeName\":\"gpu14\",\"nodeAddress\":\"172.18.127.59\",\"occupiedList\":[]}"}
+{"time":"2023-10-20T19:32:08.5703832+08:00","level":"DEBUG","msg":"get all GPU resource"}
+{"time":"2023-10-20T19:32:08.570872033+08:00","level":"ERROR","msg":" client.NvmlUtilizationRate stream get err","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:32:08.570909823+08:00","level":"ERROR","msg":"resource grpcHandler error","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:32:18.5710456+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":1,\"nodeName\":\"gpu14\",\"nodeAddress\":\"172.18.127.59\",\"occupiedList\":[]}"}
+{"time":"2023-10-20T19:32:18.571086278+08:00","level":"DEBUG","msg":"get all GPU resource"}
+{"time":"2023-10-20T19:32:18.571510459+08:00","level":"ERROR","msg":" client.NvmlUtilizationRate stream get err","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:32:18.571548577+08:00","level":"ERROR","msg":"resource grpcHandler error","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:32:28.571079598+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":1,\"nodeName\":\"gpu14\",\"nodeAddress\":\"172.18.127.59\",\"occupiedList\":[]}"}
+{"time":"2023-10-20T19:32:28.571119827+08:00","level":"DEBUG","msg":"get all GPU resource"}
+{"time":"2023-10-20T19:32:28.571540678+08:00","level":"ERROR","msg":" client.NvmlUtilizationRate stream get err","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:32:28.571573364+08:00","level":"ERROR","msg":"resource grpcHandler error","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:33:05.571972433+08:00","level":"DEBUG","msg":"receive resource message display","RAW_MSG":"{\"type\":1,\"nodeName\":\"gpu14\",\"nodeAddress\":\"172.18.127.59\",\"occupiedList\":[]}"}
+{"time":"2023-10-20T19:33:05.572011468+08:00","level":"DEBUG","msg":"get all GPU resource"}
+{"time":"2023-10-20T19:33:05.572391984+08:00","level":"ERROR","msg":" client.NvmlUtilizationRate stream get err","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}
+{"time":"2023-10-20T19:33:05.572436462+08:00","level":"ERROR","msg":"resource grpcHandler error","ERR_MSG":"rpc error: code = Unavailable desc = connection error: desc = \"transport: Error while dialing: dial tcp 172.18.127.59:50001: connect: connection refused\""}

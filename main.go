@@ -18,7 +18,7 @@ func main() {
 	cntxt := &daemon.Context{
 		PidFileName: "gcs.pid",
 		PidFilePerm: 0644,
-		LogFileName: "./log/gcs.log",
+		LogFileName: GCS_LOG_PATH,
 		WorkDir:     "./",
 		Umask:       027,
 		Args:        []string{"[gcs]"},
@@ -50,8 +50,6 @@ func main() {
 
 	slog.Debug("listenHandler start")
 	go listenHandler()
-
-	//docker_test()
 
 	<-ctx.Done()
 }
