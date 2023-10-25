@@ -84,11 +84,11 @@ func (c *ResourceClient) grpcHandler(addr string, gpuIdx string) error {
 		c.sm.MemUtilize = AssembleToRespondString(resp.GetMemRate())
 		c.sm.Utilize = AssembleToRespondString(resp.GetUtilizationRate())
 	}
-	slog.Debug("GetIndexID", "VALUE", c.sm.GPUIndex, "RPC_NODE", c.rm.NodeName)
-	slog.Debug("GetOccupied", "VALUE", c.sm.Occupied, "RPC_NODE", c.rm.NodeName)
-	slog.Debug("GetTemperature", "VALUE", c.sm.Temperature, "RPC_NODE", c.rm.NodeName)
-	slog.Debug("GetMemRate", "VALUE", c.sm.MemUtilize, "RPC_NODE", c.rm.NodeName)
-	slog.Debug("GetUtilizationRate", "VALUE", c.sm.Utilize, "RPC_NODE", c.rm.NodeName)
+	slog.Debug("NVML Info:", "RPC_NODE", c.rm.NodeName,
+		"GetIndexID", c.sm.GPUIndex,
+		"GetOccupied", c.sm.Occupied,
+		"GetMemRate", c.sm.MemUtilize,
+		"GetUtilizationRate", c.sm.Utilize)
 
 	//send
 	w, err := c.conn.NextWriter(websocket.TextMessage)

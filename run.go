@@ -114,6 +114,8 @@ func (h *MyHandler) recvMsgHandler(conn *websocket.Conn) {
 				//参数补充完整
 				originalModuleURL := "--originalModelUrl=" + j.receiveMsg.Content.OriginalModelUrl
 				j.receiveMsg.Paramaters = append(j.receiveMsg.Paramaters, originalModuleURL)
+				mpSize := "--mp_size=" + strconv.Itoa(j.receiveMsg.GpuCountPerContainer)
+				j.receiveMsg.Paramaters = append(j.receiveMsg.Paramaters, mpSize)
 				ips := "--ip=" + strings.Join(j.receiveMsg.ContainerIps, ",")
 				j.receiveMsg.Paramaters = append(j.receiveMsg.Paramaters, ips)
 				nodes := "--nodes=" + strconv.Itoa(len(*j.receiveMsg.Content.SelectedNodes))
@@ -234,8 +236,7 @@ func (h *MyHandler) recvMsgHandler(conn *websocket.Conn) {
 					slog.Error("Get create message invalid.return back!!!")
 					break
 				}
-
-				job.sendMsg.Type = 10 //表示训练指令已发送
+				job.sendMsg.Type = WS_STATUS_BACK_CREATE_RECEIVE
 				job.sendMsgSignalChan <- struct{}{}
 				//新建任务需要加入队列中
 				slog.Info("create container signal")
@@ -250,7 +251,7 @@ func (h *MyHandler) recvMsgHandler(conn *websocket.Conn) {
 				*/
 				job.WaitDone()
 				//执行完 done 就可以释放队列任务，并且此处不阻塞了
-				if job.sendMsg.Type == 13 {
+				if job.sendMsg.Type == WS_STATUS_BACK_TRAINNING {
 					go func() {
 						err := logStoreHandler(job)
 						if err != nil {
@@ -259,7 +260,6 @@ func (h *MyHandler) recvMsgHandler(conn *websocket.Conn) {
 					}()
 				}
 
-			//收到信息type是 1，表示获取物理节点状态信息
 			case MESSAGE_TYPE_NODE_INFO:
 				slog.Debug("get resource info")
 				err = resourceInfo(job)
@@ -276,18 +276,15 @@ func (h *MyHandler) recvMsgHandler(conn *websocket.Conn) {
 					return
 				}
 			case MESSAGE_TYPE_STOP:
-				//任务停止（docker_system） 使用 grpc
 				for _, v := range *job.receiveMsg.Content.SelectedNodes {
 					err := dockerDeleteHandler(v.NodeAddress, job.receiveMsg.Content.ContainerName)
 					if err != nil {
 						slog.Error("dockerDeleteHandler get error")
 					}
 				}
-				// 给 ws返回 13 表示训练正常结束
-				job.sendMsg.Type = 15
+				job.sendMsg.Type = WS_STATUS_BACK_STOP_INNORMAL
 				job.sendMsgSignalChan <- struct{}{}
-				// 给 socket 返回 7训练结束
-				err := socketClientCreate(job, 7)
+				err := socketClientCreate(job, SOCKET_STATUS_BACK_STOP_INNOMAL)
 				if err != nil {
 					slog.Debug("socketClientCreate error in container delete")
 					return
@@ -338,42 +335,3 @@ func (h *MyHandler) sendMsgHandler(job *Job) {
 		}
 	}
 }
-
-/*******************任务执行的的websocket handler*******************/
-
-/*// 查看状态
-func docker_status_test(containerName string) error {
-	conn, err := grpc.Dial("172.18.127.62:50001", grpc.WithTransportCredentials(insecure.NewCredentials()))
-	if err != nil {
-		slog.Error("grpc.Dial get error",
-			"ERR_MSG", err.Error())
-	}
-	// 延迟关闭连接
-	defer conn.Close()
-	client := pb.NewGcsInfoCatchServiceDockerClient(conn)
-
-	stream, err := client.DockerContainerStatus(context.Background(), &pb.StatusRequestMsg{ContainerName: containerName})
-
-	//这错个没用啊！！
-	if err != nil {
-		slog.Error("DockerContainerStatus error",
-			"ERR_MSG", err.Error())
-		return err
-	}
-	for {
-		// 通过 Recv() 不断获取服务端send()推送的消息
-		resp, err := stream.Recv()
-		// err==io.EOF则表示服务端关闭stream了 退出
-		if err == io.EOF {
-			slog.Debug("rpc stream server closed")
-			return nil
-		}
-		if err != nil {
-			slog.Error("receive rpc container status",
-				"ERR_MSG", err.Error())
-			return err
-		}
-		slog.Debug("receive rpc container status",
-			"OTHER_MSG", resp.GetStatusResp())
-	}
-}*/

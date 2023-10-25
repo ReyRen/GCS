@@ -43,10 +43,10 @@ func resourceInfo(job *Job) error {
 		nodesListerStatus = append(nodesListerStatus, string(v.Status.State))
 	}
 
-	slog.Debug("swarm nodeListerName", "nodeListerName", nodesListerName)
-	slog.Debug("swarm nodeListerAddr", "nodeListerAddr", nodesListerAddr)
-	slog.Debug("swarm nodesListerLabel", "nodesListerLabel", nodesListerLabel)
-	slog.Debug("swarm nodesListerStatus", "nodesListerStatus", nodesListerStatus)
+	slog.Debug("swarm info:", "nodeListerName", nodesListerName,
+		"nodeListerAddr", nodesListerAddr,
+		"nodesListerLabel", nodesListerLabel,
+		"nodesListerStatus", nodesListerStatus)
 
 	job.sendMsg.Content.ResourceInfo.NodesListerAddr = strings.Join(nodesListerAddr, ",")
 	job.sendMsg.Content.ResourceInfo.NodesListerName = strings.Join(nodesListerName, ",")
@@ -81,33 +81,13 @@ func logStoreHandler(job *Job) error {
 				slog.Error("dockerDeleteHandler get error")
 			}
 		}
-		// 给 ws返回 13 表示训练正常结束
-		job.sendMsg.Type = 15
+		job.sendMsg.Type = WS_STATUS_BACK_STOP_NORMAL
 		job.sendMsgSignalChan <- struct{}{}
-		// 给 socket 返回 7训练结束
-		err := socketClientCreate(job, 7)
+		err := socketClientCreate(job, SOCKET_STATUS_BACK_STOP_NORMAL)
 		if err != nil {
 			slog.Debug("socketClientCreate error in logstor")
 		}
 	}
-	/*if stor.GetLogStorResp() == "LOGSTOR_OVER" {
-		// EOF get 进行删除工作
-		for _, v := range *job.receiveMsg.Content.SelectedNodes {
-			err := dockerDeleteHandler(v.NodeAddress, job.sendMsg.Content.ContainerName)
-			if err != nil {
-				slog.Error("dockerDeleteHandler get error")
-			}
-		}
-		// 给 ws返回 13 表示训练正常结束
-		job.sendMsg.Type = 15
-		job.sendMsgSignalChan <- struct{}{}
-		// 给 socket 返回 7训练结束
-		err := socketClientCreate(job, 7)
-		if err != nil {
-			slog.Debug("socketClientCreate error in logstor")
-		}
-	}*/
-
 	return nil
 }
 
@@ -135,7 +115,7 @@ func dockerLogHandler(job *Job) error {
 				"ERR_MSG", err.Error())
 			return err
 		}
-		job.sendMsg.Type = 3 //发送日志
+		job.sendMsg.Type = WS_STATUS_BACK_SEND_LOG
 		job.sendMsg.Content.Log = resp.GetLogsResp()
 		job.sendMsgSignalChan <- struct{}{}
 		slog.Debug("receive rpc container delete",

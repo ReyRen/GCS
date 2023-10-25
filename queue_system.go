@@ -2,6 +2,7 @@ package main
 
 import (
 	"log/slog"
+	"strings"
 )
 
 func NewFlowControl() *FlowControl {
@@ -38,10 +39,12 @@ func (m *WorkerManager) createWorker() error {
 				slog.Debug("Check resource free or not")
 				free := true
 				for _, v := range *job.receiveMsg.Content.SelectedNodes {
+					//先获取一下 每个容器GPU 的个数
+					job.receiveMsg.GpuCountPerContainer = len(strings.Split(v.GPUIndex, ","))
 					// true说明有被占用
 					if checkGPUOccupiedOrNot(v.NodeAddress, v.GPUIndex) {
 						free = false
-						job.sendMsg.Type = 11 //表示资源不满足，不进行任务提交，直接返回
+						job.sendMsg.Type = WS_STATUS_BACK_RESOURCE_INSUFFICIENT
 						job.sendMsgSignalChan <- struct{}{}
 						break
 					} else {
@@ -53,15 +56,14 @@ func (m *WorkerManager) createWorker() error {
 					slog.Debug("resource cannot use, task over")
 					job.Done()
 				} else {
-					//给 socket 发送创建容器开始
-					err := socketClientCreate(job, 4)
+					err := socketClientCreate(job, SOCKET_STATUS_BACK_CREATE_START)
 					if err != nil {
 						slog.Debug("socketClientCreate error in  container creating")
 						return
 					}
 					slog.Debug("socket send:container creating")
 					//给 websocket 发送创建容器开始
-					job.sendMsg.Type = 12 //表示容器创建中
+					job.sendMsg.Type = WS_STATUS_BACK_CREATING
 					job.sendMsgSignalChan <- struct{}{}
 					err = job.Execute()
 					if err != nil {
@@ -69,15 +71,13 @@ func (m *WorkerManager) createWorker() error {
 						slog.Debug("execute job error, execute delete containers",
 							"UID", job.receiveMsg.Content.IDs.Uid,
 							"TID", job.receiveMsg.Content.IDs.Tid)
-						//给 socket 发送创建容器异常
-						err := socketClientCreate(job, 401)
+						err := socketClientCreate(job, SOCKET_STATUS_BACK_CREATE_FAILED)
 						if err != nil {
 							slog.Debug("socketClientCreate error in  container create failed")
 							return
 						}
 						slog.Debug("socket send:container create failed")
-						//websocket 发送创建容器异常
-						job.sendMsg.Type = 14 //表示容器创建有问题
+						job.sendMsg.Type = WS_STATUS_BACK_CREATE_FAILED
 						job.sendMsgSignalChan <- struct{}{}
 						//将该任务的容器不管有没有创建成功都删除一遍
 						for _, v := range *job.receiveMsg.Content.SelectedNodes {
@@ -88,15 +88,13 @@ func (m *WorkerManager) createWorker() error {
 						}
 						job.Done()
 					} else {
-						//给 socket 发送训练中
-						err := socketClientCreate(job, 6)
+						err := socketClientCreate(job, SOCKET_STATUS_BACK_TRAINNING)
 						if err != nil {
 							slog.Debug("socketClientCreate error in  container running")
 							return
 						}
 						slog.Debug("socket send:container running")
-						//给websocket 发送训练中
-						job.sendMsg.Type = 13 // 表示容器创建成功，并且执行程序了
+						job.sendMsg.Type = WS_STATUS_BACK_TRAINNING
 						job.sendMsg.Content.ContainerName = job.sendMsg.Content.ContainerName
 						err = resourceInfo(job)
 						if err != nil {

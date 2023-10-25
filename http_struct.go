@@ -78,12 +78,13 @@ type RecvMsgContent struct {
 	CommandBox         string         `json:"cmd"`
 }
 type RecvMsg struct {
-	Type         int             `json:"type"`
-	Admin        bool            `json:"admin"`
-	Content      *RecvMsgContent `json:"content"`
-	Paramaters   []string
-	ContainerIps []string
-	LogPathName  string
+	Type                 int             `json:"type"`
+	Admin                bool            `json:"admin"`
+	Content              *RecvMsgContent `json:"content"`
+	Paramaters           []string
+	ContainerIps         []string
+	GpuCountPerContainer int
+	LogPathName          string
 }
 
 func newReceiveMsg() *RecvMsg {
@@ -189,11 +190,11 @@ type ResourceClient struct {
 
 /*************SOCKET STRUCT SET*************/
 type socketSendMsg struct {
-	Uid      int `json:"uid"`
-	Tid      int `json:"tid"`
-	StatusId int `json:"statusId"`
-	//ContainerInfoList *[]containerInfoList `json:"containerInfo"`
-	ContainerName string `json:"containerName"`
+	Uid               int                  `json:"uid"`
+	Tid               int                  `json:"tid"`
+	StatusId          int                  `json:"statusId"`
+	ContainerInfoList *[]containerInfoList `json:"containerInfo"`
+	ContainerName     string               `json:"containerName"`
 }
 type containerInfoList struct {
 	NodeAddress string `json:"nodeAddress"`
