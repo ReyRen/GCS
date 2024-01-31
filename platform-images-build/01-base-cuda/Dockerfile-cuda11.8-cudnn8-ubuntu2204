@@ -1,0 +1,16 @@
+FROM 172.18.127.68:80/support/cuda:11.8.0-cudnn8-runtime-ubuntu22.04
+
+RUN echo 'root:adminADMIN123' | chpasswd
+
+RUN apt update
+RUN apt install -y vim
+RUN apt install -y mpich
+RUN apt install -y net-tools infiniband-diags iproute2
+RUN apt install -y openssh-client openssh-server sshpass
+
+RUN mkdir -p /root/.ssh
+RUN cd /root/.ssh
+RUN ssh-keygen -t rsa  -N '' -f /root/.ssh/id_rsa
+RUN chmod 700 /root/.ssh
+
+RUN echo "PermitRootLogin yes" >> /etc/ssh/sshd_config
