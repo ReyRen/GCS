@@ -45,11 +45,13 @@ func (m *WorkerManager) createWorker() error {
 					if checkGPUOccupiedOrNot(v.NodeAddress, v.GPUIndex) {
 						free = false
 						job.sendMsg.Type = WS_STATUS_BACK_RESOURCE_INSUFFICIENT
-						job.sendMsgSignalChan <- struct{}{}
+						//job.sendMsgSignalChan <- struct{}{}
 						break
 					} else {
+						//job.sendMsgSignalChan <- struct{}{}
 						slog.Debug("selected gpu free", "NODE_ADDR", v.NodeAddress)
 					}
+					job.sendMsgSignalChan <- struct{}{}
 				}
 				if !free {
 					//说明资源不满足，那么就必须停止任务创建
@@ -64,7 +66,7 @@ func (m *WorkerManager) createWorker() error {
 					slog.Debug("socket send:container creating")
 					//给 websocket 发送创建容器开始
 					job.sendMsg.Type = WS_STATUS_BACK_CREATING
-					job.sendMsgSignalChan <- struct{}{}
+					/*job.sendMsgSignalChan <- struct{}{}*/
 					err = job.Execute()
 					if err != nil {
 						//说明创建任务的过程中，有问题
@@ -78,7 +80,7 @@ func (m *WorkerManager) createWorker() error {
 						}
 						slog.Debug("socket send:container create failed")
 						job.sendMsg.Type = WS_STATUS_BACK_CREATE_FAILED
-						job.sendMsgSignalChan <- struct{}{}
+						/*job.sendMsgSignalChan <- struct{}{}*/
 						//将该任务的容器不管有没有创建成功都删除一遍
 						for _, v := range *job.receiveMsg.Content.SelectedNodes {
 							err := dockerDeleteHandler(v.NodeAddress, job.sendMsg.Content.ContainerName)
@@ -95,12 +97,12 @@ func (m *WorkerManager) createWorker() error {
 						}
 						slog.Debug("socket send:container running")
 						job.sendMsg.Type = WS_STATUS_BACK_TRAINNING
-						job.sendMsg.Content.ContainerName = job.sendMsg.Content.ContainerName
+						/*job.sendMsg.Content.ContainerName = job.sendMsg.Content.ContainerName*/
 						err = resourceInfo(job)
 						if err != nil {
 							slog.Error("get resourceInfo err", "ERR_MSG", err)
 						}
-						job.sendMsgSignalChan <- struct{}{}
+						/*job.sendMsgSignalChan <- struct{}{}*/
 						slog.Debug("execute job done",
 							"UID", job.receiveMsg.Content.IDs.Uid,
 							"TID", job.receiveMsg.Content.IDs.Tid)
@@ -163,9 +165,12 @@ func (job *Job) Execute() error {
 }
 
 func (q *JobQueue) PushJob(job *Job) {
+	slog.Debug("11111111111111111111111111111111 before q.mu.Lock()")
 	q.mu.Lock()
+	slog.Debug("11111111111111111111111111111111 after q.mu.Lock()")
 	defer q.mu.Unlock()
 	q.size++
+	slog.Debug("queue size=", q.size, "queue capacity=", q.capacity)
 	if q.size > q.capacity {
 		slog.Debug("queue is overwhelmed, remove least job")
 		q.RemoveLeastJob()

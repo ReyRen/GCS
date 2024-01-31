@@ -16,9 +16,11 @@ const (
 	GCS_LOG_PATH = "./log/gcs.log"
 
 	/******************GCS 和 GCS resource 监听地址端口******************/
-	GCS_ADDR_WITH_PORT       = "172.18.127.64:8066" // gcs self address and port
-	GCS_RESOURCE_WITH_PORT   = "172.18.127.64:8067" // gcs resource self address and port
+	GCS_ADDR_WITH_PORT       = "172.18.127.66:8066" // gcs self address and port
+	GCS_RESOURCE_WITH_PORT   = "172.18.127.66:8067" // gcs resource self address and port
 	GCS_INFO_CATCH_GRPC_PORT = ":50001"
+
+	DOCKER_IMAGES_PREFIX = "172.18.127.68:80/"
 
 	/******************GPU 类型，用于传输给 ws 前段显示******************/
 	GPU_TYPE = "SXM-A800-80G"
@@ -49,7 +51,7 @@ const (
 	WS_STATUS_BACK_STOP_NORMAL           = 15 //表示任务正常结束，日志读取到 EOF
 
 	/******************与后端 socket 建立连接的 ip 地址和端口******************/
-	socketServer                     = "172.18.127.66:8020"
+	socketServer                     = "172.18.127.68:8020"
 	SOCKET_STATUS_BACK_CREATE_START  = 4   //表示创建容器开始（资源已判定为满足）
 	SOCKET_STATUS_BACK_TRAINNING     = 6   //表示容器创建全部成功，并且训练中
 	SOCKET_STATUS_BACK_STOP_NORMAL   = 7   //表示任务正常结束，日志读取到 EOF
@@ -141,7 +143,6 @@ func socketClientCreate(job *Job, statusCode int) error {
 		tmpSlice = append(tmpSlice, containerInfo)
 	}
 	socketSendMsg.ContainerInfoList = &tmpSlice
-
 	socketmsg, _ := json.Marshal(socketSendMsg)
 	_, err = conn.Write(socketmsg)
 	if err != nil {

@@ -72,6 +72,10 @@ func logStoreHandler(job *Job) error {
 	})
 	if err != nil && err != io.EOF {
 		slog.Error("DockerLogStor get error", "ERR_MSG", err.Error())
+
+		/*job.sendMsg.Type = WS_STATUS_BACK_CREATE_FAILED
+		job.sendMsgSignalChan <- struct{}{}*/
+		_ = socketClientCreate(job, SOCKET_STATUS_BACK_CREATE_FAILED)
 		return err
 	} else {
 		// EOF了 说明日志没了
@@ -81,8 +85,8 @@ func logStoreHandler(job *Job) error {
 				slog.Error("dockerDeleteHandler get error")
 			}
 		}
-		job.sendMsg.Type = WS_STATUS_BACK_STOP_NORMAL
-		job.sendMsgSignalChan <- struct{}{}
+		/*job.sendMsg.Type = WS_STATUS_BACK_STOP_NORMAL
+		job.sendMsgSignalChan <- struct{}{}*/
 		err := socketClientCreate(job, SOCKET_STATUS_BACK_STOP_NORMAL)
 		if err != nil {
 			slog.Debug("socketClientCreate error in logstor")
@@ -118,8 +122,8 @@ func dockerLogHandler(job *Job) error {
 		job.sendMsg.Type = WS_STATUS_BACK_SEND_LOG
 		job.sendMsg.Content.Log = resp.GetLogsResp()
 		job.sendMsgSignalChan <- struct{}{}
-		slog.Debug("receive rpc container delete",
-			"OTHER_MSG", resp.GetLogsResp())
+		/*slog.Debug("receive rpc container log",
+		"OTHER_MSG", resp.GetLogsResp())*/
 	}
 	return nil
 }

@@ -112,9 +112,13 @@ func (h *MyHandler) recvMsgHandler(conn *websocket.Conn) {
 
 			if master {
 				//参数补充完整
-				originalModuleURL := "--originalModelUrl=" + j.receiveMsg.Content.OriginalModelUrl
-				j.receiveMsg.Paramaters = append(j.receiveMsg.Paramaters, originalModuleURL)
-				mpSize := "--mp_size=" + strconv.Itoa(j.receiveMsg.GpuCountPerContainer)
+				/*originalModuleURL := "--originalModelUrl=" + j.receiveMsg.Content.OriginalModelUrl
+				j.receiveMsg.Paramaters = append(j.receiveMsg.Paramaters, originalModuleURL)*/
+				userId := "--user_id=" + strconv.Itoa(j.receiveMsg.Content.IDs.Uid)
+				j.receiveMsg.Paramaters = append(j.receiveMsg.Paramaters, userId)
+				taskId := "--task_id=" + strconv.Itoa(j.receiveMsg.Content.IDs.Tid)
+				j.receiveMsg.Paramaters = append(j.receiveMsg.Paramaters, taskId)
+				mpSize := "--ngpus=" + strconv.Itoa(j.receiveMsg.GpuCountPerContainer)
 				j.receiveMsg.Paramaters = append(j.receiveMsg.Paramaters, mpSize)
 				ips := "--ip=" + strings.Join(j.receiveMsg.ContainerIps, ",")
 				j.receiveMsg.Paramaters = append(j.receiveMsg.Paramaters, ips)
@@ -122,18 +126,19 @@ func (h *MyHandler) recvMsgHandler(conn *websocket.Conn) {
 				j.receiveMsg.Paramaters = append(j.receiveMsg.Paramaters, nodes)
 				modelName := "--modelName=" + j.receiveMsg.Content.ModelName
 				j.receiveMsg.Paramaters = append(j.receiveMsg.Paramaters, modelName)
-				modelType := "--modelType=" + strconv.Itoa(j.receiveMsg.Content.ModelType)
+				modelType := "--model_type=" + strconv.Itoa(j.receiveMsg.Content.ModelType)
 				j.receiveMsg.Paramaters = append(j.receiveMsg.Paramaters, modelType)
-				frameworkType := "--frameworkType=" + strconv.Itoa(j.receiveMsg.Content.FrameworkType)
-				j.receiveMsg.Paramaters = append(j.receiveMsg.Paramaters, frameworkType)
-				toolBoxName := "--toolBoxName=" + j.receiveMsg.Content.ToolBoxName
-				j.receiveMsg.Paramaters = append(j.receiveMsg.Paramaters, toolBoxName)
-				params := "--params=" + j.receiveMsg.Content.Params
-				j.receiveMsg.Paramaters = append(j.receiveMsg.Paramaters, params)
-				selectedDataset := "--selectedDataset=" + j.receiveMsg.Content.SelectedDataset
-				j.receiveMsg.Paramaters = append(j.receiveMsg.Paramaters, selectedDataset)
+				/*frameworkType := "--frameworkType=" + strconv.Itoa(j.receiveMsg.Content.FrameworkType)
+				j.receiveMsg.Paramaters = append(j.receiveMsg.Paramaters, frameworkType)*/
+				/*toolBoxName := "--toolBoxName=" + j.receiveMsg.Content.ToolBoxName
+				j.receiveMsg.Paramaters = append(j.receiveMsg.Paramaters, toolBoxName)*/
+				modelParameters := "--model_parameters=" + j.receiveMsg.Content.Params
+				j.receiveMsg.Paramaters = append(j.receiveMsg.Paramaters, modelParameters)
+				/*selectedDataset := "--selectedDataset=" + j.receiveMsg.Content.SelectedDataset
+				j.receiveMsg.Paramaters = append(j.receiveMsg.Paramaters, selectedDataset)*/
 				distributingMethod := "--distributingMethod=" + strconv.Itoa(j.receiveMsg.Content.DistributingMethod)
 				j.receiveMsg.Paramaters = append(j.receiveMsg.Paramaters, distributingMethod)
+				//cmd := "--cmd=" + "\"" + j.receiveMsg.Content.CommandBox + "\""
 				cmd := "--cmd=" + j.receiveMsg.Content.CommandBox
 				j.receiveMsg.Paramaters = append(j.receiveMsg.Paramaters, cmd)
 			}
@@ -143,7 +148,7 @@ func (h *MyHandler) recvMsgHandler(conn *websocket.Conn) {
 
 			// create container
 			stream, err := client.DockerContainerRun(context.Background(), &pb.ContainerRunRequestMsg{
-				ImageName:     j.receiveMsg.Content.ImageName,
+				ImageName:     DOCKER_IMAGES_PREFIX + j.receiveMsg.Content.ImageName,
 				ContainerName: j.sendMsg.Content.ContainerName,
 				GpuIdx:        gpuIndex,
 				Master:        master,
@@ -191,12 +196,12 @@ func (h *MyHandler) recvMsgHandler(conn *websocket.Conn) {
 			slog.Error("job conn.Close err", "ERR_MSG", err.Error())
 		}
 
-		if _, ok := <-job.DoneChan; ok {
+		/*if _, ok := <-job.DoneChan; ok {
 			close(job.DoneChan)
 		}
 		if _, ok := <-job.sendMsgSignalChan; ok {
 			close(job.sendMsgSignalChan)
-		}
+		}*/
 	}()
 
 	go h.sendMsgHandler(job)
@@ -219,13 +224,10 @@ func (h *MyHandler) recvMsgHandler(conn *websocket.Conn) {
 		job.receiveMsg = receiveMsg
 
 		//初始化日志文件
-		/*job.receiveMsg.LogPathName = LOG_STOR_PRE_PATH +
-		strconv.Itoa(job.receiveMsg.Content.IDs.Uid) +
-		"/" +
-		strconv.Itoa(job.receiveMsg.Content.IDs.Tid) +
-		"/log/log.txt"*/
 		job.receiveMsg.LogPathName = LOG_STOR_PRE_PATH +
 			strconv.Itoa(job.receiveMsg.Content.IDs.Uid) +
+			"/" +
+			strconv.Itoa(job.receiveMsg.Content.IDs.Tid) +
 			"/log/log.txt"
 
 		go func() {
@@ -245,7 +247,8 @@ func (h *MyHandler) recvMsgHandler(conn *websocket.Conn) {
 					strconv.Itoa(job.receiveMsg.Content.IDs.Tid))
 				//提交任务
 				h.flowControl.CommitJob(job)
-				slog.Info("commit job to job queue success")
+				slog.Info("commit job to job queue success", "queue_size",
+					h.flowControl.jobQueue.size, "queue_capacity", h.flowControl.jobQueue.capacity)
 				/*
 					阻塞函数，直到有向job.DoneChan中写入
 				*/
@@ -259,7 +262,6 @@ func (h *MyHandler) recvMsgHandler(conn *websocket.Conn) {
 						}
 					}()
 				}
-
 			case MESSAGE_TYPE_NODE_INFO:
 				slog.Debug("get resource info")
 				err = resourceInfo(job)
