@@ -166,9 +166,9 @@ func (job *Job) Execute() error {
 
 func (q *JobQueue) PushJob(job *Job) {
 	slog.Debug("11111111111111111111111111111111 before q.mu.Lock()")
-	q.mu.Lock()
+	//q.mu.Lock()
 	slog.Debug("11111111111111111111111111111111 after q.mu.Lock()")
-	defer q.mu.Unlock()
+	//defer q.mu.Unlock()
 	q.size++
 	slog.Debug("queue size=", q.size, "queue capacity=", q.capacity)
 	if q.size > q.capacity {
@@ -191,8 +191,8 @@ func (q *JobQueue) PushJob(job *Job) {
 }
 
 func (q *JobQueue) PopJob() *Job {
-	q.mu.Lock()
-	defer q.mu.Unlock()
+	//q.mu.Lock()
+	//defer q.mu.Unlock()
 
 	if q.size == 0 {
 		return nil
