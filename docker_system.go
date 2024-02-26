@@ -72,7 +72,6 @@ func logStoreHandler(job *Job) error {
 	})
 	if err != nil && err != io.EOF {
 		slog.Error("DockerLogStor get error", "ERR_MSG", err.Error())
-
 		/*job.sendMsg.Type = WS_STATUS_BACK_CREATE_FAILED
 		job.sendMsgSignalChan <- struct{}{}*/
 		_ = socketClientCreate(job, SOCKET_STATUS_BACK_CREATE_FAILED)

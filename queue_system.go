@@ -34,79 +34,85 @@ func (m *WorkerManager) createWorker() error {
 				slog.Debug("pop the job",
 					"UID", job.receiveMsg.Content.IDs.Uid,
 					"TID", job.receiveMsg.Content.IDs.Tid)
-
-				//判断资源是否满足
-				slog.Debug("Check resource free or not")
-				free := true
-				for _, v := range *job.receiveMsg.Content.SelectedNodes {
-					//先获取一下 每个容器GPU 的个数
-					job.receiveMsg.GpuCountPerContainer = len(strings.Split(v.GPUIndex, ","))
-					// true说明有被占用
-					if checkGPUOccupiedOrNot(v.NodeAddress, v.GPUIndex) {
-						free = false
-						job.sendMsg.Type = WS_STATUS_BACK_RESOURCE_INSUFFICIENT
-						//job.sendMsgSignalChan <- struct{}{}
-						break
-					} else {
-						//job.sendMsgSignalChan <- struct{}{}
-						slog.Debug("selected gpu free", "NODE_ADDR", v.NodeAddress)
-					}
-					job.sendMsgSignalChan <- struct{}{}
-				}
-				if !free {
-					//说明资源不满足，那么就必须停止任务创建
-					slog.Debug("resource cannot use, task over")
+				if job.flag == 1 {
+					//return
 					job.Done()
+
 				} else {
-					err := socketClientCreate(job, SOCKET_STATUS_BACK_CREATE_START)
-					if err != nil {
-						slog.Debug("socketClientCreate error in  container creating")
-						return
+
+					//判断资源是否满足
+					slog.Debug("Check resource free or not")
+					free := true
+					for _, v := range *job.receiveMsg.Content.SelectedNodes {
+						//先获取一下 每个容器GPU 的个数
+						job.receiveMsg.GpuCountPerContainer = len(strings.Split(v.GPUIndex, ","))
+						// true说明有被占用
+						if checkGPUOccupiedOrNot(v.NodeAddress, v.GPUIndex) {
+							free = false
+							job.sendMsg.Type = WS_STATUS_BACK_RESOURCE_INSUFFICIENT
+							job.sendMsgSignalChan <- struct{}{}
+							break
+						} else {
+							//job.sendMsgSignalChan <- struct{}{}
+							slog.Debug("selected gpu free", "NODE_ADDR", v.NodeAddress)
+						}
+						job.sendMsgSignalChan <- struct{}{}
 					}
-					slog.Debug("socket send:container creating")
-					//给 websocket 发送创建容器开始
-					job.sendMsg.Type = WS_STATUS_BACK_CREATING
-					/*job.sendMsgSignalChan <- struct{}{}*/
-					err = job.Execute()
-					if err != nil {
-						//说明创建任务的过程中，有问题
-						slog.Debug("execute job error, execute delete containers",
-							"UID", job.receiveMsg.Content.IDs.Uid,
-							"TID", job.receiveMsg.Content.IDs.Tid)
-						err := socketClientCreate(job, SOCKET_STATUS_BACK_CREATE_FAILED)
-						if err != nil {
-							slog.Debug("socketClientCreate error in  container create failed")
-							return
-						}
-						slog.Debug("socket send:container create failed")
-						job.sendMsg.Type = WS_STATUS_BACK_CREATE_FAILED
-						/*job.sendMsgSignalChan <- struct{}{}*/
-						//将该任务的容器不管有没有创建成功都删除一遍
-						for _, v := range *job.receiveMsg.Content.SelectedNodes {
-							err := dockerDeleteHandler(v.NodeAddress, job.sendMsg.Content.ContainerName)
-							if err != nil {
-								slog.Error("dockerDeleteHandler get error")
-							}
-						}
+					if !free {
+						//说明资源不满足，那么就必须停止任务创建
+						slog.Debug("resource cannot use, task over")
 						job.Done()
 					} else {
-						err := socketClientCreate(job, SOCKET_STATUS_BACK_TRAINNING)
+						err := socketClientCreate(job, SOCKET_STATUS_BACK_CREATE_START)
 						if err != nil {
-							slog.Debug("socketClientCreate error in  container running")
+							slog.Debug("socketClientCreate error in  container creating")
 							return
 						}
-						slog.Debug("socket send:container running")
-						job.sendMsg.Type = WS_STATUS_BACK_TRAINNING
-						/*job.sendMsg.Content.ContainerName = job.sendMsg.Content.ContainerName*/
-						err = resourceInfo(job)
-						if err != nil {
-							slog.Error("get resourceInfo err", "ERR_MSG", err)
-						}
+						slog.Debug("socket send:container creating")
+						//给 websocket 发送创建容器开始
+						job.sendMsg.Type = WS_STATUS_BACK_CREATING
 						/*job.sendMsgSignalChan <- struct{}{}*/
-						slog.Debug("execute job done",
-							"UID", job.receiveMsg.Content.IDs.Uid,
-							"TID", job.receiveMsg.Content.IDs.Tid)
-						job.Done()
+						err = job.Execute()
+						if err != nil {
+							//说明创建任务的过程中，有问题
+							slog.Debug("execute job error, execute delete containers",
+								"UID", job.receiveMsg.Content.IDs.Uid,
+								"TID", job.receiveMsg.Content.IDs.Tid)
+							err := socketClientCreate(job, SOCKET_STATUS_BACK_CREATE_FAILED)
+							if err != nil {
+								slog.Debug("socketClientCreate error in  container create failed")
+								return
+							}
+							slog.Debug("socket send:container create failed")
+							job.sendMsg.Type = WS_STATUS_BACK_CREATE_FAILED
+							/*job.sendMsgSignalChan <- struct{}{}*/
+							//将该任务的容器不管有没有创建成功都删除一遍
+							for _, v := range *job.receiveMsg.Content.SelectedNodes {
+								err := dockerDeleteHandler(v.NodeAddress, job.sendMsg.Content.ContainerName)
+								if err != nil {
+									slog.Error("dockerDeleteHandler get error")
+								}
+							}
+							job.Done()
+						} else {
+							err := socketClientCreate(job, SOCKET_STATUS_BACK_TRAINNING)
+							if err != nil {
+								slog.Debug("socketClientCreate error in  container running")
+								return
+							}
+							slog.Debug("socket send:container running")
+							job.sendMsg.Type = WS_STATUS_BACK_TRAINNING
+							/*job.sendMsg.Content.ContainerName = job.sendMsg.Content.ContainerName*/
+							err = resourceInfo(job)
+							if err != nil {
+								slog.Error("get resourceInfo err", "ERR_MSG", err)
+							}
+							/*job.sendMsgSignalChan <- struct{}{}*/
+							slog.Debug("execute job done",
+								"UID", job.receiveMsg.Content.IDs.Uid,
+								"TID", job.receiveMsg.Content.IDs.Tid)
+							job.Done()
+						}
 					}
 				}
 			}
@@ -165,10 +171,8 @@ func (job *Job) Execute() error {
 }
 
 func (q *JobQueue) PushJob(job *Job) {
-	slog.Debug("11111111111111111111111111111111 before q.mu.Lock()")
-	//q.mu.Lock()
-	slog.Debug("11111111111111111111111111111111 after q.mu.Lock()")
-	//defer q.mu.Unlock()
+	q.mu.Lock()
+	defer q.mu.Unlock()
 	q.size++
 	slog.Debug("queue size=", q.size, "queue capacity=", q.capacity)
 	if q.size > q.capacity {
@@ -191,8 +195,8 @@ func (q *JobQueue) PushJob(job *Job) {
 }
 
 func (q *JobQueue) PopJob() *Job {
-	//q.mu.Lock()
-	//defer q.mu.Unlock()
+	q.mu.Lock()
+	defer q.mu.Unlock()
 
 	if q.size == 0 {
 		return nil

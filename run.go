@@ -28,12 +28,12 @@ func (c *ResourceClient) resourceHandler() {
 		_, message, err := c.conn.ReadMessage() // This is a block func, once ws closed, this would be get err
 		if err != nil {
 			if websocket.IsUnexpectedCloseError(err, websocket.CloseGoingAway, websocket.CloseAbnormalClosure) {
-				slog.Error("websocket.IsUnexpectedCloseError error", "ERR_MSG", err.Error())
+				//slog.Error("websocket.IsUnexpectedCloseError error", "ERR_MSG", err.Error())
 			}
 			break
 		}
 		message = bytes.TrimSpace(bytes.Replace(message, newline, space, -1))
-		slog.Debug("receive resource message display", "RAW_MSG", string(message))
+		//slog.Debug("receive resource message display", "RAW_MSG", string(message))
 		jsonHandler(message, c.rm)
 		_ = c.nvml_sys_handler()
 	}
@@ -48,7 +48,7 @@ func resourcehandler(w http.ResponseWriter, r *http.Request) {
 		// mute : websocket: the client is not using the websocket protocol: 'upgrade' token not found in 'Connection' header
 		return
 	}
-	slog.Debug("Receive HTTP Resource request, and upgrade to websocket", "SOURCE_ADDR", conn.RemoteAddr().String())
+	//slog.Debug("Receive HTTP Resource request, and upgrade to websocket", "SOURCE_ADDR", conn.RemoteAddr().String())
 	//初始化结构体准备接收数据
 	var rMsg recvResourceMsg
 	var sMsg sendResourceMsg
@@ -78,7 +78,7 @@ func (h *MyHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 }
 func (h *MyHandler) recvMsgHandler(conn *websocket.Conn) {
 
-	slog.Debug("Receive HTTP request, and upgrade to websocket", "SOURCE_ADDR", conn.RemoteAddr().String())
+	//slog.Debug("Receive HTTP request, and upgrade to websocket", "SOURCE_ADDR", conn.RemoteAddr().String())
 
 	//初始化
 	/*
@@ -96,6 +96,7 @@ func (h *MyHandler) recvMsgHandler(conn *websocket.Conn) {
 		receiveMsg: receiveMsg,
 		sendMsg:    sendMsg,
 		conn:       conn,
+		flag:       0,
 		DoneChan:   make(chan struct{}),
 		handleJob: func(j *Job, addrWithPort string, gpuIndex string, master bool) error {
 			// 连接grpc服务器
@@ -291,6 +292,7 @@ func (h *MyHandler) recvMsgHandler(conn *websocket.Conn) {
 					slog.Debug("socketClientCreate error in container delete")
 					return
 				}
+				job.flag = 1
 			default:
 				slog.Warn("receive message type not implemented", "OTHER_MSG", job.receiveMsg.Type)
 			}

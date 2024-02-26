@@ -16,7 +16,7 @@ func (c *ResourceClient) nvml_sys_handler() error {
 
 	switch c.rm.Type {
 	case RESOUECE_GET_TYPE_ALL:
-		slog.Debug("get all GPU resource")
+		//slog.Debug("get all GPU resource")
 		err := c.grpcHandler(c.rm.NodeAddress, GPU_ALL_INDEX_STRING)
 		if err != nil {
 			slog.Error("resource grpcHandler error",
@@ -24,7 +24,7 @@ func (c *ResourceClient) nvml_sys_handler() error {
 			return err
 		}
 	case RESOUECE_GET_TYPE_PARTIAL:
-		slog.Debug("get partial GPU resource")
+		//slog.Debug("get partial GPU resource")
 		for _, v := range *c.rm.OccupiedList {
 			if c.rm.NodeAddress == v.NodeAddress {
 				err := c.grpcHandler(c.rm.NodeAddress, v.GPUIndex)
@@ -69,7 +69,7 @@ func (c *ResourceClient) grpcHandler(addr string, gpuIdx string) error {
 		resp, err := stream.Recv()
 		// err==io.EOF则表示服务端关闭stream了 退出
 		if err == io.EOF { //说明资源读取正常完成了，所以 break 出循环
-			slog.Debug("resource rpc stream read over")
+			//slog.Debug("resource rpc stream read over")
 			break
 		}
 		if err != nil && err != io.EOF {
@@ -84,11 +84,11 @@ func (c *ResourceClient) grpcHandler(addr string, gpuIdx string) error {
 		c.sm.MemUtilize = AssembleToRespondString(resp.GetMemRate())
 		c.sm.Utilize = AssembleToRespondString(resp.GetUtilizationRate())
 	}
-	slog.Debug("NVML Info:", "RPC_NODE", c.rm.NodeName,
-		"GetIndexID", c.sm.GPUIndex,
-		"GetOccupied", c.sm.Occupied,
-		"GetMemRate", c.sm.MemUtilize,
-		"GetUtilizationRate", c.sm.Utilize)
+	/*slog.Debug("NVML Info:", "RPC_NODE", c.rm.NodeName,
+	"GetIndexID", c.sm.GPUIndex,
+	"GetOccupied", c.sm.Occupied,
+	"GetMemRate", c.sm.MemUtilize,
+	"GetUtilizationRate", c.sm.Utilize)*/
 
 	//send
 	w, err := c.conn.NextWriter(websocket.TextMessage)
@@ -135,7 +135,7 @@ func checkGPUOccupiedOrNot(addr string, gpuIndex string) bool {
 	resp, err := stream.Recv()
 	// err==io.EOF则表示服务端关闭stream了 退出
 	if err == io.EOF {
-		slog.Debug("resource rpc stream read over")
+		//slog.Debug("resource rpc stream read over")
 		return true //因为只有一次读取，如果第一次读取就是 EOF，说明有问题，所以不能被使用
 	}
 	if err != nil && err != io.EOF {

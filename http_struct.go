@@ -27,7 +27,7 @@ func NewJobQueue(cap int) *JobQueue {
 	return &JobQueue{
 		capacity:   cap,
 		queue:      list.New(),
-		noticeChan: make(chan struct{}, 1),
+		noticeChan: make(chan struct{}, 1024),
 	}
 }
 
@@ -45,6 +45,7 @@ type Job struct {
 	receiveMsg *RecvMsg
 	sendMsg    *SendMsg
 	conn       *websocket.Conn
+	flag       int //0 is ok , 1 is useless
 	DoneChan   chan struct{}
 	//handleJob只执行create容器的操作，一旦容器创建成功，即可退出
 	handleJob         func(j *Job, addrWithPort string, gpuIndex string, master bool) error
