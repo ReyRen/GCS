@@ -48,6 +48,14 @@ func main() {
 	slog.Debug("listenResourceHandler start")
 	go listenResourceHandler()
 
+	slog.Debug("******ReloadUpdateInfo Start******")
+	UPDATEMAP = make(map[string][]string)
+	err = reloadUpdateInfo()
+	if err != nil {
+		slog.Error("listenHandler reloadUpdateInfo error", "ERR_MSG", err)
+	}
+	slog.Debug("******ReloadUpdateInfo Done******")
+
 	slog.Debug("listenHandler start")
 	go listenHandler()
 

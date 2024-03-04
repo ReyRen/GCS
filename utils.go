@@ -51,12 +51,13 @@ const (
 	WS_STATUS_BACK_STOP_NORMAL           = 15 //表示任务正常结束，日志读取到 EOF
 
 	/******************与后端 socket 建立连接的 ip 地址和端口******************/
-	socketServer                     = "172.18.127.68:8020"
-	SOCKET_STATUS_BACK_CREATE_START  = 4   //表示创建容器开始（资源已判定为满足）
-	SOCKET_STATUS_BACK_TRAINNING     = 6   //表示容器创建全部成功，并且训练中
-	SOCKET_STATUS_BACK_STOP_NORMAL   = 7   //表示任务正常结束，日志读取到 EOF
-	SOCKET_STATUS_BACK_STOP_INNOMAL  = 8   //表示任务手动结束
-	SOCKET_STATUS_BACK_CREATE_FAILED = 401 //表示容器创建失败
+	socketServer                           = "172.18.127.68:8020"
+	SOCKET_STATUS_BACK_CREATE_START        = 4   //表示创建容器开始（资源已判定为满足）
+	SOCKET_STATUS_BACK_TRAINNING           = 6   //表示容器创建全部成功，并且训练中
+	SOCKET_STATUS_BACK_STOP_NORMAL         = 7   //表示任务正常结束，日志读取到 EOF
+	SOCKET_STATUS_BACK_STOP_INNOMAL        = 8   //表示任务手动结束
+	SOCKET_STATUS_BACK_CREATE_FAILED       = 401 //表示容器创建失败
+	SOCKET_STATUS_BACK_RESOURCE_INSUFFICIE = 402
 )
 
 // http to websocket upgrade variables
@@ -68,6 +69,10 @@ var upgrader = websocket.Upgrader{
 var (
 	newline = []byte{'\n'}
 	space   = []byte{' '}
+)
+
+var (
+	UPDATEMAP map[string][]string
 )
 
 func jsonHandler(data []byte, v interface{}) {

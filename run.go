@@ -262,6 +262,11 @@ func (h *MyHandler) recvMsgHandler(conn *websocket.Conn) {
 							return
 						}
 					}()
+					err := job.recordToUpdate(SOCKET_STATUS_BACK_TRAINNING)
+					if err != nil {
+						slog.Error("recordToUpdate err", "ERR_MSG", err)
+						return
+					}
 				}
 			case MESSAGE_TYPE_NODE_INFO:
 				slog.Debug("get resource info")
@@ -292,7 +297,15 @@ func (h *MyHandler) recvMsgHandler(conn *websocket.Conn) {
 					slog.Debug("socketClientCreate error in container delete")
 					return
 				}
-				job.flag = 1
+
+				/*遍历已有的 list，然后将 uid 和 tid 一致的 list 中的 job，其 flag 置1*/
+				h.flowControl.flagToStop(job)
+
+				err = job.removeToUpdate()
+				if err != nil {
+					slog.Error("recvMsgHandler removeToUpdate error", "ERR_MSG", err.Error())
+					return
+				}
 			default:
 				slog.Warn("receive message type not implemented", "OTHER_MSG", job.receiveMsg.Type)
 			}

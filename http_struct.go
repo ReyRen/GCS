@@ -106,7 +106,7 @@ func newSelectNodes() *[]SelectNodes {
 }
 
 func newReceiveMsgContent() *RecvMsgContent {
-	var ids *Ids
+	var ids *Ids //这里定义的是一个地址 而不是给 Ids 分配内存空间了！！！！！
 	selectNodes := newSelectNodes()
 	slog.Debug("newReceiveMsgContent done")
 	return &RecvMsgContent{

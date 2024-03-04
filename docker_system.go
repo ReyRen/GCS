@@ -72,9 +72,13 @@ func logStoreHandler(job *Job) error {
 	})
 	if err != nil && err != io.EOF {
 		slog.Error("DockerLogStor get error", "ERR_MSG", err.Error())
-		/*job.sendMsg.Type = WS_STATUS_BACK_CREATE_FAILED
-		job.sendMsgSignalChan <- struct{}{}*/
-		_ = socketClientCreate(job, SOCKET_STATUS_BACK_CREATE_FAILED)
+		//这里发生错误目前看主要是log 文件创建失败，这个文件创建失败的原因是挂载的存储掉了！！！！
+		_ = socketClientCreate(job, SOCKET_STATUS_BACK_STOP_NORMAL)
+		err := job.removeToUpdate()
+		if err != nil {
+			slog.Error("DockerLogStor removeToUpdate error", "ERR_MSG", err.Error())
+			return err
+		}
 		return err
 	} else {
 		// EOF了 说明日志没了
@@ -84,11 +88,14 @@ func logStoreHandler(job *Job) error {
 				slog.Error("dockerDeleteHandler get error")
 			}
 		}
-		/*job.sendMsg.Type = WS_STATUS_BACK_STOP_NORMAL
-		job.sendMsgSignalChan <- struct{}{}*/
 		err := socketClientCreate(job, SOCKET_STATUS_BACK_STOP_NORMAL)
 		if err != nil {
 			slog.Debug("socketClientCreate error in logstor")
+		}
+		err = job.removeToUpdate()
+		if err != nil {
+			slog.Error("DockerLogStor removeToUpdate error", "ERR_MSG", err.Error())
+			return err
 		}
 	}
 	return nil

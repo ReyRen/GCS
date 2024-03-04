@@ -49,14 +49,19 @@ func (m *WorkerManager) createWorker() error {
 						// true说明有被占用
 						if checkGPUOccupiedOrNot(v.NodeAddress, v.GPUIndex) {
 							free = false
-							job.sendMsg.Type = WS_STATUS_BACK_RESOURCE_INSUFFICIENT
-							job.sendMsgSignalChan <- struct{}{}
+							//job.sendMsg.Type = WS_STATUS_BACK_RESOURCE_INSUFFICIENT
+							//job.sendMsgSignalChan <- struct{}{}
+							err := socketClientCreate(job, SOCKET_STATUS_BACK_RESOURCE_INSUFFICIE)
+							if err != nil {
+								slog.Debug("socketClientCreate error in  container creating")
+								return
+							}
 							break
 						} else {
 							//job.sendMsgSignalChan <- struct{}{}
 							slog.Debug("selected gpu free", "NODE_ADDR", v.NodeAddress)
 						}
-						job.sendMsgSignalChan <- struct{}{}
+						//job.sendMsgSignalChan <- struct{}{}
 					}
 					if !free {
 						//说明资源不满足，那么就必须停止任务创建
@@ -220,4 +225,14 @@ func (q *JobQueue) RemoveLeastJob() {
 
 func (q *JobQueue) waitJob() <-chan struct{} {
 	return q.noticeChan
+}
+
+// 遍历 queue（list）
+func (c *FlowControl) flagToStop(job *Job) {
+	for e := c.jobQueue.queue.Front(); e != nil; e = e.Next() {
+		if e.Value.(*Job).receiveMsg.Content.IDs.Uid == job.receiveMsg.Content.IDs.Uid &&
+			e.Value.(*Job).receiveMsg.Content.IDs.Tid == job.receiveMsg.Content.IDs.Tid {
+			e.Value.(*Job).flag = 1
+		}
+	}
 }
