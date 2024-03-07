@@ -71,7 +71,7 @@ func logStoreHandler(job *Job) error {
 		ContainerName: job.sendMsg.Content.ContainerName,
 	})
 	if err != nil && err != io.EOF {
-		slog.Error("DockerLogStor get error", "ERR_MSG", err.Error())
+		/*slog.Error("DockerLogStor get error", "ERR_MSG", err.Error())
 		//这里发生错误目前看主要是log 文件创建失败，这个文件创建失败的原因是挂载的存储掉了！！！！
 		_ = socketClientCreate(job, SOCKET_STATUS_BACK_STOP_NORMAL)
 		err := job.removeToUpdate()
@@ -79,7 +79,10 @@ func logStoreHandler(job *Job) error {
 			slog.Error("DockerLogStor removeToUpdate error", "ERR_MSG", err.Error())
 			return err
 		}
-		return err
+		return err*/
+		slog.Error("DockerLogStor get error", "ERR_MSG", err.Error(),
+			"UID:", job.receiveMsg.Content.IDs.Uid,
+			"TID:", job.receiveMsg.Content.IDs.Tid)
 	} else {
 		// EOF了 说明日志没了
 		for _, v := range *job.receiveMsg.Content.SelectedNodes {
@@ -112,6 +115,11 @@ func dockerLogHandler(job *Job) error {
 	defer conn.Close()
 	client := pb.NewGcsInfoCatchServiceDockerClient(conn)
 	stream, err := client.DockerContainerLogs(context.Background(), &pb.LogsRequestMsg{ContainerName: job.receiveMsg.Content.ContainerName})
+	if err != nil {
+		slog.Error("DockerContainerLogs get error",
+			"ERR_MSG", err.Error())
+		return err
+	}
 	for {
 		// 通过 Recv() 不断获取服务端send()推送的消息
 		resp, err := stream.Recv()
