@@ -52,45 +52,66 @@ func (job *Job) recordToUpdate(statusID int) error {
 			}
 	*/
 	mapKey := strconv.Itoa(job.receiveMsg.Content.IDs.Uid) + "-" + strconv.Itoa(job.receiveMsg.Content.IDs.Tid)
-	file, err := os.OpenFile("update.file", os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0766)
+
+	file, err := os.OpenFile("update.json", os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0766)
 	if err != nil {
 		slog.Error("recordToUpdate OpenFile error", "ERR_MSG", err)
 		return err
 	}
 	defer file.Close()
-	if _, ok := UPDATEMAP[mapKey]; ok {
-		delete(UPDATEMAP, mapKey)
-	}
 
-	UPDATEMAP[mapKey] = append(UPDATEMAP[mapKey], strconv.Itoa(statusID))            //0
-	UPDATEMAP[mapKey] = append(UPDATEMAP[mapKey], job.sendMsg.Content.ContainerName) //1
-	UPDATEMAP[mapKey] = append(UPDATEMAP[mapKey], job.receiveMsg.LogPathName)        //2
-	UPDATEMAP[mapKey] = append(UPDATEMAP[mapKey], job.receiveMsg.Content.LogAddress) //3
-	var tmpSlice []string
+	var cInfoMaps []containerInfoMap
+	var cInfoMap containerInfoMap
 	for _, v := range *job.receiveMsg.Content.SelectedNodes {
-		tmpSlice = append(tmpSlice, v.NodeName+"+"+v.NodeAddress+"+"+v.GPUIndex)
+		cInfoMap.NodeName = v.NodeName
+		cInfoMap.NodeAddress = v.NodeAddress
+		cInfoMap.GPUIndex = v.GPUIndex
+		cInfoMaps = append(cInfoMaps, cInfoMap)
 	}
-	UPDATEMAP[mapKey] = append(UPDATEMAP[mapKey], strings.Join(tmpSlice, "|")) //4
-	dataReady, err := json.Marshal(UPDATEMAP)
+	mapValue := MapValue{
+		StatusID:         strconv.Itoa(statusID),
+		ContainerName:    job.sendMsg.Content.ContainerName,
+		LogPathName:      job.receiveMsg.LogPathName,
+		LogAddress:       job.receiveMsg.Content.LogAddress,
+		ContainerInfoMap: &cInfoMaps,
+	}
+	UPDATEMAP.Store(mapKey, mapValue)
+	//将sync.map转换为普通的map然后才能写入到文件
+	normalMap := make(map[string]interface{})
+	UPDATEMAP.Range(func(key, value interface{}) bool {
+		normalMap[key.(string)] = value
+		return true
+	})
+	dataReady, err := json.Marshal(normalMap)
 	if err != nil {
 		slog.Error("recordToUpdate Marshal error", "ERR_MSG", err)
 		return err
 	}
+
 	file.Write(dataReady)
 	return nil
 }
 
 func (job *Job) removeToUpdate() error {
 	mapKey := strconv.Itoa(job.receiveMsg.Content.IDs.Uid) + "-" + strconv.Itoa(job.receiveMsg.Content.IDs.Tid)
-	delete(UPDATEMAP, mapKey)
 
-	file, err := os.OpenFile("update.file", os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0766)
-	defer file.Close()
+	UPDATEMAP.Delete(mapKey)
+
+	file, err := os.OpenFile("update.json", os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0766)
 	if err != nil {
 		slog.Error("removeToUpdate OpenFile error", "ERR_MSG", err)
 		return err
 	}
-	dataReady, err := json.Marshal(UPDATEMAP)
+	defer file.Close()
+
+	//将sync.map转换为普通的map然后才能写入到文件
+	normalMap := make(map[string]interface{})
+	UPDATEMAP.Range(func(key, value interface{}) bool {
+		normalMap[key.(string)] = value
+		return true
+	})
+	dataReady, err := json.Marshal(normalMap)
+
 	if err != nil {
 		slog.Error("removeToUpdate Marshal error", "ERR_MSG", err)
 		return err
@@ -102,7 +123,7 @@ func (job *Job) removeToUpdate() error {
 func reloadUpdateInfo() error {
 	slog.Info("reload status file......")
 
-	file, err := os.OpenFile("update.file", os.O_RDONLY, 0766)
+	file, err := os.OpenFile("update.json", os.O_RDONLY, 0766)
 	if err != nil {
 		slog.Error("reloadUpdateInfo OpenFile error", "ERR_MSG", err)
 		return err
@@ -117,24 +138,18 @@ func reloadUpdateInfo() error {
 		return err
 	}
 
-	err = json.Unmarshal(tmpbyte[:total], &UPDATEMAP)
+	normalMap := make(map[string]MapValue)
+	err = json.Unmarshal(tmpbyte[:total], &normalMap)
 	if err != nil {
 		slog.Error("reloadUpdateInfo Unmarshal error", "ERR_MSG", err)
 		return err
 	}
 
-	if len(UPDATEMAP) == 0 {
-		//如果发现 map 是空，那么说明没有需要 reload 的，或者是有问题了
-		slog.Info("update file is empty, nothing to reload")
-		return nil
-	}
-	//遍历 map
-	for k, v := range UPDATEMAP {
+	for k, v := range normalMap {
 		receiveMsg := newReceiveMsg()
 		slog.Debug("reload:newReceiveMsg initialed ok")
 		sendMsg := newSendMsg()
 		slog.Debug("reload:newSendMsg initialed ok")
-
 		job := &Job{
 			receiveMsg: receiveMsg,
 			sendMsg:    sendMsg,
@@ -144,23 +159,18 @@ func reloadUpdateInfo() error {
 		var ids Ids
 		ids.Uid, _ = strconv.Atoi(strings.Split(k, "-")[0])
 		ids.Tid, _ = strconv.Atoi(strings.Split(k, "-")[1])
-
 		job.receiveMsg.Content.IDs = &ids
 
-		statusID, _ := strconv.Atoi(v[0])
-		job.sendMsg.Content.ContainerName = v[1]
-		job.receiveMsg.LogPathName = v[2]
-		job.receiveMsg.Content.LogAddress = v[3]
-
-		//nodeName1+nodeIP1+gpuIndex｜nodeName2+nodeIP2+gpuIndex,..
-		nodeNameIPGPU := strings.Split(v[4], "|")
-		//nodeName1+nodeIP1+gpuIndex
+		statusID, _ := strconv.Atoi(v.StatusID)
+		job.sendMsg.Content.ContainerName = v.ContainerName
+		job.receiveMsg.LogPathName = v.LogPathName
+		job.receiveMsg.Content.LogAddress = v.LogAddress
 		var selectNodesList []SelectNodes
 		var selectNodesInfo SelectNodes
-		for _, vnodeNameIPGPU := range nodeNameIPGPU {
-			selectNodesInfo.NodeName = strings.Split(vnodeNameIPGPU, "+")[0]
-			selectNodesInfo.NodeAddress = strings.Split(vnodeNameIPGPU, "+")[1]
-			selectNodesInfo.GPUIndex = strings.Split(vnodeNameIPGPU, "+")[2]
+		for _, vnodeNameIPGPU := range *(v.ContainerInfoMap) {
+			selectNodesInfo.NodeName = vnodeNameIPGPU.NodeName
+			selectNodesInfo.NodeAddress = vnodeNameIPGPU.NodeAddress
+			selectNodesInfo.GPUIndex = vnodeNameIPGPU.GPUIndex
 			selectNodesList = append(selectNodesList, selectNodesInfo)
 		}
 		job.receiveMsg.Content.SelectedNodes = &selectNodesList
@@ -180,7 +190,10 @@ func reloadUpdateInfo() error {
 		}()
 		slog.Debug("reload LOG done", "UID", job.receiveMsg.Content.IDs.Uid,
 			"TID", job.receiveMsg.Content.IDs.Tid)
+
+		UPDATEMAP.Store(k, v)
 	}
+
 	slog.Info("reload JOB and LOG all done")
 	return nil
 }

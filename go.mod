@@ -3,12 +3,13 @@ module GCS
 go 1.21
 
 require (
-	github.com/NVIDIA/go-nvml v0.12.0-1
 	github.com/docker/docker v24.0.6+incompatible
 	github.com/gorilla/websocket v1.5.0
+	github.com/orcaman/concurrent-map v1.0.0
 	github.com/sevlyar/go-daemon v0.1.6
 	golang.org/x/net v0.12.0
 	google.golang.org/grpc v1.58.3
+	google.golang.org/protobuf v1.31.0
 	gopkg.in/natefinch/lumberjack.v2 v2.2.1
 )
 
@@ -33,6 +34,5 @@ require (
 	golang.org/x/time v0.3.0 // indirect
 	golang.org/x/tools v0.6.0 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20230711160842-782d3b101e98 // indirect
-	google.golang.org/protobuf v1.31.0 // indirect
 	gotest.tools/v3 v3.5.1 // indirect
 )

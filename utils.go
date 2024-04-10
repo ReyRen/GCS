@@ -8,6 +8,7 @@ import (
 	"net"
 	"strconv"
 	"strings"
+	"sync"
 	"time"
 )
 
@@ -72,8 +73,35 @@ var (
 )
 
 var (
-	UPDATEMAP map[string][]string
+	//UPDATEMAP map[string][]string
+
+	UPDATEMAP sync.Map
 )
+
+/*
+[
+
+	"statusID"
+	"contaierName", //job.sendMsg.Content.ContainerName
+	"LogPathName",  //job.receiveMsg.LogPathName
+	"LogAddress",   //job.receiveMsg.Content.LogAddress
+	"nodeName1+nodeIP1+gpuIndex,nodeName2+nodeIP2+gpuIndex,.." //job.receiveMsg.Content.SelectedNodes
+
+]
+*/
+
+type MapValue struct {
+	StatusID         string              `json:"status_id"`
+	ContainerName    string              `json:"container_name"`
+	LogPathName      string              `json:"log_path_name"`
+	LogAddress       string              `json:"log_address"`
+	ContainerInfoMap *[]containerInfoMap `json:"containerInfo"`
+}
+type containerInfoMap struct {
+	NodeAddress string `json:"nodeAddress"`
+	NodeName    string `json:"nodeName"`
+	GPUIndex    string `json:"gpuIndex"`
+}
 
 func jsonHandler(data []byte, v interface{}) {
 	errJson := json.Unmarshal(data, v)

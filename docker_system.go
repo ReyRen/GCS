@@ -152,6 +152,11 @@ func dockerDeleteHandler(addr string, containerName string) error {
 	defer conn.Close()
 	client := pb.NewGcsInfoCatchServiceDockerClient(conn)
 	stream, err := client.DockerContainerDelete(context.Background(), &pb.DeleteRequestMsg{ContainName: containerName})
+	if err != nil {
+		slog.Error("DockerContainerDelete get error",
+			"ERR_MSG", err.Error())
+		return err
+	}
 	for {
 		// 通过 Recv() 不断获取服务端send()推送的消息
 		resp, err := stream.Recv()
